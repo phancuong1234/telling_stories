@@ -14,8 +14,8 @@
 Route::get('login', 'Auth\LoginController2@index')->name('login');
 Route::post('login_action', 'Auth\LoginController2@login')->name('login2');
 
-Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
-
+Route::group(['prefix' => 'admin','namespace' => 'Web','middleware' => 'auth'], function () {
+	Route::get('/logout', 'AdminController@logout')->name('logout');
 	Route::get('', 'AdminController@index')->name('admin.index');
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
