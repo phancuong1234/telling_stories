@@ -35,29 +35,31 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form method="post" action="{{ route('login2') }}">
-                        @csrf
+                    @if (session('login_fail'))
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria_label="Close">
+                            <span aria_hidden= "true">&times;</span>
+                        </button>
+                        <strong>{{ session('login_fail') }}</strong>
+                    </div>
+                    @endif
+                    <form method="post" action="{{ route('action_login') }}">
+                        @csrf()
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email" name='email'>
+                            <input type="email" class="form-control" placeholder="Email" name='email' value="{{session('email') ?? ''}}">
+                            @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
                         </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" name= 'password'>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password" name= 'password' value="{{session('password') ?? ''}}">
+                            @if ($errors->has('password'))
+                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
                         </div>
-                                <div class="checkbox">
-                                    <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
-                                    <label class="pull-right">
-                                <a href="#">Forgotten Password?</a>
-                            </label>
-
-                                </div>
-                                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                                <div class="register-link m-t-15 text-center">
-                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                                </div>
+                        <button type="submit" class="btn btn-success">Sign in</button>
                     </form>
                 </div>
             </div>
