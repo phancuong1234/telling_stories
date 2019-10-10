@@ -48,7 +48,7 @@ class AdminController extends Controller
 				'password' => $request->password
 			]);
 		}else{
-			if($role->role_id == ADMIN){
+			if($role->role_id == ADMIN || $role->role_id == MOD){
 				if(Auth::attempt($data)){
 					$id= Auth::id();
 					$this->updateToken($id);

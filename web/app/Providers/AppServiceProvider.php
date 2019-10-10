@@ -13,7 +13,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // $this->app->bind(
+        //     'App\Repositories\CategoryRepository\CategoryRepositoryInterface',
+        //     'App\Repositories\CategoryRepository\CategoryRepository'
+        // );
+
+        $repositories = [
+            'App\Repositories\CategoryRepository\CategoryRepositoryInterface' => 'App\Repositories\CategoryRepository\CategoryRepository',
+        ];
+        foreach ($repositories as $key => $val){
+            $this->app->bind($key, $val);
+        }
     }
 
     /**

@@ -15,18 +15,15 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        // if (Auth::user()->role_id == ADMIN) {
-        //     return $next($request);
-        // }else{
-        //      return redirect()->route('show_login')->with([
-        //     'login_fail' => LOGIN_FAIL
-        // ]);
-        // }
+        if (Auth::check()) {
+            if (Auth::user()->role_id == ADMIN) {
+                return $next($request);
+            } else {
+                abort(403, "Not access");
+            }
 
-
-         if(Auth::user()->role_id == ADMIN){
-            return $next($request);
+        } else {
+            return redirect()->route('show_login');
         }
-        return redirect('login');
     }
 }
