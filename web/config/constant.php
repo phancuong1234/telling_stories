@@ -10,3 +10,9 @@ if ( ! defined( 'LOGIN_FAIL')) {
 if ( ! defined( 'ADMIN')) {
     define('ADMIN', 1);
 }
+if ( ! defined( 'MOD')) {
+    define('MOD', 2);
+}
+if ( ! defined( 'DELETE_SUCCESS')) {
+    define('DELETE_SUCCESS', 'Delete success!');
+}

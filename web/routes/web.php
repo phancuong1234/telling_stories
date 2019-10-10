@@ -18,10 +18,21 @@ Route::namespace('Web')->group(function () {
 	Route::group(['prefix' => 'admin','middleware' => 'checklogin'], function () {
 		Route::get('/logout', 'AdminController@logout')->name('logout');
 		Route::get('', 'AdminController@index')->name('admin.index');
-		Route::group(['prefix' => 'user','namespace'=>'user'], function(){
-			Route::get('/', 'UserController@index')->name('admin.user.index');
+		Route::group(['prefix' => 'user','middleware' => 'checkadmin'], function(){
+			Route::get('/', 'UserController@index')->name('user.index');
 
 		});
+		Route::group(['prefix' => 'category'], function(){
+			Route::get('/', 'CategoryController@index')->name('category.index');
+			Route::get('/add', 'CategoryController@showAdd')->name('category.showAdd');
+			Route::post('/add', 'CategoryController@add')->name('category.add');
+			Route::get('/edit/{id}', 'CategoryController@showEdit')->name('category.showEdit');
+			Route::post('/edit/{id}', 'CategoryController@edit')->name('category.edit');
+			Route::delete('/delete/{id}', 'CategoryController@delete')->name('category.delete');
+		});
+		Route::group(['prefix' => 'story'], function(){
+			Route::get('/', 'StoryController@index')->name('story.index');
 
+		});
 	});
 });

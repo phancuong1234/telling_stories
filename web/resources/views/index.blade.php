@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="{{ asset('/vendors/themify-icons/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/vendors/selectFX/css/cs-skin-elastic.css') }}">
-    <link rel="stylesheet" href="{{ asset('/vendors/jqvmap/dist/jqvmap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    {{-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> --}}
 
 </head>
 
@@ -42,23 +42,19 @@
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="{{ route('admin.index') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <li {!! (Request::is('admin') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('admin.index') }}" > <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.user.index') }}"> <i class="menu-icon ti-email"></i>User</a>
+                    @if(Auth::user()->role_id == ADMIN)
+                    <li {!! (Request::is('admin/user') || Request::is('admin/user/*') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('user.index') }}"> <i class="menu-icon ti-email"></i>User</a>
                     </li>
-                    <li>
-                        <a href=""> <i class="menu-icon ti-email"></i>Category </a>
+                    @endif
+                    <li {!! (Request::is('admin/category') || Request::is('admin/category/*') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('category.index') }}"> <i class="menu-icon ti-email"></i>Category </a>
                     </li>
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Story </a>
-                    </li>
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Comment </a>
-                    </li>
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Favorite </a>
+                    <li {!! (Request::is('admin/story') || Request::is('admin/story/*') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('story.index') }}"> <i class="menu-icon ti-email"></i>Story </a>
                     </li>
                 </ul>
             </div>
@@ -95,105 +91,113 @@
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have 3 Notification</p>
                                 <a class="dropdown-item media bg-flat-color-1" href="#">
-                                <i class="fa fa-check"></i>
-                                <p>Server #1 overloaded.</p>
-                            </a>
+                                    <i class="fa fa-check"></i>
+                                    <p>Server #1 overloaded.</p>
+                                </a>
                             </div>
                         </div>
 
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button"
-                                id="message"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ti-email"></i>
-                                <span class="count bg-primary">9</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="#">
+                            id="message"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ti-email"></i>
+                            <span class="count bg-primary">9</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="message">
+                            <p class="red">You have 4 Mails</p>
+                            <a class="dropdown-item media bg-flat-color-1" href="#">
                                 <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jonathan Smith</span>
                                     <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
+                                    <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-5">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{Auth::user()->name}}
-                            <img class="user-avatar rounded-circle" src="/images/admin.jpg" alt="User Avatar">
-                        </a>
-
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
-
-                            <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-        </header><!-- /header -->
-        <!-- Header-->
+            <div class="col-sm-5">
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{Auth::user()->name}}
+                        <img class="user-avatar rounded-circle" src="{{ asset('/images/admin.jpg') }}" alt="User Avatar">
+                    </a>
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Dashboard</h1>
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+
+                        <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
+
+                        <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+
+                        <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="content mt-3">
+    </header><!-- /header -->
+    <!-- Header-->
 
-            @yield('content')
-        </div> <!-- .content -->
-    </div><!-- /#right-panel -->
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Right Panel -->
+    <div class="content mt-3">
 
-    <script src="{{ asset('/vendors/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('/vendors/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/js/main.js') }}"></script>
+        @yield('content')
+    </div> <!-- .content -->
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+<script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
+<script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 
 
-    <script src="{{ asset('/vendors/chart.js/dist/Chart.bundle.min.js') }}"></script>
-    <script src="{{ asset('/js/dashboard.js') }}"></script>
-    <script src="{{ asset('/js/widgets.js') }}"></script>
-    <script src="{{ asset('/vendors/jqvmap/dist/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
-    <script src="{{ asset('/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script>
-        (function($) {
-            "use strict";
+<script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
+<script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
 
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: ['#1de9b6', '#03a9f5'],
-                normalizeFunction: 'polynomial'
-            });
-        })(jQuery);
-    </script>
+<script src="{{ asset('/vendors/jqvmap/dist/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+<script src="{{ asset('/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+<script>
+    (function($) {
+        "use strict";
+
+        jQuery('#vmap').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+        });
+    })(jQuery);
+</script>
 
 </body>
 
