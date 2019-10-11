@@ -20,7 +20,12 @@ Route::namespace('Web')->group(function () {
 		Route::get('', 'AdminController@index')->name('admin.index');
 		Route::group(['prefix' => 'user','middleware' => 'checkadmin'], function(){
 			Route::get('/', 'UserController@index')->name('user.index');
-
+			Route::get('/create', 'UserController@create')->name('user.create');
+			Route::post('/create', 'UserController@store')->name('user.store');
+			Route::post('/create_avatar', 'UserController@update_avatar')->name('avatar.update');
+			Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
+			Route::post('/edit/{id}', 'UserController@update')->name('user.update');
+			Route::delete('/delete/{id}', 'UserController@destroy')->name('user.destroy');
 		});
 		Route::group(['prefix' => 'category'], function(){
 			Route::get('/', 'CategoryController@index')->name('category.index');
