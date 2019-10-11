@@ -16,3 +16,6 @@ if ( ! defined( 'MOD')) {
 if ( ! defined( 'DELETE_SUCCESS')) {
     define('DELETE_SUCCESS', 'Delete success!');
 }
+if ( ! defined( 'DEFAULT_NULL')) {
+    define('DEFAULT_NULL', 0);
+}
