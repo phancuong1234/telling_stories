@@ -24,7 +24,19 @@ class UserController extends Controller
 	}
 	public function store(Request $request)
 	{
+
+
 		dd($request->all());
+		$data= [
+			'name' => $request->name,
+			'email' => $request->email,
+			'password' => $request->password,
+			'address' => $request->address,
+			'gender' =>$request->gender,
+			'birthday' => $request->birthday,
+			'avatar' => $request->avatar,
+			'role_id' => $request->role
+		];
 		// $validator = new CategoryValidator($request->all());
 		// if ($validator->fails())
 		// {
@@ -33,8 +45,8 @@ class UserController extends Controller
 		// 	->withErrors($validator->messages());
 		// }
 		// $list = $this->category->getAll();
-		// $this->category->create($request->category);
-		// return redirect('admin/user');
+		//$this->user->insert($data);
+		return redirect('admin/user');
 	}
 	public function update_avatar(Request $request)
 	{
