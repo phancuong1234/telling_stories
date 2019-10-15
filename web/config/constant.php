@@ -19,3 +19,12 @@ if ( ! defined( 'DELETE_SUCCESS')) {
 if ( ! defined( 'DEFAULT_NULL')) {
     define('DEFAULT_NULL', 0);
 }
+if ( ! defined( 'DELETE_FAIL')) {
+    define('DELETE_FAIL', 'Delete fail!');
+}
+if ( ! defined( 'CREATE_SUCCESS')) {
+    define('CREATE_SUCCESS', 'Add success!');
+}
+if ( ! defined( 'UPDATE_SUCCESS')) {
+    define('UPDATE_SUCCESS', 'Update success!');
+}

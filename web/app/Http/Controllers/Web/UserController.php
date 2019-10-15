@@ -24,9 +24,6 @@ class UserController extends Controller
 	}
 	public function store(Request $request)
 	{
-
-
-		dd($request->all());
 		$data= [
 			'name' => $request->name,
 			'email' => $request->email,
@@ -44,12 +41,40 @@ class UserController extends Controller
 		// 	->withInput()
 		// 	->withErrors($validator->messages());
 		// }
-		// $list = $this->category->getAll();
-		//$this->user->insert($data);
-		return redirect('admin/user');
+		$this->user->insert($data);
+		return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
 	}
-	public function update_avatar(Request $request)
+	public function detail($id)
 	{
-		dd('hh');
+		$record= $this->user->getUserById($id);
+		return view('admin.user.detail',compact('record'));
+	}
+	public function edit($id)
+	{
+		$record= $this->user->getUserById($id);
+		return view('admin.user.edit',compact('record'));
+	}
+	public function update(Request $request, $id)
+	{
+		$data= [
+			'name' => $request->name,
+			'email' => $request->email,
+			'address' => $request->address,
+			'gender' =>$request->gender,
+			'birthday' => $request->birthday,
+			'avatar' => $request->avatar,
+			'role_id' => $request->role
+		];
+		$this->user->updateUserById($id,$data);
+		return redirect('admin/user')->with(['success' => UPDATE_SUCCESS]);;
+	}
+	public function destroy($id)
+	{
+		try {
+			$this->user->deleteUserWithID($id);
+			return redirect('admin/user')->with(['success' => DELETE_SUCCESS]);
+		} catch ( \Exception $e ){
+			return redirect('admin/user')->with(['error' => DELETE_FAIL]);
+		}
 	}
 }

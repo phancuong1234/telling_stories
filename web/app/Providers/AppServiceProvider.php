@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $repositories = [
             'App\Repositories\CategoryRepository\CategoryRepositoryInterface' => 'App\Repositories\CategoryRepository\CategoryRepository',
             'App\Repositories\UserRepository\UserRepositoryInterface' => 'App\Repositories\UserRepository\UserRepository',
+            'App\Repositories\StoryRepository\StoryRepositoryInterface' => 'App\Repositories\StoryRepository\StoryRepository',
         ];
         foreach ($repositories as $key => $val){
             $this->app->bind($key, $val);
