@@ -18,15 +18,18 @@ Route::namespace('Web')->group(function () {
 	Route::group(['prefix' => 'admin','middleware' => 'checklogin'], function () {
 		Route::get('/logout', 'AdminController@logout')->name('logout');
 		Route::get('', 'AdminController@index')->name('admin.index');
+		////////user/////
 		Route::group(['prefix' => 'user','middleware' => 'checkadmin'], function(){
 			Route::get('/', 'UserController@index')->name('user.index');
 			Route::get('/create', 'UserController@create')->name('user.create');
 			Route::post('/create', 'UserController@store')->name('user.store');
 			Route::post('/create_avatar', 'UserController@update_avatar')->name('avatar.update');
+			Route::get('/detail/{id}', 'UserController@detail')->name('user.detail');
 			Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
 			Route::post('/edit/{id}', 'UserController@update')->name('user.update');
 			Route::delete('/delete/{id}', 'UserController@destroy')->name('user.destroy');
 		});
+		/////////category/////
 		Route::group(['prefix' => 'category'], function(){
 			Route::get('/', 'CategoryController@index')->name('category.index');
 			Route::get('/add', 'CategoryController@showAdd')->name('category.showAdd');
@@ -35,9 +38,15 @@ Route::namespace('Web')->group(function () {
 			Route::post('/edit/{id}', 'CategoryController@edit')->name('category.edit');
 			Route::delete('/delete/{id}', 'CategoryController@delete')->name('category.delete');
 		});
+		///////story//////
 		Route::group(['prefix' => 'story'], function(){
 			Route::get('/', 'StoryController@index')->name('story.index');
-
+			Route::get('/create', 'StoryController@create')->name('story.create');
+			Route::post('/create', 'StoryController@store')->name('story.store');
+			Route::get('/detail/{id}', 'StoryController@detail')->name('story.detail');
+			Route::get('/edit/{id}', 'StoryController@edit')->name('story.edit');
+			Route::post('/edit/{id}', 'StoryController@update')->name('story.update');
+			Route::delete('/delete/{id}', 'StoryController@destroy')->name('story.destroy');
 		});
 	});
 });

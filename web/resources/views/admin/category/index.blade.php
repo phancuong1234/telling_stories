@@ -16,9 +16,9 @@
 					@if (session('success'))
 					<div class="alert alert-success">
 						{{session('success')}}
-					</div>
-					{{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span> --}}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</div>
 						@endif
 						<table id="bootstrap-data-table-export" class="table table-striped table-bordered">
 							<thead>
@@ -31,26 +31,15 @@
 							<tbody>
 								@foreach ($list as $key => $record)
 								<tr>
-									<td>{{$key + 1}}</td>
+									<td>{{$record->id}}</td>
 									<td>{{$record->name}}</td>
-									<td style="font-size: 25px;text-align: center;">
-										<a href="{{ route('category.showEdit',$record->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true" style="padding-right: 30px;"></i></a>
-
+									<td style="display: flex;">
+										<a href="{{route('category.showEdit',$record->id)}}" class="btn-warning nav-link" role='button'> Edit</a>
 										<form action="{{  route('category.delete',$record->id) }}" method="POST">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-											<button type="submit" class="tt-icon-btn tt-hover-02 tt-small-indent"  onclick="return confirm('Bạn có muốn xóa bản ghi này?')">
-												<i class="fa fa-trash-o"></i>
-											</button>
+											<button type="submit" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
 										</form>
-
-										
-									{{-- 	<a href="#" data-toggle="modal" data-id="{{ $record->id }}" data-target="#delete_category"><i class="fa fa-trash-o"></i></a>
-
-										<form method="POST" action="{{ route('category.delete',$record->id) }}" id="delete_category{{ $record->id }}">
-											@csrf
-											<input type="hidden" name="_method" value="DELETE">
-										</form> --}}
 									</td>
 								</tr>
 								@endforeach
@@ -88,6 +77,3 @@
 		</div>
 	</div> --}}
 	@endsection
-	<script type="text/javascript">
-
-	</script>
