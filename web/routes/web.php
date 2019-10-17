@@ -38,6 +38,15 @@ Route::namespace('Web')->group(function () {
 			Route::post('/edit/{id}', 'CategoryController@edit')->name('category.edit');
 			Route::delete('/delete/{id}', 'CategoryController@delete')->name('category.delete');
 		});
+		/////////category/////
+		Route::group(['prefix' => 'age'], function(){
+			Route::get('/', 'AgeController@index')->name('age.index');
+			Route::get('create', 'AgeController@create')->name('age.create');
+			Route::post('create', 'AgeController@store')->name('age.store');
+			Route::get('edit/{id}', 'AgeController@edit')->name('age.edit');
+			Route::post('edit/{id}', 'AgeController@update')->name('age.update');
+			Route::delete('delete/{id}', 'AgeController@destroy')->name('age.destroy');
+		});
 		///////story//////
 		Route::group(['prefix' => 'story'], function(){
 			Route::get('/', 'StoryController@index')->name('story.index');
