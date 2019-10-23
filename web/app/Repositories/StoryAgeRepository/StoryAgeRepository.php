@@ -11,7 +11,7 @@ class StoryAgeRepository implements StoryAgeRepositoryInterface
 		//dd($data['story_id']['id']);
 		DB::beginTransaction();
 		try {
-			$story_age = new Story_age;
+			$story_age = new StoryAge;
 			$story_age->age_id = $data['age_id'];
 			$story_age->story_id = $data['story_id']['id'];
 			$story_age->save();

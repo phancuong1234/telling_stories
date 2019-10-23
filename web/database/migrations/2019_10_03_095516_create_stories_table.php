@@ -20,6 +20,7 @@ class CreateStoriesTable extends Migration
             $table->string('description');
             $table->string('list_question');
             $table->bigInteger('category_id');
+            $table->bigInteger('views')->default(0);
             $table->timestamps();
         });
     }

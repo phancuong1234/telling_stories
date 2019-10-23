@@ -30,4 +30,13 @@ class QuestionRepository implements QuestionRepositoryInterface
 		$id= Question::select('id')->orderBy('id', 'DESC')->first();
 		return $id;
 	}
+	public function getQuestionById($id)
+	{
+		$question= [];
+		foreach ($id as $key => $value) {
+			$qs= Question::where('id','=',$value)->first();
+			array_push($question,$qs);
+		}
+		return $question;
+	}
 }

@@ -28,3 +28,20 @@ if ( ! defined( 'CREATE_SUCCESS')) {
 if ( ! defined( 'UPDATE_SUCCESS')) {
     define('UPDATE_SUCCESS', 'Update success!');
 }
+if ( ! defined( 'MESSAGE_ERROR_METHOD')) {
+    define('MESSAGE_ERROR_METHOD', 'Method không cho phép');
+}
+//code error api
+if ( ! defined( 'CODE_ERROR_METHOD')) {
+    define('CODE_ERROR_METHOD', 405);
+}
+if ( ! defined( 'CODE_ERROR_VALID')) {
+    define('CODE_ERROR_VALID', 422);
+}if ( ! defined( 'CODE_ERROR_CREATE')) {
+    define('CODE_ERROR_CREATE', 207);
+}
+    //msg error api
+if ( ! defined( 'MESSAGE_ERROR_VALID')) {
+    define('MESSAGE_ERROR_VALID', 'email or password invalid');
+}
+

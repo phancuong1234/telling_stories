@@ -20,7 +20,6 @@
 
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
 
-    {{-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> --}}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
@@ -29,6 +28,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @yield('css')
 </head>
 
 <body>
@@ -209,6 +209,7 @@
         });
     })(jQuery);
 </script>
+@yield('js')
 
 </body>
 

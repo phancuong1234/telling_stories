@@ -17,15 +17,15 @@
 
 						<div class="row form-group">
 							<label class="col-2" for="post">Name</label>
-							<input class="form-control col-8" type="text" name="name" value="{{$record->name}}" id="name" placeholder="Name">
+							<input class="form-control col-8" type="text" name="name" value="{{$record->name}}">
 						</div>
 						<div class="row form-group">
 							<label class="col-2" for="post">Photo</label>
-							<input type="file" name="photo" value="" id="photo">
+							<img src="{{$record->photo}}" alt="avatar" class="user-avatar" id="avatar" style="width:100px;height:120px;" >
 						</div>
 						<div class="row form-group">
 							<label class="col-2" for="post">Description</label>
-							<input class="form-control col-8" type="text" name="description" value="{{$record->description}}" id="name" placeholder="description">
+							<textarea class="form-control col-8">{{$record->description}}</textarea>
 						</div>
 						<div class="row form-group">
 							<label class="col-2" for="category">Category</label>
@@ -35,8 +35,12 @@
 						</div>
 						<div class="row form-group">
 							<label class="col-2" for="post">Video</label>
-							<input type="file" accept="video/*"/ name= "video">
-							<video controls autoplay></video>
+							@if ($video)
+							@foreach ($video as $element)
+							<iframe width="300" height="180" src="{{$element->path}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							@endforeach
+							@endif
+
 						</div>
 						<div class="row form-group">
 							<label class="col-2" for="age">Age</label>
@@ -49,52 +53,26 @@
 
 							</select>
 						</div>
-						<div>
-							<div>
-								<button type="button" class="btn btn-success" id="show_add">Create</button>
-							</div>
-							<div id= "question_added">
-
-							</div>
-							<div class="row form-group" style="display: none;" id= "form_add" name= 'list[]'>
-								<label class="col-2" for="exampleFormControlSelect2">Question</label>
-								<div class="col-10">
-									<div>
-										<label  for="exampleFormControlSelect2">Number 1:</label>
-										<div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Question</label>
-												<textarea class="form-control col-7" id="question"></textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 1</label>
-												<input class="form-control col-7" type="text" value="" id="answer1" placeholder="Answer">
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 2</label>
-												<input class="form-control col-7" type="text" value="" id="answer2" placeholder="Answer">
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 3</label>
-												<input class="form-control col-7" type="text" value="" id="answer3" placeholder="Answer">
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 4</label>
-												<input class="form-control col-7" type="text" value="" id="answer4" placeholder="Answer">
-											</div>
-										</div>
-									</div>
-									<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-									<button type="button" class="btn btn-success" id="btnPush">Add
-									</button>
+						<div class="row form-group">
+							<label class="col-2" for="category">Question</label>
+							<div class="col-10">
+								@if ($question)
+								@foreach ($question as $key => $value)
+								<div>
+									<p>Question {{$key + 1}}: {{$value->question}}</p>
+									<p>A: {{$value->answer_true}}</p>
+									<p>B: {{$value->answer_false_1}}</p>
+									<p>C: {{$value->answer_false_2}}</p>
+									<p>D: {{$value->answer_false_3}}</p>
 								</div>
+								@endforeach
+								@endif
 							</div>
 						</div>
 
 						<div class="modal-footer">
 							<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-							<button type="button" class="btn btn-success" id="btnCreate">Create
-							</button>
+							<a href="{{ route('story.edit',$record->id) }}" class="btn btn-danger">Edit</a>
 						</div>
 					</form>
 
