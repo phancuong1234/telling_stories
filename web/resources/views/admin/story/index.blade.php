@@ -41,7 +41,7 @@
 								<tr>
 									<td>{{$value->id}}</td>
 									<td>{{$value->name}}</td>
-									<td>{{$value->photo}}</td>
+									<td><img src="{{$value->photo}}" alt="avatar" class="user-avatar" id="avatar" style="width:100px;height:120px;" ></td>
 									<td>{{$value->description}}</td>
 									<td>{{$value->category_id}}</td>
 									<td>{{$value->list_question}}</td>

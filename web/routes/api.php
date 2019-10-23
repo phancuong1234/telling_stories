@@ -13,28 +13,25 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
 });
 Route::get('/users', 'Api\UserController@index');
 Route::get('/user', 'Api\Auth\UserController@index');
 
-Route::post('/user/register', 'Api\Auth\RegisterController@register');
-Route::post('/user/login', 'Api\Auth\LoginController@login');
+Route::post('/user/register', 'Api\UserController@register');
+Route::post('/user/login', 'Api\UserController@login');
 
-Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
 
-	Route::get('', 'AdminController@index')->name('admin.index');
-	// Route::group(['prefix' => 'user','namespace'=>'user'], function(){
-	// 	Route::get('/', 'UserController@index')->name('admin.user.index');
+Route::namespace('Api')->group(function() {
+	Route::group([], function () {
+		//user
+		Route::get('/user_data', 'UserController@getUserdata');
+        //novel
+        Route::get('/story/new_all', 'StoryController@getStoryNewAll');
+		Route::get('/story/new', 'StoryController@getStoryNew');
+		Route::get('/story/popularity', 'StoryController@getStoryPopularity');
+		Route::get('/story/popularity_all', 'StoryController@getStoryPopularityAll');
+		Route::get('/story/detail', 'StoryController@getStoryDetail');
 
-	// 	// Route::post('/add', 'UserController@store')->name('admin.user.add');
-
-	// 	// Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
-	// 	// Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
-
-	// 	// Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
-	// 	// Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
-	// 	// Route::get('/unblock/{id}', 'UserController@unblock')->name('admin.user.unblock');
-	// });
-
+	});
 });

@@ -72,7 +72,7 @@ class AdminController extends Controller
 					['id', '=', $id]
 				])
 			->update([
-				'token' => session()->getId(),
+				'remember_token' => session()->getId(),
 				'updated_at' => Carbon::now(),
 			]);
 			$admin = User::where(

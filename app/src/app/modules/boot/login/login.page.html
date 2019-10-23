@@ -7,7 +7,7 @@
 			<div class="logo"></div>
 			<h4 no-margin>
 				<ion-text color="black" class="fw700">
-					LOGIN
+					Đăng nhập
 				</ion-text>
 			</h4>
 		</div>
@@ -30,7 +30,7 @@
 			<ion-item no-padding class="animated fadeInUp">
 				<ion-label position="floating">
 					<ion-icon name="lock" item-start></ion-icon>
-					Password
+					Mật khẩu
 				</ion-label>
 				<ion-input color="secondary" type="password"></ion-input>
 			</ion-item>
@@ -43,19 +43,19 @@
 
 		<p text-right tappable class="paz">
 			<ion-text color="light">
-				<strong>Forgot Pass?</strong>
+				<strong>Quên mật khẩu?</strong>
 			</ion-text>
 		</p>
 
 		<div>
-			<ion-button icon-left size="medium" expand="full" shape="round" color="dark">
+			<ion-button icon-left size="medium" expand="full" shape="round" color="dark"  (click)="login()">
 				<ion-icon name="log-in"></ion-icon>
-				Signin
+				Đăng nhập
 			</ion-button>
 
 			<p text-center>
 				<ion-text color="light">
-					Or Signin with:
+					Đăng nhập với: 
 				</ion-text>
 			</p>
 
@@ -78,9 +78,9 @@
 
 		<!-- Other links -->
 		<div text-center margin-top>
-			<span class="paz" tappable>
+			<span  (click)="goToRegister()" class="paz" tappable>
 				<ion-text color="black">
-					New here? <strong>Sign Up</strong>
+					Tạo mới tài khoản? <strong>Đăng kí</strong>
 				</ion-text>
 			</span>
 		</div>

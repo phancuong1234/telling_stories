@@ -17,7 +17,7 @@ class CheckLogin
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->token == session()->getId()) {
+            if (Auth::user()->remember_token == session()->getId()) {
                 return $next($request);
             } else {
                 Auth::logout();

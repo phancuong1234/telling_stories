@@ -8,18 +8,33 @@ import { IonicModule } from '@ionic/angular';
 import { AppPage } from './app.page';
 
 const routes: Routes = [
+{
+  path: '',
+  component: AppPage,
+  children: [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: '',
-    component: AppPage
-  }
+    path: 'home', loadChildren: './home/home.module#HomePageModule'
+  },
+  {
+    path: 'classify', loadChildren: './classify/classify.module#ClassifyPageModule'
+  },
+  {
+    path: 'store', loadChildren: './store/store.module#StorePageModule'
+  },
+  {
+    path: 'mypage', loadChildren: './mypage/mypage.module#MypagePageModule'
+  },
+  ]
+}
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+  CommonModule,
+  FormsModule,
+  IonicModule,
+  RouterModule.forChild(routes)
   ],
   declarations: [AppPage]
 })

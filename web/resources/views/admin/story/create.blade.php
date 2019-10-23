@@ -1,5 +1,10 @@
 @extends('index')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/upload.css') }}">
+</style>
+@endsection
+
 @section('content')
 <div class="animated fadeIn">
 	<div class="row">
@@ -17,7 +22,7 @@
          <div class="alert alert-danger">{{ $message }}</div>
          @endforeach
          @endif
-         <form action="{{ route('story.store') }}" method="post" accept-charset="utf-8">
+         <form action="{{ route('story.store') }}" method="post" accept-charset="utf-8" id= "formCreate">
           @csrf
 
           <div class="row form-group">
@@ -28,6 +33,7 @@
            <label class="col-2" for="post">Photo</label>
            <input type="file" name="photo" value="" id="photo">
            <img src="" alt="avatar" class="user-avatar" id="avatar" style="width:80px;height:100px;display: none;" >
+           <input type="text" name="photo" value="" id="photo_link" style="display: none;">
          </div>
          <div class="row form-group">
            <label class="col-2" for="post">Description</label>
@@ -45,63 +51,60 @@
         </div>
         <div class="row form-group">
           <label class="col-2" for="post">Video</label>
-          <input type="file" accept="video/*"/ name= "video" id="video">
-          <video width="250" height="200" controls id="show_video" style="display: none;">
-            <source src="" type="video/mp4">
-            </video>
+          <input class="form-control col-8" type="text" name="video" value="" id="video" placeholder="Link Video">
+        </div>
+        <div class="row form-group">
+          <label class="col-2" for="age">Age</label>
+          <select multiple  class="form-control col-8" id="age" name= "age[]">
+           @if ($ages)
+           @foreach ($ages as $element)
+           <option value="{{$element->id}}">{{$element->age}}</option>
+           @endforeach
+           @endif
+         </select>
+       </div>
+       <div class="row form-group">
+        <label class="col-2" for="question">Question</label>
+        <div class="col-8">
+          <div id= "question_added" style="margin-bottom: 20px;">
 
           </div>
-          <div class="row form-group">
-            <label class="col-2" for="age">Age</label>
-            <select multiple  class="form-control col-8" id="age" name= "age[]">
-             @if ($ages)
-             @foreach ($ages as $element)
-             <option value="{{$element->id}}">{{$element->age}}</option>
-             @endforeach
-             @endif
-           </select>
-         </div>
-         <div>
-          <div>
-            <button type="button" class="btn btn-success" id="show_add">Create</button>
-          </div>
-          <div id= "question_added">
-
-          </div>
-          <div class="row form-group" style="display: none;" id= "form_add" name= 'list[]'>
-            <label class="col-2" for="exampleFormControlSelect2">Question</label>
-            <div class="col-10">
-             <div>
-              <label  for="exampleFormControlSelect2">Number 1:</label>
+          <div id= "form_add" name= 'list[]'>
+            <div>
               <div>
                <div class="row form-group">
                 <label class="col-2" for="post">Question</label>
-                <textarea class="form-control col-7" id="question"></textarea>
+                <textarea class="form-control col-10" id="question" placeholder="Question"></textarea>
               </div>
               <div class="row form-group">
                 <label class="col-2" for="post">Answer 1</label>
-                <input class="form-control col-7" type="text" value="" id="answer1" placeholder="Answer">
+                <textarea class="form-control col-10" id="answer1" placeholder="Answer 1"></textarea>
               </div>
               <div class="row form-group">
                 <label class="col-2" for="post">Answer 2</label>
-                <input class="form-control col-7" type="text" value="" id="answer2" placeholder="Answer">
+                <textarea class="form-control col-10" id="answer2" placeholder="Answer 2"></textarea>
               </div>
               <div class="row form-group">
                 <label class="col-2" for="post">Answer 3</label>
-                <input class="form-control col-7" type="text" value="" id="answer3" placeholder="Answer">
+                <textarea class="form-control col-10" id="answer3" placeholder="Answer 3"></textarea>
               </div>
               <div class="row form-group">
                 <label class="col-2" for="post">Answer 4</label>
-                <input class="form-control col-7" type="text" value="" id="answer4" placeholder="Answer">
+                <textarea class="form-control col-10" id="answer4" placeholder="Answer 4"></textarea>
               </div>
             </div>
+            <div style="text-align: center;">
+              <button type="button" class="btn btn-info" id="btnPush">Add
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnCancel">Cancel
+              </button>
+            </div>
           </div>
-          <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-          <button type="button" class="btn btn-success" id="btnPush">Add
-          </button>
         </div>
       </div>
+
     </div>
+
 
     <div class="modal-footer">
      <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
@@ -121,61 +124,45 @@
 
 </div>
 </div><!-- .animated -->
+@section('js')
+<script src="{{ asset('js/upload.js') }}"></script>
+<script type="text/javascript">
+
+</script>
+@endsection
 <script type="text/javascript">
   $(document).ready(function(){
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        $('#avatar').show();
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('#avatar')
-          .attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
     $("#photo").change(function() {
-
-      readURL(this);
+      $('#avatar').show();
+      avatar= $('#avatar');
+      readURL(this,avatar);
     });
-
-  });
-</script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        $('#show_video').show();
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('#show_video')
-          .attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
     $("#video").change(function() {
-
-      readURL(this);
+      $('#show_video').show();
+      show_video= $('#show_video');
+      readURL(this, show_video);
     });
 
   });
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
-    var array= [];
     var dem = 0;
-    $('#show_add').click(function(){
-      $('#form_add').show();
-      $('#show_add').hide();
-
-    });
     $('#btnPush').click(function(){
      add();
-
-   })
+     $('.btn-delete').click(function(event) {
+      let id = $(this)[0].id;
+      $("#"+id).remove();
+      $("."+id).remove();
+    });
+   });
+    $('#btnCancel').click(function(){
+      $('#question').val('');
+      $('#answer1').val('');
+      $('#answer2').val('');
+      $('#answer3').val('');
+      $('#answer4').val('');
+    });
     function add(){
       var question= $('#question').val();
       var answer1= $('#answer1').val();
@@ -183,169 +170,44 @@
       var answer3= $('#answer3').val();
       var answer4= $('#answer4').val();
 
-      var qs1 = "<input type='hidden' name='list_question["+ dem +"][]' value='"+question+"'/>";
-      var as1 = "<input type='hidden' name='list_question["+ dem +"][]' value='"+answer1+"'/>";
-      var as2 = "<input type='hidden' name='list_question["+ dem +"][]' value='"+answer2+"'/>";
-      var as3 = "<input type='hidden' name='list_question["+ dem +"][]' value='"+answer3+"'/>";
-      var as4 = "<input type='hidden' name='list_question["+ dem +"][]' value='"+answer4+"'/>";           // Create element with HTML
-      // var txt2 = $("<i></i>").text("love ");  // Create with jQuery
+      var qs1 = "<input type='hidden' class="+dem+" name='list_question["+ dem +"][]' value='"+question+"'/>";
+      var as1 = "<input type='hidden' class="+dem+" name='list_question["+ dem +"][]' value='"+answer1+"'/>";
+      var as2 = "<input type='hidden' class="+dem+" name='list_question["+ dem +"][]' value='"+answer2+"'/>";
+      var as3 = "<input type='hidden' class="+dem+" name='list_question["+ dem +"][]' value='"+answer3+"'/>";
+      var as4 = "<input type='hidden' class="+dem+" name='list_question["+ dem +"][]' value='"+answer4+"'/>";
 
-      $("#show_add").after(qs1,as1,as2,as3,as4);
-      // element.attr({
-      //   type: 'hidden',
-      //   name: 'list_question'+'['+dem+']'+'[]'
-      // });
-      // document.createElement("input").attr({
-      //   type: 'hidden',
-      //   name: 'list_question'+'['+dem+']'+'[]'
-      // });
-      // var a = [question, answer1,answer2,answer3,answer4];
-      // array.push(a);
-      // console.log(element);
-      $('#list_question').val(array);
-      $('#question_added').append('<div class="row"><input class="form-control col-7" type="text" value="'+question+'" id= "">'+'<button type="button" class="btn btn-success">'+'Delete'
+      if(question != '' && answer1 != '' && answer2 != '' && answer3 != '' && answer4 != ''){
+       $("#question_added").after(qs1,as1,as2,as3,as4);
+       $('#question_added').append('<div class="row" id= "'+dem+'"><input class="form-control" type="text" value="'+question+'" >'+'<button type="button" class="btn btn-success btn-delete" style= "margin-top:10px;margin-bottom:10px;" id="'+dem+'">'+'Delete'
         +'</button></div>')
-      $('#question').val('');
-      $('#answer1').val('');
-      $('#answer2').val('');
-      $('#answer3').val('');
-      $('#answer4').val('');
-      dem=dem+1;
+     }else{
+      console.log('không có giá trị');
     }
-    $('#btnCreate').click(function(){
-      $(this).parents('form:first').submit();
-    });
-  });
+    $('#question').val('');
+    $('#answer1').val('');
+    $('#answer2').val('');
+    $('#answer3').val('');
+    $('#answer4').val('');
+
+    dem=dem+1;
+  }
+});
 </script>
-{{--  <script type="text/javascript">
-	$(document).ready(function(){
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
 
-				reader.onload = function (e) {
-					$('#photo')
-					.attr('src', e.target.result);
-				};
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		$("#fileButton").change(function() {
-
-			readURL(this);
-		});
-
-	});
-</script> --}}
-
-
-
-{{-- <script>
-	(function() {
-		console.log('connect to firebase');
-
-    // Initialize Firebase
-    var firebaseConfig = {
-    	apiKey: "AIzaSyDXyVsElWy9tutAqe9IDYVqmctDcdYC7g",
-    	authDomain: "story-255509.firebaseapp.com",
-    	databaseURL: "https://story-255509.firebaseio.com",
-    	storageBucket: "story-255509.appspot.com",
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
-
-
-    /**
-     * Initializes the app.
-     */
-     var initApp = function() {
-
-     	const fileButton = document.getElementById('fileButton');
-
-     	if (!!fileButton) {
-
-     		fileButton.addEventListener('change', function(e) {
-
-     			uploadFile(e.target.files[0])
-
-     		});
-     	}
-
-
-     };
-
-     function uploadFile(file) {
-
-        // var newMetadata = {
-        //   cacheControl: 'public,max-age=300',
-        //   contentType: 'image/jpeg',
-        //   contentLanguage: null,
-        //   customMetadata: {
-        //     whatever: 'we feel like',
-        //   },
-        // };
-
-        // Create the file metadata
-        var metadata = {
-        	contentType: 'image/jpeg',
-        };
-        var uploadTask = firebase.storage().ref('avatar/' + Date.now()).put(file, metadata);
-
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(
-            firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-            function(snapshot) {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-                progressBar.value = progress;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case firebase.storage.TaskState.PAUSED: // or 'paused'
-                    console.log('Upload is paused');
-                    break;
-                    case firebase.storage.TaskState.RUNNING: // or 'running'
-                    console.log('Upload is running');
-                    break;
-                  }
-                },
-                function(error) {
-                // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
-                switch (error.code) {
-                	case 'storage/unauthorized':
-                        // User doesn't have permission to access the object
-                        break;
-
-                        case 'storage/canceled':
-                        // User canceled the upload
-                        break;
-
-                        case 'storage/unknown':
-                        // Unknown error occurred, inspect error.serverResponse
-                        break;
-                      }
-                    },
-                    function() {
-                // Upload completed successfully, now we can get the download URL
-
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                	console.log('File available at', downloadURL);
-                	var _img = document.getElementById('photo');
-                	var newImg = new Image;
-                	newImg.onload = function() {
-                		_img.src = this.src;
-                	}
-                	newImg.src = downloadURL;
-                	document.getElementById('avatar').value= downloadURL;
-                });
-
-              }
-              );
-      }
-
-
-      window.addEventListener('load', initApp);
-
-    }())
-  </script> --}}
-  @endsection
+<script>
+  var button = document.getElementById("btnCreate");
+  button.onclick =  function(){
+    // //upload file
+    var files = document.getElementById("photo").files;
+    for (var i = 0; i < files.length; i++) {
+      var file = document.getElementById("photo").files[i];
+    }
+    var folder= 'photo';
+    var img= document.getElementById('photo_link');
+    var form= document.getElementById("formCreate");
+    upload(file, folder, img, form);
+    var $this = $(this);
+    loading($this);
+  };
+</script>
+@endsection
