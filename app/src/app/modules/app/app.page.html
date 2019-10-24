@@ -1,0 +1,26 @@
+<ion-content>
+	<ion-router-outlet></ion-router-outlet>
+</ion-content>
+<ion-tab-bar slot="bottom">
+	<ion-tab-button [routerLink]="['/app/home']">
+    <!-- <ion-img class="icon-home"
+    [src]="tabSelected !== tabList[0] ? '/assets/images/tab/home.png' : '/assets/images/tab/home_color.png'">
+</ion-img> -->
+<ion-icon name="home"></ion-icon>
+<ion-label [ngClass]="{ 'red': tabSelected === tabList[0] }">Trang chủ</ion-label>
+</ion-tab-button>
+<ion-tab-button [routerLink]="['/app/classify']">
+	<ion-icon name="keypad"></ion-icon>
+	<ion-label [ngClass]="{ 'red': tabSelected === tabList[1] }">Phân loại</ion-label>
+</ion-tab-button>
+<ion-tab-button [routerLink]="['/app/store']">
+	<ion-icon name="bookmark"></ion-icon>
+	<ion-label [ngClass]="{ 'red': tabSelected === tabList[2] }">Tủ truyện</ion-label>
+</ion-tab-button>
+<ion-tab-button [routerLink]="['/app/mypage']">
+	<!-- <ion-img class="icon-mypage"[src]="tabSelected !== tabList[3] ? '/assets/images/tab/mypage.png' : '/assets/images/tab/mypage_color.png'"></ion-img> -->
+	 <ion-icon name="contact"></ion-icon>
+	<ion-label [ngClass]="{ 'red': tabSelected === tabList[3] }">Cá nhân</ion-label>
+</ion-tab-button>
+</ion-tab-bar>
+

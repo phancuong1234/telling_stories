@@ -1,0 +1,22 @@
+<ion-content>
+	<!-- slide -->
+	<ion-slides [options]="slideOptsOne" pager="true" loop="true"  #slideWithNav (ionSlideDidChange)="SlideDidChange(slideWithNav)">
+		<ion-slide *ngFor="let item of listStoryNew">
+			<ion-img src="{{item.photo}}" class="image-slide"></ion-img>
+		</ion-slide>
+	</ion-slides>
+
+	<!-- story new -->
+	<ion-list class="row-product-wrapper">
+		<ion-text class="category">Mới nhất</ion-text>
+		<div class="product-wrapper">
+			<div *ngFor="let item of listStoryNew" class="row-product">
+				<ion-img class="image-row-product" src="{{ item.photo }}"></ion-img>
+				<ion-label>
+					<ion-text class="title-row-product">{{ item.name }}</ion-text>
+					<ion-text class="description-row-product">{{ item.description }}</ion-text>
+				</ion-label>
+			</div>
+		</div>
+	</ion-list>
+</ion-content>

@@ -59,3 +59,6 @@ Route::namespace('Web')->group(function () {
 		});
 	});
 });
+Route::fallback(function() {
+    return abort(404);
+});
