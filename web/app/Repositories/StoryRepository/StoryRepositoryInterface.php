@@ -10,9 +10,15 @@ interface StoryRepositoryInterface
 
 	public function getStoryById($id);
 	
-	 public function updateStoryById($id, array $data);
- //    public function deleteStoryWithID($id);
+	public function updateStoryById($id, array $data);
+	
+	public function deleteStoryWithID($id);
+
+	public function getTopSlide();
+	
 	public function getStoryNew();
+
+	public function getStoryRecommend();
 
 	public function getStoryPopularity();
 

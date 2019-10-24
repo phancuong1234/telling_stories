@@ -8,7 +8,6 @@
 @section('content')
 <div class="animated fadeIn">
 	<div class="row">
-
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
@@ -40,156 +39,171 @@
 						<div class="row form-group">
 							<label class="col-2" for="category">Category</label>
 							<select class="form-control col-8" id="category" name= "category">
-								<option value="{{$record_category->id}}">{{$record_category->name}}</option>
-							</select>
-						</div>
-						<div class="row form-group">
-							<label class="col-2" for="post">Video</label>
-							<div class="col-8">
-								<div class="row" id="form_video">
-									@if ($video)
-									@foreach ($video as $key => $element)
-									<div class="image-area col-4" id="video_{{$key}}">
-										<iframe width="100%" height="150" src="{{$element->path}}" frameborder="0" allow="autoplay;picture-in-picture" allowfullscreen id="id_video_{{$key}}"></iframe>
-										<a class="remove-image" href="javascript:void(0)" style="display: inline;" id="{{$key}}" onclick="return deleteElement({{ $key }})">&#215;</a>
-									</div>
-									<input type="hidden" class="video_exists" name="video_exists[]" id="video_exists_{{ $key }}" value="{{$element->path}}" />
+								@if ($list_category)
+								@foreach ($list_category as $element)
+								<option value="{{$element->id}}" @if ($element->id == $record->category_id)
+									selected
+									@endif>{{$element->name}}</option>
 									@endforeach
 									@endif
-								</div>
-								<div class="row" id="form_addLink">
-									<div class="col-12" style="display: flex;padding-left: 0px;" id= "link">
-										<input class="form-control" type="text" name="video" value="" id="input_add_link" placeholder="Link" style="margin-right: 20px;">
-										<button type="button" class="btn btn-info row" id= "add_link">Add</button>
-									</div>
-								</div>
-
+								</select>
 							</div>
-						</div>
-						<div class="row form-group">
-							<label class="col-2" for="age">Age</label>
-							<select multiple  class="form-control col-8" id="age" name= "age[]">
-								@if ($list_age)
-								@foreach ($list_age as $key => $element)
-								@if (array_key_exists($key,$array_age))
-								<option value="{{$element->id}}" selected>{{$element->age}}</option>
-								@else
-								<option value="{{$element->id}}">{{$element->age}}</option>
-								@endif
-								@endforeach
-								@endif
-
-							</select>
-						</div>
-						<div class="row form-group">
-							<label class="col-2" for="question">Question</label>
-							<div class="col-8">
-								<div>
-									@if ($question)
-									@foreach ($question as $key => $value)
-									<div style="margin-bottom: 20px;">
-										<div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Question {{$key +1}}</label>
-												<textarea class="form-control col-10" id="question" placeholder="Question" name= "list_question_update[{{$key}}][]">{{$value->question}}</textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">A: </label>
-												<textarea class="form-control col-10" id="answer1" placeholder="Answer 1" name= "list_question_update[{{$key}}][]">{{$value->answer_true}}</textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">B: </label>
-												<textarea class="form-control col-10" id="answer2" placeholder="Answer 2" name= "list_question_update[{{$key}}][]">{{$value->answer_false_1}}</textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">C: </label>
-												<textarea class="form-control col-10" id="answer3" placeholder="Answer 3" name= "list_question_update[{{$key}}][]">{{$value->answer_false_2}}</textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">D: </label>
-												<textarea class="form-control col-10" id="answer4" placeholder="Answer 4" name= "list_question_update[{{$key}}][]">{{$value->answer_false_3}}</textarea>
+							<div class="row form-group">
+								<label class="col-2" for="post">Video</label>
+								<div class="col-8">
+									<div class="row" id="form_video">
+										@if ($video)
+										@foreach ($video as $key => $element)
+										<div class="image-area col-4" id="video_{{$key}}">
+											<iframe width="100%" height="150" src="{{$element->path}}" frameborder="0" allow="autoplay;picture-in-picture" allowfullscreen id="id_video_{{$key}}"></iframe>
+											<a class="remove-image" href="javascript:void(0)" style="display: inline;" id="{{$key}}" onclick="return deleteElement({{ $key }})">&#215;</a>
+											<div class="row">
+												<input type="text" name="title[]" value="{{$element->title}}">
 											</div>
 										</div>
-										<div style="text-align: center;">
-											<button type="button" class="btn btn-info" id="btnDel">Delete
-											</button>
-											<button type="button" class="btn btn-secondary" id="btnCancel">Cancel
-											</button>
+										<input type="hidden" class="video_exists" name="video_exists[{{$element->id}}]" id="video_exists_{{ $key }}" value="{{$element->path}}" />
+										
+										@endforeach
+										@endif
+									</div>
+									<div class="row" id="form_addLink" style= "margin-top: 20px;">
+										<div class="col-12" style="display: flex;padding-left: 0px;" id= "link">
+											<input class="form-control" type="text" value="" id="input_add_link" placeholder="Link" style="margin-right: 20px;">
+											<button type="button" class="btn btn-info row" id= "add_link">Add</button>
 										</div>
 									</div>
+
+								</div>
+							</div>
+							<div class="row form-group">
+								<label class="col-2" for="age">Age</label>
+								<select multiple  class="form-control col-8" id="age" name= "age[]">
+									@if ($list_age)
+									@foreach ($list_age as $key => $element)
+									@if (array_key_exists($key,$array_age))
+									<option value="{{$element->id}}" selected>{{$element->age}}</option>
+									@else
+									<option value="{{$element->id}}">{{$element->age}}</option>
+									@endif
 									@endforeach
 									@endif
-								</div>
 
-								<div id= "question_added" style="margin-bottom: 20px;">
-
-								</div>
-
-								<div id= "form_add" name= 'list[]'>
-									<h3 style="margin-bottom: 20px;text-align: center;">Add question</h3>
+								</select>
+							</div>
+							<div class="row form-group">
+								<label class="col-2" for="post">Views</label>
+								<input class="form-control col-3" type="text" name="views" value="{{$record->views}}" id="views">
+							</div>
+							<div class="row form-group">
+								<label class="col-2" for="question">Question</label>
+								<div class="col-8">
 									<div>
-										<div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Question</label>
-												<textarea class="form-control col-10" id="question_new" placeholder="Question"></textarea>
+										@if ($question)
+										@foreach ($question as $key => $value)
+										<div style="margin-bottom: 20px;">
+											<div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Question {{$key +1}}</label>
+													<textarea class="form-control col-10" id="question" placeholder="Question" name= "list_question_update[{{$key}}][]">{{$value->question}}</textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">A: </label>
+													<textarea class="form-control col-10" id="answer1" placeholder="Answer 1" name= "list_question_update[{{$key}}][]">{{$value->answer_true}}</textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">B: </label>
+													<textarea class="form-control col-10" id="answer2" placeholder="Answer 2" name= "list_question_update[{{$key}}][]">{{$value->answer_false_1}}</textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">C: </label>
+													<textarea class="form-control col-10" id="answer3" placeholder="Answer 3" name= "list_question_update[{{$key}}][]">{{$value->answer_false_2}}</textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">D: </label>
+													<textarea class="form-control col-10" id="answer4" placeholder="Answer 4" name= "list_question_update[{{$key}}][]">{{$value->answer_false_3}}</textarea>
+												</div>
 											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 1</label>
-												<textarea class="form-control col-10" id="answer1_new" placeholder="Answer 1"></textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 2</label>
-												<textarea class="form-control col-10" id="answer2_new" placeholder="Answer 2"></textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 3</label>
-												<textarea class="form-control col-10" id="answer3_new" placeholder="Answer 3"></textarea>
-											</div>
-											<div class="row form-group">
-												<label class="col-2" for="post">Answer 4</label>
-												<textarea class="form-control col-10" id="answer4_new" placeholder="Answer 4"></textarea>
+											<div style="text-align: center;">
+												<button type="button" class="btn btn-info" id="btnDel">Delete
+												</button>
+												<button type="button" class="btn btn-secondary" id="btnCancel">Cancel
+												</button>
 											</div>
 										</div>
-										<div style="text-align: center;">
-											<button type="button" class="btn btn-info" id="btnPush">Add
-											</button>
-											<button type="button" class="btn btn-secondary" id="btnCancel">Cancel
-											</button>
+										<input type="hidden" value="{{$value->id}}" name="list_question_update[{{$key}}][]">
+										@endforeach
+										@endif
+									</div>
+
+									<div id= "question_added" style="margin-bottom: 20px;">
+
+									</div>
+
+									<div id= "form_add" name= 'list[]'>
+										<h3 style="margin-bottom: 20px;text-align: center;">Add question</h3>
+										<div>
+											<div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Question</label>
+													<textarea class="form-control col-10" id="question_new" placeholder="Question"></textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Answer 1</label>
+													<textarea class="form-control col-10" id="answer1_new" placeholder="Answer 1"></textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Answer 2</label>
+													<textarea class="form-control col-10" id="answer2_new" placeholder="Answer 2"></textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Answer 3</label>
+													<textarea class="form-control col-10" id="answer3_new" placeholder="Answer 3"></textarea>
+												</div>
+												<div class="row form-group">
+													<label class="col-2" for="post">Answer 4</label>
+													<textarea class="form-control col-10" id="answer4_new" placeholder="Answer 4"></textarea>
+												</div>
+											</div>
+											<div style="text-align: center;">
+												<button type="button" class="btn btn-info" id="btnPush">Add
+												</button>
+												<button type="button" class="btn btn-secondary" id="btnCancel">Cancel
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>
+
 							</div>
 
-						</div>
 
-
-						<div class="modal-footer">
-							<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-							<button type="button" class="btn btn-success" id="btnEdit">Edit
-							</button>
-						</div>
-					</form>
+							<div class="modal-footer">
+								<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
+								<button type="button" class="btn btn-success" id="btnEdit">Edit
+								</button>
+							</div>
+						</form>
 
 
 
 
 
+					</div>
 				</div>
 			</div>
+
+
 		</div>
+	</div><!-- .animated -->
+	@section('js')
+	<script src="{{ asset('js/upload.js') }}"></script>
+	@endsection
 
-
-	</div>
-</div><!-- .animated -->
-@section('js')
-<script src="{{ asset('js/upload.js') }}"></script>
-@endsection
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	//remove video
 	function deleteElement(id){
-			$("#video_"+id).remove();
-			$("#video_exists_"+id).remove();
+		$("#video_"+id).remove();
+		$("#video_exists_"+id).remove();
 	}
 	$(document).ready(function(){
 		var count_link_video = $('.image-area').length;

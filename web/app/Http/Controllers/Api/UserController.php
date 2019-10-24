@@ -60,7 +60,8 @@ class UserController extends Controller
 	public function getUserdata(Request $request)
 	{
 		if($request->isMethod('get')){
-			$user = JWTAuth::user();
+			$token= $request->bearerToken();
+			$user = JWTAuth::toUser($token);
 			return response()->json([
 				'code' => Response::HTTP_OK,
 				'data'  => $user,
@@ -72,4 +73,5 @@ class UserController extends Controller
 			]);
 		}
 	}
+
 }
