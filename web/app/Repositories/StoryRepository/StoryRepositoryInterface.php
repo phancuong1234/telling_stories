@@ -21,10 +21,8 @@ interface StoryRepositoryInterface
 	public function getStoryRecommend();
 
 	public function getStoryPopularity();
-
-	public function getStoryNewAll();
-	
-	public function getStoryPopularityAll();
 	
 	public function getStoryDetail($id);
+
+	public function getStoryByCategory($id);
 }

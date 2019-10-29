@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->integer('role_id')->default(3)->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->tinyInteger('delete_flg')->default(0);
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

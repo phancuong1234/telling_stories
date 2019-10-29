@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { AppTabBarService } from 'src/app/core/services/app-tab-bar.service';
 
 @Component({
 	selector: 'app-app',

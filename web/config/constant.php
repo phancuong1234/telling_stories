@@ -31,6 +31,30 @@ if ( ! defined( 'UPDATE_SUCCESS')) {
 if ( ! defined( 'MESSAGE_ERROR_METHOD')) {
     define('MESSAGE_ERROR_METHOD', 'Method không cho phép');
 }
+/*table user*/
+if ( ! defined( 'ERROR_CREATE_USER')) {
+    define('ERROR_CREATE_USER', 'email existed');
+}
+if ( ! defined( 'STATE_ACTIVE')) {
+    define('STATE_ACTIVE', 0);
+}
+if ( ! defined( 'STATE_BLOCK')) {
+    define('STATE_BLOCK', 1);
+}
+if ( ! defined( 'CHANGE_STATE_SUCCESS')) {
+    define('CHANGE_STATE_SUCCESS', 'CHANGED STATE');
+}
+
+//DELETE_FALSE
+if ( ! defined( 'DELETE_FALSE')) {
+    define('DELETE_FALSE', 0);
+}
+//DELETE_TRUE
+if ( ! defined( 'DELETE_TRUE')) {
+    define('DELETE_TRUE', 1);
+}
+/*end table user*/
+
 //code error api
 if ( ! defined( 'CODE_ERROR_METHOD')) {
     define('CODE_ERROR_METHOD', 405);

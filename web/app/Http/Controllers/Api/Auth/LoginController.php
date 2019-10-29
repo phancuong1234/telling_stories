@@ -43,7 +43,10 @@ class LoginController extends Controller
         ]);
     }
 
-    return response()->json(['token' => $token], Response::HTTP_OK);
+    return response()->json([
+        'token' => $token,
+        'code' => Response::HTTP_OK
+    ] );
 }
 
 public function user(Request $request)

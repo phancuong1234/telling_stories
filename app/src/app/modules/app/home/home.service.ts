@@ -15,14 +15,33 @@ export class HomeService {
 	constructor(
 		private httpService: HttpService
 		) { }
-	/*async getListStoryNew(): Promise<any> {
-		return this.httpService.send('GET', { url: 'http://telling_stories.test/api/story/new'}).then(res => {});
-	}*/
+
+	async getListTopSlide(): Promise<any> {
+		const config: HttpRequestOpts = {
+			url: 'http://telling_stories.test/api/story/top_slide',
+		};
+		return this.httpService.send('GET', config);
+	}
 
 	async getListStoryNew(): Promise<any> {
-		
 		const config: HttpRequestOpts = {
 			url: 'http://telling_stories.test/api/story/new',
+		};
+		return this.httpService.send('GET', config);
+	}
+
+
+	async getListStoryRecommend(): Promise<any> {
+		const config: HttpRequestOpts = {
+			url: 'http://telling_stories.test/api/story/recommend',
+		};
+		return this.httpService.send('GET', config);
+	}
+
+
+	async getListStoryPopularity(): Promise<any> {
+		const config: HttpRequestOpts = {
+			url: 'http://telling_stories.test/api/story/popularity',
 		};
 		return this.httpService.send('GET', config);
 	}

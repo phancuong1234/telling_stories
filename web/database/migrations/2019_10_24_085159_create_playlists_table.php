@@ -19,6 +19,7 @@ class CreatePlaylistsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('list_story');
+            $table->tinyInteger('delete_flg')->default(0);
             $table->timestamps();
         });
     }

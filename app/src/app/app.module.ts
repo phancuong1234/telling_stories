@@ -17,12 +17,17 @@ import { HttpService } from './core/services/http.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [
+  BrowserModule,
+  AppRoutingModule,
+  HttpClientModule,
+  IonicModule.forRoot()
+  ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    HttpService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  StatusBar,
+  SplashScreen,
+  HttpService,
+  { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

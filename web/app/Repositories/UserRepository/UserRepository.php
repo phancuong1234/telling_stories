@@ -8,8 +8,19 @@ class UserRepository implements UserRepositoryInterface
 {
 	public function getAll()
 	{
-		$user= User::all();
+		$user= User::where('delete_flg','=',DELETE_FALSE)->get();
 		return $user;
+	}
+	public function checkExistEmail($email)
+	{
+		$user= User::where('email','=',$email)
+		->where('delete_flg','=',DELETE_FALSE)
+		->first();
+		if(isset($user)){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	public function insert(array $data)
 	{
@@ -34,7 +45,9 @@ class UserRepository implements UserRepositoryInterface
 	}
 	public function getUserById($id)
 	{
-		$record= User::where('id','=',$id)->first();
+		$record= User::where('id','=',$id)
+		->where('delete_flg','=',DELETE_FALSE)->get()
+		->first();
 		return $record;
 	}
 	public function updateUserById($id,array $data)
@@ -59,11 +72,15 @@ class UserRepository implements UserRepositoryInterface
 	}
 	public function deleteUserWithID($id)
 	{
-		$result = User::find($id);
-		if ($result) {
-			$result->delete();
-			return true;
+		$user= User::where('id','=',$id)->update(['delete_flg' => DELETE_TRUE]);
+	}
+	public function changeState($id, $state)
+	{
+		if($state == STATE_BLOCK){
+			User::where('id','=',$id)->update(['state' => STATE_ACTIVE]);
 		}
-		return false;
+		if($state == STATE_ACTIVE){
+			User::where('id','=',$id)->update(['state' => STATE_BLOCK]);
+		}
 	}
 }

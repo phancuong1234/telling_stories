@@ -38,6 +38,7 @@ class StoryController extends Controller
 	}
 	public function store(Request $request)
 	{
+		/*dd($request->all());*/
 		$data=
 		[
 			'name' => $request->name,
@@ -46,7 +47,8 @@ class StoryController extends Controller
 			'list_question' => $request->list_question,
 			'category' =>$request->category,
 			'age' => $request->age,
-			'video' => $request->video
+			'video' => $request->video,
+			'views' => $request->views
 		];
 		$this->story->insert($data);
 		return redirect('admin/story')->with(['success' => CREATE_SUCCESS]);
@@ -106,7 +108,6 @@ class StoryController extends Controller
 	}
 	public function update(Request $request, $id)
 	{
-		dd($request->all());
 		$data= [
 			'name' => $request->name,
 			'photo' => $request->photo,

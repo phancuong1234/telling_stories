@@ -106,40 +106,6 @@ class StoryController extends Controller
 		}
 	}
 
-	//api get all story new
-	public function getStoryNewAll(Request $request)
-	{
-		if($request->isMethod('get')){
-			$dataStoryNew= $this->story->getStoryNewAll();
-			return response()->json([
-				'code'  => Response::HTTP_OK,
-				'data' => $dataStoryNew,
-			]);
-		}else {
-			return response()->json([
-				'error' => MESSAGE_ERROR_METHOD,
-				'code'  => CODE_ERROR_METHOD
-			]);
-		}
-	}
-
-	//api get all popularity
-	public function getStoryPopularityAll(Request $request)
-	{
-		if($request->isMethod('get')){
-			$dataStoryPopularityAll= $this->story->getStoryPopularityAll();
-			return response()->json([
-				'code'  => Response::HTTP_OK,
-				'data' => $dataStoryPopularity,
-			]);
-		}else {
-			return response()->json([
-				'error' => MESSAGE_ERROR_METHOD,
-				'code'  => CODE_ERROR_METHOD
-			]);
-		}
-	}
-
 	//api detail story
 	public function getStoryDetail(Request $request)
 	{
@@ -148,6 +114,23 @@ class StoryController extends Controller
 			return response()->json([
 				'code'  => Response::HTTP_OK,
 				'data' => $dataStoryDetail,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code'  => CODE_ERROR_METHOD
+			]);
+		}
+	}
+
+	//api story by category
+	public function getStoryByCategory(Request $request)
+	{
+		if($request->isMethod('get')){
+			$dataStoryByCategory= $this->story->getStoryByCategory($request->id);
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+				'data' => $dataStoryByCategory,
 			]);
 		}else{
 			return response()->json([

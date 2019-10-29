@@ -3,4 +3,5 @@ export interface HttpRequestOpts {
     body?: any;
     withCredentials?: boolean;
     params?: any;
+    authorization?: any;
 }

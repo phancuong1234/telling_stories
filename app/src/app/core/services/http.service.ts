@@ -33,8 +33,8 @@ export class HttpService {
 
 	private httpSucess(res: Response): Promise<any> {
 		const body: any = res || { message: 'Request success' };
-		if (body.code === 200) {
-			//localStorage.setItem('token', 'Bearer ' + body.token);
+		if (body && body.code && body.code === 200 && body.token) {
+			localStorage.setItem('token', body.token);
 			return Promise.resolve(body);
 		} else {
 			if (body.code === 401) {
@@ -44,6 +44,7 @@ export class HttpService {
 			return Promise.resolve(body);
 		}
 	}
+
 
 	private httpError(error: any) {
 		// alert('Request error');

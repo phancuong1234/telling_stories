@@ -21,6 +21,7 @@ Route::namespace('Web')->group(function () {
 		////////user/////
 		Route::group(['prefix' => 'user','middleware' => 'checkadmin'], function(){
 			Route::get('/', 'UserController@index')->name('user.index');
+			Route::post('/change_state/{id}', 'UserController@changeState')->name('user.state');
 			Route::get('/create', 'UserController@create')->name('user.create');
 			Route::post('/create', 'UserController@store')->name('user.store');
 			Route::post('/create_avatar', 'UserController@update_avatar')->name('avatar.update');

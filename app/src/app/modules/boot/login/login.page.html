@@ -13,13 +13,13 @@
 		</div>
 
 		<!-- Login form -->
-		<form class="list-form">
+		<form class="list-form" [formGroup]="todo">
 			<ion-item no-padding class="animated fadeInUp">
 				<ion-label position="floating">
 					<ion-icon name="mail" item-start></ion-icon>
 					Email
 				</ion-label>
-				<ion-input color="secondary" type="email"></ion-input>
+				<ion-input color="secondary" type="email" formControlName="email"></ion-input>
 			</ion-item>
 			<!-- <p ion-text class="text08" >
 				<ion-text color="warning">
@@ -32,7 +32,7 @@
 					<ion-icon name="lock" item-start></ion-icon>
 					Mật khẩu
 				</ion-label>
-				<ion-input color="secondary" type="password"></ion-input>
+				<ion-input color="secondary" type="password" formControlName="password"></ion-input>
 			</ion-item>
 			<!-- <p ion-text color="warning" class="text08">
 				<ion-text color="warning">

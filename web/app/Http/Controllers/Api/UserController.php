@@ -31,7 +31,10 @@ class UserController extends Controller
 			]);
 		}
 
-		return response()->json(['token' => $token], Response::HTTP_OK);
+		return response()->json([
+			'token' => $token,
+			'code' => Response::HTTP_OK
+		]);
 	}
 
 	public function register(Request $request)
@@ -45,15 +48,15 @@ class UserController extends Controller
 		// 		'code' => CODE_ERROR_CREATE,
 		// 	]);
 		//}else{
-			$user->email = $params['email'];
-			$user->name = $params['name'];
-			$user->password = bcrypt($params['password']);
-			$user->save();
+		$user->email = $params['email'];
+		$user->name = $params['name'];
+		$user->password = bcrypt($params['password']);
+		$user->save();
 
-			return response()->json([
-				'code' => Response::HTTP_OK,
-				'data' => $user
-			]);
+		return response()->json([
+			'code' => Response::HTTP_OK,
+			'data' => $user
+		]);
 		//}
 	}
 

@@ -23,16 +23,23 @@ Route::post('/user/login', 'Api\UserController@login');
 
 
 Route::namespace('Api')->group(function() {
-	Route::group(['middleware' => 'jwt.auth'], function () {
+	Route::group([/*'middleware' => 'jwt.auth'*/], function () {
 		//user
 		Route::get('/user_data', 'UserController@getUserdata');
         //novel
         Route::get('/story/top_slide', 'StoryController@getTopSlide');
-        Route::get('/story/new_all', 'StoryController@getStoryNewAll');
 		Route::get('/story/new', 'StoryController@getStoryNew');
 		Route::get('/story/popularity', 'StoryController@getStoryPopularity');
-		Route::get('/story/popularity_all', 'StoryController@getStoryPopularityAll');
+		Route::get('/story/recommend', 'StoryController@getStoryRecommend');
 		Route::get('/story/detail', 'StoryController@getStoryDetail');
+		Route::get('/story/category', 'StoryController@getStoryByCategory');
+
+
+		//category
+		Route::get('/category/all', 'CategoryController@getListCategory');
+
+		//age
+		Route::get('/age/all', 'AgeController@getListAge');
 
 	});
 });
