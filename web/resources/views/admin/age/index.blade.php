@@ -34,11 +34,11 @@
 									<td>{{$record->id}}</td>
 									<td>{{$record->age}}</td>
 									<td style="display: flex;">
-										<a href="{{route('age.edit',$record->id)}}" class="btn-warning nav-link" role='button'> Edit</a>
+										<a href="{{route('age.edit',$record->id)}}" class="btn btn-warning" role='button'> Edit</a>
 										<form action="{{  route('age.destroy',$record->id) }}" method="POST">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-											<button type="submit" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
+											<button type="submit" class="btn btn-danger" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
 										</form>
 									</td>
 								</tr>

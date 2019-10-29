@@ -19,6 +19,7 @@ class CreateDownloadsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('video_id')->unsigned();
             $table->foreign('video_id')->references('id')->on('videos');
+            $table->tinyInteger('delete_flg')->default(0);
             $table->timestamps();
         });
     }

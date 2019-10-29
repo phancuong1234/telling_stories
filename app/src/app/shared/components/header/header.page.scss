@@ -1,0 +1,14 @@
+ion-toolbar {
+  --background: #3d0d2d;
+  position: relative;
+  text-align: center;
+  ion-title {
+    color: #fff;
+  }
+  ion-icon {
+    color: #fff;
+  }
+  ion-button{
+    position: absolute;
+  }
+}

@@ -18,12 +18,25 @@ class UserController extends Controller
 		$list= $this->user->getAll();
 		return view('admin.user.index',compact('list'));
 	}
+	//change state user
+	public function changeState(Request $request, $id)
+	{
+		return $this->user->changeState($id, $request->state);
+	}
 	public function create()
 	{
 		return view('admin.user.create');
 	}
 	public function store(Request $request)
 	{
+		$validator = new UserValidator($request->all());
+		if ($validator->fails())
+		{
+			return redirect()->back()
+			->withInput()
+			->withErrors($validator->messages());
+		}
+		$check= $this->user->checkExistEmail($request->email);
 		$data= [
 			'name' => $request->name,
 			'email' => $request->email,
@@ -34,15 +47,15 @@ class UserController extends Controller
 			'avatar' => $request->avatar,
 			'role_id' => $request->role
 		];
-		// $validator = new CategoryValidator($request->all());
-		// if ($validator->fails())
-		// {
-		// 	return redirect()->back()
-		// 	->withInput()
-		// 	->withErrors($validator->messages());
-		// }
-		$this->user->insert($data);
-		return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
+		
+		if($check){
+			$this->user->insert($data);
+			return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
+		}else{
+			return redirect('admin/user')->with(['error' => ERROR_CREATE_USER]);
+		}
+		
+		
 	}
 	public function detail($id)
 	{

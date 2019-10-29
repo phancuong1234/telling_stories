@@ -16,6 +16,7 @@ class CreateAgesTable extends Migration
         Schema::create('ages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('age');
+            $table->tinyInteger('delete_flg')->default(0);
             $table->timestamps();
         });
     }

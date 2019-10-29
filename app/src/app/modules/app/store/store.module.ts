@@ -6,20 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { StorePage } from './store.page';
+import { HeaderPageModule, TabBarMenuPageModule } from '../../../shared/components';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: StorePage
-  }
+{
+  path: '',
+  component: StorePage
+}
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+  CommonModule,
+  FormsModule,
+  IonicModule,
+  HeaderPageModule,
+  TabBarMenuPageModule,
+  RouterModule.forChild(routes)
   ],
   declarations: [StorePage]
 })

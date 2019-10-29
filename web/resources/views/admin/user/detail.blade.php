@@ -19,7 +19,7 @@
 						<div class="row">
 							<div class="image-upload col-3" style="margin-bottom: 50px;">
 								<label for="fileButton">
-									<img @if(!empty($record->avatar)) src="{{$record->avatar}}" @else src="/images/admin.jpg" @endif alt="avatar" class="user-avatar" id="photo" style="border-radius: 50%">
+									<img @if(!empty($record->avatar)) src="{{$record->avatar}}" @else src="/images/admin.jpg" @endif alt="avatar" class="user-avatar" id="photo" style="border-radius: 50%;width: 150px;height: 150px;">
 								</label>
 							</div>
 							<div class="col-9 ">
@@ -81,8 +81,8 @@
 							</div>
 						</div>
 						<div class="modal-footer" style="justify-content:center;">
-							<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-							<a href="{{ route('user.edit',$record->id) }}" class="btn btn-dark">Edit</a>
+							<a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
+							<a href="{{ route('user.edit',$record->id) }}" class="btn btn-info">Edit</a>
 						</div>
 					</form>
 				</div>

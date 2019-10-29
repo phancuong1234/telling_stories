@@ -20,6 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->mediumText('answer_false_1');
             $table->mediumText('answer_false_2');
             $table->mediumText('answer_false_3');
+            $table->tinyInteger('delete_flg')->default(0);
             $table->timestamps();
         });
     }

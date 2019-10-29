@@ -209,10 +209,11 @@
     var folder= 'photo';
     var img= document.getElementById('photo_link');
     var form= document.getElementById("formCreate");
-    //upload(file, folder, img, form);
+    upload(file, folder, img, form);
     var $this = $(this);
-    form.submit();
-    //loading($this);
+    //form.submit();
+    loading($this);
   };
 </script>
+
 @endsection

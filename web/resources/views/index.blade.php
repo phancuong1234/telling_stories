@@ -26,8 +26,10 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/4.0.0/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.0.0/firebaseui.css" />
     <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+    <link href="{{ asset('/font-awesome/js/fontawesome.js') }}" rel="stylesheet">
+    <link href="{{ asset('/font-awesome/js/solid.js') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('/font-awesome/js/brands.js') }}" rel="stylesheet"> -->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     @yield('css')
 </head>
 
@@ -55,17 +57,17 @@
                     </li>
                     @if(Auth::user()->role_id == ADMIN)
                     <li {!! (Request::is('admin/user') || Request::is('admin/user/*') ? ' class="active"' : '') !!}>
-                        <a href="{{ route('user.index') }}"> <i class="menu-icon ti-email"></i>User</a>
+                        <a href="{{ route('user.index') }}"> <i class='menu-icon fa fa-users'></i></i>User</a>
                     </li>
                     @endif
                     <li {!! (Request::is('admin/category') || Request::is('admin/category/*') ? ' class="active"' : '') !!}>
-                        <a href="{{ route('category.index') }}"> <i class="menu-icon ti-email"></i>Category </a>
+                        <a href="{{ route('category.index') }}"> <i class='menu-icon fa fa-th-list'></i></i>Category </a>
                     </li>
                     <li {!! (Request::is('admin/age') || Request::is('admin/age/*') ? ' class="active"' : '') !!}>
-                        <a href="{{ route('age.index') }}"> <i class="menu-icon ti-email"></i>Ages </a>
+                        <a href="{{ route('age.index') }}"> <i class="menu-icon fa fa-calendar"></i>Ages </a>
                     </li>
                     <li {!! (Request::is('admin/story') || Request::is('admin/story/*') ? ' class="active"' : '') !!}>
-                        <a href="{{ route('story.index') }}"> <i class="menu-icon ti-email"></i>Story </a>
+                        <a href="{{ route('story.index') }}"> <i class='menu-icon fa fa-book'></i>Story </a>
                     </li>
                 </ul>
             </div>

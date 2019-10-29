@@ -20,12 +20,10 @@
 						<div class="row">
 							<div class="image-upload col-3" style="margin-bottom: 50px;">
 								<label for="fileButton">
-									<img @if(!empty($record->avatar)) src="{{$record->avatar}}" @else src="/images/admin.jpg" @endif alt="avatar" class="user-avatar" id="photo" style="border-radius: 50%">
+									<img @if(!empty($record->avatar)) src="{{$record->avatar}}" @else src="/images/admin.jpg" @endif alt="avatar" class="user-avatar" id="photo" style="border-radius: 50%;width: 150%;height: 150%;">
 								</label>
-
-								<input id="fileButton" type="file" style="display: none;" {{-- onchange="readURL(this);" --}} />
+								<input id="fileButton" type="file" style="display: none;"/>
 								<input class="form-control col-8" type="text" name="avatar" value="{{$record->avatar}}" id="avatar" style="display: none;">
-								<progress id="progressBar" value="0" max="100" style="width:200px;"></progress>
 							</div>
 							<div class="col-9 ">
 								<div class="row form-group">
@@ -85,9 +83,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
-							<button type="submit" class="btn btn-danger" id="submit">Edit
+						<div class="modal-footer" style="justify-content: 
+            center;">
+							<a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
+							<button type="submit" class="btn btn-info" id="submit">Edit
 							</button>
 						</div>
 					</form>
@@ -241,9 +240,9 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                     case firebase.storage.TaskState.RUNNING: // or 'running'
                     console.log('Upload is running');
                     break;
-                }
-            },
-            function(error) {
+                  }
+                },
+                function(error) {
                 // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
                 switch (error.code) {
                 	case 'storage/unauthorized':
@@ -257,9 +256,9 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                         case 'storage/unknown':
                         // Unknown error occurred, inspect error.serverResponse
                         break;
-                    }
-                },
-                function() {
+                      }
+                    },
+                    function() {
                 // Upload completed successfully, now we can get the download URL
 
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
@@ -271,15 +270,15 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 	}
                 	newImg.src = downloadURL;
                 	document.getElementById('avatar').value= downloadURL;
-			});
+                });
 
-            }
-            );
-    }
+              }
+              );
+      }
 
 
-    window.addEventListener('load', initApp);
+      window.addEventListener('load', initApp);
 
-}())
-</script>
-@endsection
+    }())
+  </script>
+  @endsection

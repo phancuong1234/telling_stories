@@ -1,16 +1,22 @@
 <ion-content>
 	<!-- slide -->
 	<ion-slides [options]="slideOptsOne" pager="true" loop="true"  #slideWithNav (ionSlideDidChange)="SlideDidChange(slideWithNav)">
-		<ion-slide *ngFor="let item of listStoryNew">
+		<ion-buttons slot="end" class="header-button__search">
+			<ion-button class="button-search" icon-only>
+				<ion-img class="icon-search" src="/assets/images/home/search.png"></ion-img>
+			</ion-button>
+		</ion-buttons>
+		<ion-slide *ngFor="let item of listTopSlide">
 			<ion-img src="{{item.photo}}" class="image-slide"></ion-img>
 		</ion-slide>
 	</ion-slides>
+	<div class="line-area"></div>
 
 	<!-- story new -->
 	<ion-list class="row-product-wrapper">
 		<ion-text class="category">Mới nhất</ion-text>
 		<div class="product-wrapper">
-			<div *ngFor="let item of listStoryNew" class="row-product">
+			<div *ngFor="let item of listStoryNew | slice:0:10;" class="row-product">
 				<ion-img class="image-row-product" src="{{ item.photo }}"></ion-img>
 				<ion-label>
 					<ion-text class="title-row-product">{{ item.name }}</ion-text>
@@ -19,4 +25,44 @@
 			</div>
 		</div>
 	</ion-list>
+	<div class="line-area"></div>
+
+	<!-- col product -->
+	<ion-list class="col-product-wrapper">
+		<ion-text class="category">Đề xuất</ion-text>
+		<div class="product">
+			<div *ngFor="let item of listStoryRecommend | slice:0:3;">
+				<div class="col-product">
+					<ion-img class="image-col-product" src="{{ item.photo }}"></ion-img>
+					<ion-label class="content">
+						<ion-text class="title-col-product">{{ item.name }}</ion-text>
+						<ion-text class="description-col-product">{{ item.description }}</ion-text>
+					</ion-label>
+				</div>
+				<div class="line-area-col-product"></div>
+			</div>
+		</div>
+	</ion-list>
+	<div class="line-area"></div>
+
+	<!-- row product 2-->
+
+	<ion-list class="row-product-wrapper2">
+		<ion-text class="category">Nghe nhiều</ion-text>
+		<div class="product-wrapper-2">
+			<div *ngFor="let item of listStoryPopularity | slice:0:10;" class="row-product-2">
+				<ion-img class="image-row-product-2" src="{{ item.photo }}"></ion-img>
+				<ion-label>
+					<ion-text class="title-row-product-2">{{ item.name }}</ion-text>
+					<ion-text class="description-row-product-2">{{ item.description }}</ion-text>
+				</ion-label>
+			</div>
+		</div>
+	</ion-list>
+	<div class="line-area"></div>
+
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
+	</ion-refresher>
+
 </ion-content>

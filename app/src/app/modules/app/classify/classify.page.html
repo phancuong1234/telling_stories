@@ -1,9 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>classify</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Phân loại'" [isBackButton]="false"></app-header>
 
 <ion-content>
+	<app-tab-bar-menu [listMenu]="listMenu2" [tabSelected]="tabSelected" (onSelected)="onSelectTab($event)">
+	</app-tab-bar-menu>
 
+	<ion-slides pager="true" [options]="slideOpts" #slides (ionSlideDidChange)="ionSlideDidChange($event)">
+		<ion-slide *ngFor="let menu of listMenu2">
+			<ion-grid *ngIf="!emptyData">
+				<ion-row *ngFor="let item of storyList;let i = index">
+					<ion-col size="4">
+						<ion-img [src]="item.photo"></ion-img>
+					</ion-col>
+					<ion-col class="info">
+						<span class="title">
+							{{ item.name }}
+						</span>
+						<span class="description">
+							{{ item.description }}
+						</span>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+			<ion-grid *ngIf="emptyData">
+				<ion-row class="empty">
+					<p>Khong co du lieu<p>
+				</ion-row>
+			</ion-grid>
+		</ion-slide>
+	</ion-slides>
+
+	<!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content
+	      pullingIcon="arrow-dropdown"
+	      pullingText="Pull to refresh"
+	      refreshingSpinner="circles"
+	      refreshingText="Refreshing...">
+	    </ion-refresher-content>
+	  </ion-refresher> -->
 </ion-content>

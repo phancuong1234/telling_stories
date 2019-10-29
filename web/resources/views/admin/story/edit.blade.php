@@ -54,15 +54,14 @@
 									<div class="row" id="form_video">
 										@if ($video)
 										@foreach ($video as $key => $element)
-										<div class="image-area col-4" id="video_{{$key}}">
+										<div class="image-area col-4" id="video_{{$key}}" style="padding-left: 0px;">
 											<iframe width="100%" height="150" src="{{$element->path}}" frameborder="0" allow="autoplay;picture-in-picture" allowfullscreen id="id_video_{{$key}}"></iframe>
 											<a class="remove-image" href="javascript:void(0)" style="display: inline;" id="{{$key}}" onclick="return deleteElement({{ $key }})">&#215;</a>
-											<div class="row">
-												<input type="text" name="title[]" value="{{$element->title}}">
+											<div>
+												<input type="text" name="title[]" value="{{$element->title}}" style="width: 100%;">
 											</div>
 										</div>
 										<input type="hidden" class="video_exists" name="video_exists[{{$element->id}}]" id="video_exists_{{ $key }}" value="{{$element->path}}" />
-										
 										@endforeach
 										@endif
 									</div>
@@ -215,81 +214,85 @@
 		//them link video
 		$('#add_link').click(function(){
 			var link_add= $('#input_add_link').val();
-			$('#form_video').append('<div class="image-area col-4" id="video_'+count_link_video+'">'+
+			$('#form_video').append('<div class="image-area col-4" id="video_'+count_link_video+'" style="padding-left: 0px;">'+
 				'<iframe width="100%" height="150" src="'+link_add+'" frameborder="0" allow="autoplay;picture-in-picture" allowfullscreen id="id_video_'+count_link_video+'"></iframe>'+
 				'<a class="remove-image" href="javascript:void(0)" style="display: inline;" id="'+count_link_video+'" onclick="return deleteElement('+count_link_video+')">&#215;</a>'+
+				'<div>'+
+				'<input type="text" name="title[]" value="" style="width: 100%;">'+
+				'</div>'+
 				'</div>'+
 				'<input type="hidden" class="video_exists" name="video_exists[]" id="video_exists_'+count_link_video+'" value="'+link_add+'" />')
 			count_link_video = count_link_video+1;
+			$('#input_add_link').val('');
 		});
 		var dem = 0;
-		//them question
-		$('#btnPush').click(function(){
-			add();
-			$('.btn-delete').click(function(event) {
-				let id = $(this)[0].id;
-				$("#"+id).remove();
-				$("."+id).remove();
+			//them question
+			$('#btnPush').click(function(){
+				add();
+				$('.btn-delete').click(function(event) {
+					let id = $(this)[0].id;
+					$("#"+id).remove();
+					$("."+id).remove();
+				});
 			});
-		});
-		function add(){
-			var question= $('#question_new').val();
-			var answer1= $('#answer1_new').val();
-			var answer2= $('#answer2_new').val();
-			var answer3= $('#answer3_new').val();
-			var answer4= $('#answer4_new').val();
-			var qs1 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+question+"'/>";
-			var as1 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer1+"'/>";
-			var as2 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer2+"'/>";
-			var as3 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer3+"'/>";
-			var as4 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer4+"'/>";
+			function add(){
+				var question= $('#question_new').val();
+				var answer1= $('#answer1_new').val();
+				var answer2= $('#answer2_new').val();
+				var answer3= $('#answer3_new').val();
+				var answer4= $('#answer4_new').val();
+				var qs1 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+question+"'/>";
+				var as1 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer1+"'/>";
+				var as2 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer2+"'/>";
+				var as3 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer3+"'/>";
+				var as4 = "<input type='hidden' class="+dem+" name='list_question_new["+ dem +"][]' value='"+answer4+"'/>";
 
-			if(question != '' && answer1 != '' && answer2 != '' && answer3 != '' && answer4 != ''){
-				$("#question_added").after(qs1,as1,as2,as3,as4);
-				$('#question_added').append('<div id="'+dem+'">'+
-					'<div>'+
-					'<div class="row form-group">'+
-					'<label class="col-2" for="post">Question</label>'+
-					'<textarea class="form-control col-10" id="question">'+question+'</textarea>'+
-					'</div>'+
-					'<div class="row form-group">'+
-					'<label class="col-2" for="post">Answer 1</label>'+
-					'<textarea class="form-control col-10" id="answer1">'+answer1+'</textarea>'+
-					'</div>'+
-					'<div class="row form-group">'+
-					'<label class="col-2" for="post">Answer 2</label>'+
-					'<textarea class="form-control col-10" id="answer2">'+answer2+'</textarea>'+
-					'</div>'+
-					'<div class="row form-group">'+
-					'<label class="col-2" for="post">Answer 3</label>'+
-					'<textarea class="form-control col-10" id="answer3">'+answer3+'</textarea>'+
-					'</div>'+
-					'<div class="row form-group">'+
-					'<label class="col-2" for="post">Answer 4</label>'+
-					'<textarea class="form-control col-10" id="answer4">'+answer4+'</textarea>'+
-					'</div>'+
-					'</div>'+
-					'<div style="text-align: center;">'+
-					'<button type="button" class="btn btn-info btn-delete" style= "margin-right:5px;"id="'+dem+'">Delete'+
-					'</button>'+
-					'<button type="button" class="btn btn-secondary" id="btnCancel">Cancel'+
-					'</button>'+
-					'</div>'+
-					'</div>')
-			}else{
-				console.log('không có giá trị');
+				if(question != '' && answer1 != '' && answer2 != '' && answer3 != '' && answer4 != ''){
+					$("#question_added").after(qs1,as1,as2,as3,as4);
+					$('#question_added').append('<div id="'+dem+'">'+
+						'<div>'+
+						'<div class="row form-group">'+
+						'<label class="col-2" for="post">Question</label>'+
+						'<textarea class="form-control col-10" id="question">'+question+'</textarea>'+
+						'</div>'+
+						'<div class="row form-group">'+
+						'<label class="col-2" for="post">Answer 1</label>'+
+						'<textarea class="form-control col-10" id="answer1">'+answer1+'</textarea>'+
+						'</div>'+
+						'<div class="row form-group">'+
+						'<label class="col-2" for="post">Answer 2</label>'+
+						'<textarea class="form-control col-10" id="answer2">'+answer2+'</textarea>'+
+						'</div>'+
+						'<div class="row form-group">'+
+						'<label class="col-2" for="post">Answer 3</label>'+
+						'<textarea class="form-control col-10" id="answer3">'+answer3+'</textarea>'+
+						'</div>'+
+						'<div class="row form-group">'+
+						'<label class="col-2" for="post">Answer 4</label>'+
+						'<textarea class="form-control col-10" id="answer4">'+answer4+'</textarea>'+
+						'</div>'+
+						'</div>'+
+						'<div style="text-align: center;">'+
+						'<button type="button" class="btn btn-info btn-delete" style= "margin-right:5px;"id="'+dem+'">Delete'+
+						'</button>'+
+						'<button type="button" class="btn btn-secondary" id="btnCancel">Cancel'+
+						'</button>'+
+						'</div>'+
+						'</div>')
+				}else{
+					console.log('không có giá trị');
+				}
+				$('#question_new').val('');
+				$('#answer1_new').val('');
+				$('#answer2_new').val('');
+				$('#answer3_new').val('');
+				$('#answer4_new').val('');
+
+				dem=dem+1;
 			}
-			$('#question_new').val('');
-			$('#answer1_new').val('');
-			$('#answer2_new').val('');
-			$('#answer3_new').val('');
-			$('#answer4_new').val('');
-
-			dem=dem+1;
-		}
-	});
-</script>
-<script>
+		});
+	</script>
+	<script>
 	//upload va submit form
 	var button = document.getElementById("btnEdit");
 	button.onclick =  function(){

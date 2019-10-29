@@ -19,6 +19,7 @@ class CreateVideosTable extends Migration
             $table->bigInteger('story_id')->unsigned();
             $table->foreign('story_id')->references('id')->on('stories');
             $table->string('title',100)->nullable();
+            $table->tinyInteger('delete_flg')->default(0);
             $table->timestamps();
         });
     }

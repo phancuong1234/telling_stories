@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { LoginService } from './login.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -8,11 +10,19 @@ import { FormGroup } from '@angular/forms';
 	styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-	public onLoginForm: FormGroup;
+	public todo: FormGroup;
 
 	constructor(
 		private navCtrl: NavController,
-		){}
+		private loginService: LoginService,
+		private formBuilder: FormBuilder,
+		private router: Router
+		){
+		this.todo = this.formBuilder.group({
+			email: [''],
+			password: [''],
+		});
+	}
 
 	ngOnInit() {
 	}
@@ -20,21 +30,18 @@ export class LoginPage implements OnInit {
 		this.navCtrl.navigateRoot('/boot/register');
 	}
 	login() {
-		this.navCtrl.navigateForward('/app/home');
-		// this.loginService.login(this.formLogin.value).then(res => {
-			// 	if (res && res.code === 200) {
-				// 		this.router.navigate(['/'], {
-					// 			queryParams: {
-						// 				episode_translate_id: this.formLogin.value.episode_translate_id,
-						// 				novel_translate_id: this.formLogin.value.novel_translate_id
-						// 			}
-						// 		});
-						// 	} else {
-							// 		alert(res.error);
-							// 	}
-							// });
-						}
-  /*goToHome() {
-    this.navCtrl.navigateRoot('/home-results');
-}*/
+
+		this.loginService.login(this.todo.value).then(res => {
+			if (res && res.code === 200) {
+				this.router.navigate(['/app/home'], {
+					queryParams: {
+						email: this.todo.value.email,
+						password: this.todo.value.password
+					}
+				});
+			} else {
+				alert(res.error);
+			}
+		});
+	}
 }

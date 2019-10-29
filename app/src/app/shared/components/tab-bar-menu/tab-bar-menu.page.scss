@@ -1,0 +1,35 @@
+.active {
+	color: #fe70d2;
+	border-bottom: 3px solid #fe70d2;
+}
+
+ion-tabs {
+	ion-tab-bar {
+		padding: 0 15px;
+		justify-content: flex-start;
+		overflow-x: scroll;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+		&:host {
+			align-items: left;
+		}
+		ion-tab-button {
+			min-width: 25%;
+			--padding-start: 0;
+			--padding-end: 0;
+		}
+
+		ion-label {
+			font-size: 3.5vw;
+		}
+	}
+}
+.playlist-device{
+	ion-tabs {
+		ion-tab-bar {
+			padding: 0 15px;
+			justify-content: flex-start;
+		}
+	}
+}

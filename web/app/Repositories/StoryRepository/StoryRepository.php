@@ -41,6 +41,7 @@ class StoryRepository implements StoryRepositoryInterface
 			$story->description = $data['description'];
 			$story->list_question = json_encode($list_id_question);
 			$story->category_id = $data['category'];
+			$story->views = $data['views'];
 			$story->save();
 
 			//store table stories_age
@@ -179,7 +180,6 @@ class StoryRepository implements StoryRepositoryInterface
 	{
 		$dataStoryNew= Story::select('id', 'name', 'photo', 'description')
 		->orderBy('created_at', 'desc')
-		->take(10)
 		->get();
 		return $dataStoryNew;
 	}
@@ -187,39 +187,38 @@ class StoryRepository implements StoryRepositoryInterface
 	public function getStoryRecommend()
 	{
 		
-		$dataStoryRecommend= Story::select('id', 'name', 'photo', 'description')
-		->orderBy('created_at', 'desc')
-		->take(10)
+		$dataStoryRecommend= Story::join('favorites','favorites.story_id','=','stories.id')
+		->select('stories.id', 'name', 'photo', 'description', DB::raw('count(*) as count_favorite, favorites.story_id'))
+		->orderBy('count_favorite', 'desc')
+		->groupBy('favorites.story_id')
+		->groupBy('stories.id')
+		->groupBy('name')
+		->groupBy('photo')
+		->groupBy('description')
+		->take(3)
 		->get();
-		return $dataStoryNew;
+
+		return $dataStoryRecommend;
 	}
 
 	public function getStoryPopularity()
 	{
 		$dataStoryPopularity= Story::orderBy('views', 'desc')
-		->take(10)
 		->get();
 		return $dataStoryPopularity;
 	}
 
-	public function getStoryNewAll()
-	{
-		$dataStoryNewAll= Story::select('id', 'name', 'photo', 'description')
-		->orderBy('created_at', 'desc')
-		->get();
-		return $dataStoryNewAll;
-	}
-
-	public function getStoryPopularityAll()
-	{
-		$dataStoryPopularityAll= Story::orderBy('views', 'desc')
-		->get();
-		return $dataStoryPopularityAll;
-	}
 	public function getStoryDetail($id)
 	{
 		$dataStoryDetail= Story::where('id','=',$id)
 		->get();
 		return $dataStoryDetail;
+	}
+
+	public function getStoryByCategory($id)
+	{
+		$dataStoryByCategory= Story::where('category_id','=',$id)
+		->get();
+		return $dataStoryByCategory;
 	}
 }
