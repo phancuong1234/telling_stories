@@ -15,14 +15,14 @@
 					<div class="alert alert-danger">{{ $message }}</div>
 					@endforeach
 					@endif
-					<form action="{{ route('age.update',$record->id) }}" method="post" accept-charset="utf-8">
+					<form action="{{ route('age.update',$record->id) }}" method="post" accept-charset="utf-8" style="padding-right: 200px;padding-left: 200px;">
 						@csrf
 						<div class="form-group">
 							<label for="post">Age</label>
 							<input class="form-control" type="text" name="age" value="{{$record->age}}">
 						</div>
 						<div class="modal-footer">
-							<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
+							<a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
 							<button type="submit" class="btn btn-success" id="submit">Edit</button>
 
 						</div>

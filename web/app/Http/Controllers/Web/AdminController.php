@@ -10,9 +10,16 @@ use Carbon\Carbon;
 use DB;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use App\Services\LoginValidator;
+use App\Repositories\UserRepository\UserRepositoryInterface;
 
 class AdminController extends Controller
 {
+	protected $user;
+	public function __construct(UserRepositoryInterface $user)
+	{
+		$this->user = $user;
+	}
 	public function index()
 	{
 		return view('admin.dashboard');
@@ -31,10 +38,7 @@ class AdminController extends Controller
 
 	public function login(Request $request)
 	{
-		$validator = Validator::make($request->all(), [
-			'email' => 'required',
-			'password' => 'required',
-		]);
+		$validator = new LoginValidator($request->all());
 		$data = [
 			'email' => $request->email,
 			'password' => $request->password,
@@ -42,14 +46,14 @@ class AdminController extends Controller
 		$role= User::where('email','=',$request->email)->first();
 		if ($validator->fails()) {
 			return redirect()->back()
-			->withErrors($validator)
+			->withErrors($validator->messages())
 			->with([
 				'email' => $request->email,
 				'password' => $request->password
 			]);
 		}else{
-			if($role->role_id == ADMIN || $role->role_id == MOD){
-				if(Auth::attempt($data)){
+			if(Auth::attempt($data)){
+				if(($role->role_id == ADMIN || $role->role_id == MOD)){
 					$id= Auth::id();
 					$this->updateToken($id);
 					return redirect()->route('admin.index');

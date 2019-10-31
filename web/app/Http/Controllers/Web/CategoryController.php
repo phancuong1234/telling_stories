@@ -40,8 +40,14 @@ class CategoryController extends Controller
 
 	public function showEdit($id)
 	{
-		$categoryEdit= $this->category->getCategoryById($id);
-		return view('admin.category.edit',compact('categoryEdit'));
+		$checkId= $this->category->checkExists($id);
+		if($checkId){
+			$categoryEdit= $this->category->getCategoryById($id);
+			return view('admin.category.edit',compact('categoryEdit'));
+		}else{
+			abort(404);
+		}
+		
 	}
 	public function edit(Request $request, $id)
 	{
@@ -60,7 +66,7 @@ class CategoryController extends Controller
 
 	public function delete($id)
 	{
-	
+
 		try {
 			$this->category->deleteCategoryWithID($id);
 			return redirect('admin/category')->with(['success' => DELETE_SUCCESS]);

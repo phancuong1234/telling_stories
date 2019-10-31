@@ -33,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
 			$record->address = $data['address'];
 			$record->gender = $data['gender'];
 			$record->birthday = $data['birthday'];
-			$record->avatar = $data['avatar'];
+			//$record->avatar = $data['avatar'];
 			$record->role_id = $data['role_id'];
 			$record->save();
 			DB::commit();

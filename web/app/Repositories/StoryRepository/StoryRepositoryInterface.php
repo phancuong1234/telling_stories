@@ -8,6 +8,8 @@ interface StoryRepositoryInterface
 
 	public function insert(array $data);
 
+	public function checkExists($id);
+
 	public function getStoryById($id);
 	
 	public function updateStoryById($id, array $data);
@@ -25,4 +27,12 @@ interface StoryRepositoryInterface
 	public function getStoryDetail($id);
 
 	public function getStoryByCategory($id);
+
+	public function getStoryByAge($age_id);
+
+	public function getStoryDownload($id);
+
+	public function getStoryPopularityWeek();
+
+	public function getStoryPopularityMonth();
 }

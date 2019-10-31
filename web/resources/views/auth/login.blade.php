@@ -36,43 +36,42 @@
                 </div>
                 <div class="login-form">
                     @if (session('login_fail'))
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria_label="Close">
-                            <span aria_hidden= "true">&times;</span>
-                        </button>
-                        <strong>{{ session('login_fail') }}</strong>
+                    <div class="alert alert-warning">
+                        {{session('login_fail')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </div>
+                        @endif
+                        <form method="post" action="{{ route('action_login') }}">
+                            @csrf()
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" placeholder="Email" name='email' value="{{session('email') ?? ''}}">
+                                @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" placeholder="Password" name= 'password' value="{{session('password') ?? ''}}">
+                                @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
+                            </div>
+                            <button type="submit" class="btn btn-success">Sign in</button>
+                        </form>
                     </div>
-                    @endif
-                    <form method="post" action="{{ route('action_login') }}">
-                        @csrf()
-                        <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email" name='email' value="{{session('email') ?? ''}}">
-                            @if ($errors->has('email'))
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name= 'password' value="{{session('password') ?? ''}}">
-                            @if ($errors->has('password'))
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div>
-                        <button type="submit" class="btn btn-success">Sign in</button>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/js/main.js') }}"></script>
+        <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
+        <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/js/main.js') }}"></script>
 
 
-</body>
+    </body>
 
-</html>
+    </html>

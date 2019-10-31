@@ -13,11 +13,10 @@
 					<strong class="card-title">Create User</strong>
 				</div>
 				<div class="card-body">
-					@if($errors)
-					@foreach($errors->all() as $message)
-					<div class="alert alert-danger">{{ $message }}</div>
-					@endforeach
-					@endif
+					<div class="error">
+						
+					</div>
+					
 					<form id= "form_create" action="{{ route('user.create') }}" method="post" accept-charset="utf-8">
 						@csrf
 						<div class="row">
@@ -32,7 +31,7 @@
 							<div class="col-sm-9 ">
 								<div class="row form-group">
 									<label class="col-sm-2" for="post">Name</label>
-									<input class="form-control col-sm-8" type="text" name="name" value="" placeholder="Name">
+									<input class="form-control col-sm-8" type="text" name="name" value="" placeholder="Name" id= "name">
 								</div>
 								<div class="row form-group">
 									<label class="col-sm-2" for="post">Email</label>
@@ -114,24 +113,60 @@
 	});
 </script>
 
-
-
-
 <script>
 	var button = document.getElementById("btnSubmit");
 	button.onclick =  function(){
-		var $this = $(this);
-		loading($this);
+		var avatar1 = $("input[name=avatar]").val()
+		var name1 = $("input[name=name]").val()
+		var email1 = $("input[name=email]").val()
+		var password1 = $("input[name=password]").val()
+		var gender1 = $("input[name='gender']:checked").val()
+		var birthday1 = $("input[name=birthday]").val()
+		var address1 = $("input[name=address]").val()
+		var role1 = $("input[name='role']:checked").val()
+		$.ajax({
+			url: '{{ route('user.create') }}',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+
+				name: name1,
+				email: email1,
+				password: password1,
+				gender: gender1,
+				birthday: birthday1,
+				address: address1,
+				role: role1,
+				avatar: avatar1,
+				_token: '{{csrf_token()}}'
+			},
+		})
+		.done(function(result) {
+
+			$('.error').append('<div class="alert alert-danger">{{$errors}}</div>');
+			/*foreach($errors->all() as $message)
+			<div class="alert alert-danger"></div>
+			
+
+			/*var $this = $(this);
+			loading($this);*/
 
     //upload file
-    var files = document.getElementById("fileButton").files;
+   /* var files = document.getElementById("fileButton").files;
     for (var i = 0; i < files.length; i++) {
     	var file = document.getElementById("fileButton").files[i];
     }
     var folder= 'avatar';
     var img= document.getElementById('avatar');
     var form= document.getElementById("form_create");
-    upload(file, folder, img, form);
-};
+    upload(file, folder, img, form);*/
+})
+		.fail(function() {
+			alert("error");
+		})
+
+
+
+	};
 </script>
 @endsection

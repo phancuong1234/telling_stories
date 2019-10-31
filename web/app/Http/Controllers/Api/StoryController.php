@@ -139,4 +139,74 @@ class StoryController extends Controller
 			]);
 		}
 	}
+
+	//api get story by age
+	public function getStoryByAge(Request $request)
+	{
+		if($request->isMethod('get')){
+			$dataStoryByAge= $this->story->getStoryByAge($request->age_id);
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+				'data' => $dataStoryByAge,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code'  => CODE_ERROR_METHOD
+			]);
+		}
+	}
+
+
+	//api get story download
+	public function getStoryDownload(Request $request)
+	{
+		if($request->isMethod('get')){
+			$dataStoryDownload= $this->story->getStoryDownload($request->id);
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+				'data' => $dataStoryDownload,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code'  => CODE_ERROR_METHOD
+			]);
+		}
+	}
+
+	//api get story popularity by week
+	public function getStoryPopularityWeek(Request $request)
+	{
+		if($request->isMethod('get')){
+			$dataStoryPopularityWeek= $this->story->getStoryPopularityWeek();
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+				'data' => $dataStoryPopularityWeek,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code' => CODE_ERROR_METHOD
+			]);
+		}
+	}
+
+	//api get story popularity by month
+	public function getStoryPopularityMonth(Request $request)
+	{
+		if($request->isMethod('get')){
+			$dataStoryPopularityMonth= $this->story->getStoryPopularityMonth();
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+				'data' => $dataStoryPopularityMonth,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code' => CODE_ERROR_METHOD
+			]);
+		}
+	}
+
 }
