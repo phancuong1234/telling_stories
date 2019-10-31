@@ -23,6 +23,7 @@ Route::namespace('Web')->group(function () {
 			Route::get('/', 'UserController@index')->name('user.index');
 			Route::post('/change_state/{id}', 'UserController@changeState')->name('user.state');
 			Route::get('/create', 'UserController@create')->name('user.create');
+			Route::post('/avatar', 'UserController@upAvatar')->name('user.avatar');
 			Route::post('/create', 'UserController@store')->name('user.store');
 			Route::post('/create_avatar', 'UserController@update_avatar')->name('avatar.update');
 			Route::get('/detail/{id}', 'UserController@detail')->name('user.detail');

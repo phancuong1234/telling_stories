@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository\UserRepositoryInterface;
+use App\Services\UserValidator;
 
 class UserController extends Controller
 {
@@ -27,14 +28,17 @@ class UserController extends Controller
 	{
 		return view('admin.user.create');
 	}
+	public function upAvatar(Request $request)
+	{
+		
+	}
 	public function store(Request $request)
 	{
+
 		$validator = new UserValidator($request->all());
 		if ($validator->fails())
 		{
-			return redirect()->back()
-			->withInput()
-			->withErrors($validator->messages());
+			return response()->json(['errors' => 'lỗi']);
 		}
 		$check= $this->user->checkExistEmail($request->email);
 		$data= [
@@ -44,15 +48,16 @@ class UserController extends Controller
 			'address' => $request->address,
 			'gender' =>$request->gender,
 			'birthday' => $request->birthday,
-			'avatar' => $request->avatar,
 			'role_id' => $request->role
 		];
 		
 		if($check){
 			$this->user->insert($data);
-			return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
+			return response()->json(['success' => CREATE_SUCCESS]);
+			//return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
 		}else{
-			return redirect('admin/user')->with(['error' => ERROR_CREATE_USER]);
+			return response()->json(['error' => ERROR_CREATE_USER]);
+			//return redirect('admin/user')->with(['error' => ERROR_CREATE_USER]);
 		}
 		
 		

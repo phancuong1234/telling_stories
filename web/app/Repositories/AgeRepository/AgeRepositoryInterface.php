@@ -13,4 +13,6 @@ interface AgeRepositoryInterface
     public function updateAgeById($id,$data);
     
     public function deleteAgeWithID($id);
+
+    public function checkExists($id);
 }

@@ -5,6 +5,11 @@ use App\Model\Story;
 use App\Model\Question;
 use App\Model\StoryAge;
 use App\Model\Video;
+use App\Model\History;
+use App\Model\Download;
+use App\Model\Favorite;
+use App\Model\Comment;
+use App\Model\VideoUser;
 use App\Repositories\StoryRepository\StoryRepositoryInterface;
 use DB;
 class StoryRepository implements StoryRepositoryInterface
@@ -170,16 +175,21 @@ class StoryRepository implements StoryRepositoryInterface
 		}
 	}
 
-
+//api
 	public function getTopSlide()
 	{
-		$topSlide= Story::select('id','photo','name','views')->orderBy('views','desc')->take(5)->get();
+		$topSlide= Story::select('id','photo','name','views')
+		->orderBy('views','desc')
+		->where('delete_flg',DELETE_FALSE)
+		->take(5)
+		->get();
 		return $topSlide;
 	}
 	public function getStoryNew()
 	{
 		$dataStoryNew= Story::select('id', 'name', 'photo', 'description')
-		->orderBy('created_at', 'desc')
+		->where('delete_flg',DELETE_FALSE)
+		->orderBy('created_at', 'ASC')
 		->get();
 		return $dataStoryNew;
 	}
@@ -189,6 +199,8 @@ class StoryRepository implements StoryRepositoryInterface
 		
 		$dataStoryRecommend= Story::join('favorites','favorites.story_id','=','stories.id')
 		->select('stories.id', 'name', 'photo', 'description', DB::raw('count(*) as count_favorite, favorites.story_id'))
+		->where('stories.delete_flg',DELETE_FALSE)
+		->where('favorites.delete_flg',DELETE_FALSE)
 		->orderBy('count_favorite', 'desc')
 		->groupBy('favorites.story_id')
 		->groupBy('stories.id')
@@ -204,21 +216,117 @@ class StoryRepository implements StoryRepositoryInterface
 	public function getStoryPopularity()
 	{
 		$dataStoryPopularity= Story::orderBy('views', 'desc')
+		->where('delete_flg',DELETE_FALSE)
 		->get();
 		return $dataStoryPopularity;
 	}
 
 	public function getStoryDetail($id)
 	{
-		$dataStoryDetail= Story::where('id','=',$id)
-		->get();
+		$dataStoryDetail= [];
+
+		//get info story
+		$dataStory= Story::where('stories.id','=',$id)
+		->where('stories.delete_flg',DELETE_FALSE)
+		->first();
+
+		$dataStoryDetail['id']= $dataStory->id;
+		$dataStoryDetail['name']= $dataStory->name;
+		$dataStoryDetail['photo']= $dataStory->photo;
+		$dataStoryDetail['description']= $dataStory->description;
+		$dataStoryDetail['views']= $dataStory->views;
+		$dataStoryDetail['created_at']= $dataStory->created_at;
+
+		//get comment
+		$comment= Comment::where('story_id',$id)
+		->where('delete_flg',DELETE_FALSE)
+		->get()->toArray();
+
+		$dataStoryDetail['comment']= $comment;
+		//get favorite
+		$favorite= Favorite::join('stories','stories.id','favorites.story_id')
+		->join('users','users.id','favorites.user_id')
+		->select(DB::raw('count(*) as favorite'))
+		->where('story_id',$id)
+		->where('stories.delete_flg',DELETE_FALSE)
+		->where('favorites.delete_flg',DELETE_FALSE)
+		->where('users.delete_flg',DELETE_FALSE)
+		->groupBy('favorites.story_id')
+		->get()->toArray();
+
+		$dataStoryDetail['favorite']= $favorite;
+
+		$videoUser= VideoUser::join('stories','stories.id','videos_user.story_id')
+		->join('users','users.id','videos_user.user_id')
+		->select('videos_user.id as videos_user_id','videos_user.path','videos_user.views','users.name as user','videos_user.point','videos_user.created_at as created_at_video')
+		->where('stories.delete_flg',DELETE_FALSE)
+		->where('users.delete_flg',DELETE_FALSE)
+		->where('users.state',STATE_ACTIVE)
+		->where('videos_user.delete_flg',DELETE_FALSE)
+		->where('videos_user.display_flg',DISPLAY)
+		->get()->toArray();
+
+		$dataStoryDetail['videoUser']= $videoUser;
+
 		return $dataStoryDetail;
 	}
 
 	public function getStoryByCategory($id)
 	{
 		$dataStoryByCategory= Story::where('category_id','=',$id)
+		->where('delete_flg',DELETE_FALSE)
 		->get();
 		return $dataStoryByCategory;
 	}
+
+	public function getStoryByAge($age_id)
+	{
+		$dataStoryByAge= StoryAge::join('stories','stories.id','stories_age.story_id')
+		->select('stories.id','stories.photo','stories.name','stories.description','stories.created_at')
+		->where('age_id',$age_id)
+		->where('stories_age.delete_flg', DELETE_FALSE)
+		->where('stories.delete_flg', DELETE_FALSE)
+		->orderBy('stories.created_at', 'ASC')
+		->get();
+
+
+		return $dataStoryByAge;
+	}
+
+	public function getStoryDownload($id)
+	{
+		$dataStoryDownload= Download::join('videos','videos.id','=','downloads.video_id')
+		->join('stories','videos.story_id','=','stories.id')
+		->select('stories.id','stories.photo','stories.name','stories.description','videos.path')
+		->where('user_id',$id)
+		->where('downloads.delete_flg', DELETE_FALSE)
+		->where('stories.delete_flg', DELETE_FALSE)
+		->where('videos.delete_flg', DELETE_FALSE)
+		->get();
+		
+		return $dataStoryDownload;
+	}
+
+	public function getStoryPopularityWeek()
+	{
+		$dataStoryPopularityWeek = Story::orderBy('views', 'desc')
+		->where('delete_flg',DELETE_FALSE)
+		->where('created_at', '>', now()->subWeek(0)->startOfWeek())
+		->where('created_at', '<', now()->subWeek(0)->endOfWeek())
+		->get()->toArray();
+
+		return $dataStoryPopularityWeek;
+	}
+
+	public function getStoryPopularityMonth()
+	{
+		$dataStoryPopularityMonth = Story::orderBy('views', 'desc')
+		->where('delete_flg',DELETE_FALSE)
+		->where('created_at', '>', now()->subMonth(0)->startOfMonth())
+		->where('created_at', '<', now()->subMonth(0)->endOfMonth())
+		->get()->toArray();
+
+		return $dataStoryPopularityMonth;
+	}
+
 }

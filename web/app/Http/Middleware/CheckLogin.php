@@ -18,6 +18,12 @@ class CheckLogin
     {
         if (Auth::check()) {
             if (Auth::user()->remember_token == session()->getId()) {
+                if(Auth::user()->state == STATE_BLOCK){
+                    Auth::logout();
+                    return redirect()->route('show_login')->with([
+                        'login_fail' => ACCOUNT_BLOCKED
+                    ]);
+                }
                 return $next($request);
             } else {
                 Auth::logout();

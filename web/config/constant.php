@@ -4,7 +4,7 @@ if ( ! defined( 'LOGIN_ANOTHER_DEVICE')) {
 }
 
 if ( ! defined( 'LOGIN_FAIL')) {
-    define('LOGIN_FAIL', 'Sai email hoặc password');
+    define('LOGIN_FAIL', 'Email or password invalid');
 }
 
 if ( ! defined( 'ADMIN')) {
@@ -31,6 +31,10 @@ if ( ! defined( 'UPDATE_SUCCESS')) {
 if ( ! defined( 'MESSAGE_ERROR_METHOD')) {
     define('MESSAGE_ERROR_METHOD', 'Method không cho phép');
 }
+if ( ! defined( 'ACCOUNT_BLOCKED')) {
+    define('ACCOUNT_BLOCKED', 'Account blocked');
+}
+
 /*table user*/
 if ( ! defined( 'ERROR_CREATE_USER')) {
     define('ERROR_CREATE_USER', 'email existed');
@@ -43,6 +47,13 @@ if ( ! defined( 'STATE_BLOCK')) {
 }
 if ( ! defined( 'CHANGE_STATE_SUCCESS')) {
     define('CHANGE_STATE_SUCCESS', 'CHANGED STATE');
+}
+//table videos_user
+if ( ! defined( 'DISPLAY')) {
+    define('DISPLAY', 0);
+}
+if ( ! defined( 'NOT_DISPLAY')) {
+    define('NOT_DISPLAY', 1);
 }
 
 //DELETE_FALSE

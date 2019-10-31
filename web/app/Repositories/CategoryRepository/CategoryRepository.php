@@ -8,7 +8,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
 	public function getAll()
 	{
-		$category= Category::all();
+		$category= Category::where('delete_flg',DELETE_FALSE)->get();
 		return $category;
 	}
 	public function create($data)
@@ -27,14 +27,17 @@ class CategoryRepository implements CategoryRepositoryInterface
 	}
 	public function getCategoryById($id)
 	{
-		$record= Category::where('id','=',$id)->first();
+		$record= Category::where('id',$id)
+		->where('delete_flg',DELETE_FALSE)
+		->first();
 		return $record;
 	}
 	public function updateCategoryById($id,$data)
 	{
 		DB::beginTransaction();
 		try {
-			$record= Category::find($id);
+			$record= Category::where('delete_flg',DELETE_FALSE)
+			->where('id',$id)->first();
 			$record->name = $data['name'];
 			$record->save();
 			DB::commit();
@@ -46,11 +49,17 @@ class CategoryRepository implements CategoryRepositoryInterface
 	}
 	public function deleteCategoryWithID($id)
 	{
-		$result = Category::find($id);
-		if ($result) {
-			$result->delete();
+		return Category::where('id',$id)->update(['delete_flg' => DELETE_TRUE]);
+	}
+	public function checkExists($id)
+	{
+		$user= Category::where('delete_flg',DELETE_FALSE)
+		->where('id',$id)
+		->first();
+		if($user){
 			return true;
+		}else{
+			return false;
 		}
-		return false;
 	}
 }

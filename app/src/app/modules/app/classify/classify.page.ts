@@ -39,8 +39,7 @@ export class ClassifyPage implements OnInit {
 		) { }
 
 	ngOnInit() {
-		this.listAge = [];
-		this.getListStoryFromAPI(0);
+		//this.listAge = [];
 	}
 
 	async ionViewDidEnter() {
@@ -101,10 +100,6 @@ export class ClassifyPage implements OnInit {
 			this.listCategoryId.push(g.id)
 
 			);
-		//alert('kk');
-		//alert(this.categoryId.length);
-		//this.listCategory = categoryRes.data;
-		
 		if(tmp === 0){
 			this.tabId = 1;
 		}
@@ -115,8 +110,7 @@ export class ClassifyPage implements OnInit {
 		if(tmp > 1){
 			this.tabId = 3;
 			for (var i = 0; i < this.listCategoryId.length; ++i) {
-				this.categoryId= this.listCategoryId[i];
-				break;
+				this.categoryId= this.listCategoryId[tmp-2];
 			}
 		}
 
