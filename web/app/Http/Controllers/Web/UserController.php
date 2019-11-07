@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository\UserRepositoryInterface;
 use App\Services\UserValidator;
+use App\Services\UserValidatorEdit;
 
 class UserController extends Controller
 {
@@ -28,19 +29,22 @@ class UserController extends Controller
 	{
 		return view('admin.user.create');
 	}
-	public function upAvatar(Request $request)
+	public function validateData(Request $request)
 	{
-		
+		$validator = new UserValidator($request->all());
+		$check= $this->user->checkExistEmail($request->email);
+		if ($validator->fails())
+		{
+			return response()->json('errorVal');
+		}else if($check){
+			return response()->json('existEmail');
+		}else{
+			return response()->json('success');
+		}
 	}
 	public function store(Request $request)
 	{
 
-		$validator = new UserValidator($request->all());
-		if ($validator->fails())
-		{
-			return response()->json(['errors' => 'lỗi']);
-		}
-		$check= $this->user->checkExistEmail($request->email);
 		$data= [
 			'name' => $request->name,
 			'email' => $request->email,
@@ -48,29 +52,34 @@ class UserController extends Controller
 			'address' => $request->address,
 			'gender' =>$request->gender,
 			'birthday' => $request->birthday,
-			'role_id' => $request->role
+			'role_id' => $request->role,
+			'avatar' => $request->avatar,
 		];
 		
-		if($check){
-			$this->user->insert($data);
-			return response()->json(['success' => CREATE_SUCCESS]);
-			//return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
-		}else{
-			return response()->json(['error' => ERROR_CREATE_USER]);
-			//return redirect('admin/user')->with(['error' => ERROR_CREATE_USER]);
-		}
-		
-		
+		$this->user->insert($data);
+		return redirect('admin/user')->with(['success' => CREATE_SUCCESS]);
 	}
 	public function detail($id)
 	{
 		$record= $this->user->getUserById($id);
 		return view('admin.user.detail',compact('record'));
 	}
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
 		$record= $this->user->getUserById($id);
-		return view('admin.user.edit',compact('record'));
+		return view('admin.user.edit')->with('record',$record);
+	}
+	public function validateDataEdit(Request $request)
+	{
+		$validator = new UserValidatorEdit($request->all());
+		if ($validator->fails())
+		{
+			return response()->json('errorVal');
+		}else if($check){
+			return response()->json('existEmail');
+		}else{
+			return response()->json('success');
+		}
 	}
 	public function update(Request $request, $id)
 	{
@@ -84,7 +93,7 @@ class UserController extends Controller
 			'role_id' => $request->role
 		];
 		$this->user->updateUserById($id,$data);
-		return redirect('admin/user')->with(['success' => UPDATE_SUCCESS]);;
+		return redirect('admin/user')->with(['success' => UPDATE_SUCCESS]);
 	}
 	public function destroy($id)
 	{

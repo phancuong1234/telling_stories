@@ -30,6 +30,8 @@
     <link href="{{ asset('/font-awesome/js/solid.js') }}" rel="stylesheet">
     <!-- <link href="{{ asset('/font-awesome/js/brands.js') }}" rel="stylesheet"> -->
 
+    <!-- chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" charset="utf-8"></script>
     @yield('css')
 </head>
 
@@ -109,66 +111,49 @@
                                 </a>
                             </div>
                         </div>
-
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                            id="message"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ti-email"></i>
-                            <span class="count bg-primary">9</span>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="message">
-                            <p class="red">You have 4 Mails</p>
-                            <a class="dropdown-item media bg-flat-color-1" href="#">
-                                <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
-                                <span class="message media-body">
-                                    <span class="name float-left">Jonathan Smith</span>
-                                    <span class="time float-right">Just now</span>
-                                    <p>Hello, this is an example msg</p>
-                                </span>
-                            </a>
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-5">
-                <div class="user-area dropdown float-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{Auth::user()->name}}
-                        <img class="user-avatar rounded-circle" src="{{ asset('/images/admin.jpg') }}" alt="User Avatar">
-                    </a>
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <div class="row">
+                          <div class="col" style="margin-top: auto;padding-right: 0px;font-weight: 500;">
+                               {{Auth::user()->name}}
+                          </div>
+                           <div class="col" style="padding-left: 5px;">
+                               <img class="user-avatar rounded-circle" src="{{ asset('/images/admin.jpg') }}" alt="User Avatar">
+                           </div>
+                       </div>
+                       
+                       
+                   </a>
 
-                    <div class="user-menu dropdown-menu">
-                        <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
-
-                        <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
-
-                        <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
-
-                        <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </header><!-- /header -->
-    <!-- Header-->
-
-    <div class="breadcrumbs">
-        <div class="col-sm-4">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
+                   <div class="user-menu dropdown-menu">
+                    <a class="nav-link" href="{{ route('profile') }}"><i class="fa fa-user"></i> My Profile</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="content mt-3">
+</header><!-- /header -->
+<!-- Header-->
 
-        @yield('content')
-    </div> <!-- .content -->
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+
+    @yield('content')
+</div> <!-- .content -->
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->

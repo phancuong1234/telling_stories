@@ -13,10 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->bind(
-        //     'App\Repositories\CategoryRepository\CategoryRepositoryInterface',
-        //     'App\Repositories\CategoryRepository\CategoryRepository'
-        // );
 
         $repositories = [
             'App\Repositories\CategoryRepository\CategoryRepositoryInterface' => 'App\Repositories\CategoryRepository\CategoryRepository',
@@ -32,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
              'App\Repositories\VideoUserRepository\VideoUserRepositoryInterface' => 'App\Repositories\VideoUserRepository\VideoUserRepository',
               'App\Repositories\ResultTestRepository\ResultTestRepositoryInterface' => 'App\Repositories\ResultTestRepository\ResultTestRepository',
               'App\Repositories\CommentRepository\CommentRepositoryInterface' => 'App\Repositories\CommentRepository\CommentRepository',
+              'App\Repositories\ChartRepository\ChartRepositoryInterface' => 'App\Repositories\ChartRepository\ChartRepository',
         ];
         foreach ($repositories as $key => $val){
             $this->app->bind($key, $val);

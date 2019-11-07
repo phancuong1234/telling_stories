@@ -24,7 +24,7 @@ interface StoryRepositoryInterface
 
 	public function getStoryPopularity();
 	
-	public function getStoryDetail($id);
+	public function getStoryDetail($id, $user_id);
 
 	public function getStoryByCategory($id);
 

@@ -1,11 +1,15 @@
-<app-header [title]="'Phân loại'" [isBackButton]="false"></app-header>
+<ion-header>
+	<ion-toolbar>
+		<ion-title text-center>Phân loại</ion-title>
+	</ion-toolbar>
+</ion-header>
 
 <ion-content>
-	<app-tab-bar-menu [listMenu]="listMenu2" [tabSelected]="tabSelected" (onSelected)="onSelectTab($event)">
+	<app-tab-bar-menu [listMenu]="listMenu" [tabSelected]="tabSelected" (onSelected)="onSelectTab($event)">
 	</app-tab-bar-menu>
 
 	<ion-slides pager="true" [options]="slideOpts" #slides (ionSlideDidChange)="ionSlideDidChange($event)">
-		<ion-slide *ngFor="let menu of listMenu2">
+		<ion-slide *ngFor="let menu of listMenu">
 			<ion-grid *ngIf="!emptyData">
 				<ion-row *ngFor="let item of storyList;let i = index">
 					<ion-col size="4">

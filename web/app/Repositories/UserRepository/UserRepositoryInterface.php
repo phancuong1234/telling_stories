@@ -11,4 +11,9 @@ interface UserRepositoryInterface
 	public function getUserById($id);
 	public function updateUserById($id, array $data);
     public function deleteUserWithID($id);
+
+    public function updateToken($id,$token);
+
+
+
 }

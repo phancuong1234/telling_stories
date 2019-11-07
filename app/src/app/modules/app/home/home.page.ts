@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { HomeService } from './home.service';
 import { LoadingController } from '@ionic/angular';
-//import { AppTabBarService } from 'src/app/core/services/app-tab-bar.service';
 
 @Component({
 	selector: 'app-home',
@@ -33,11 +32,9 @@ export class HomePage implements OnInit {
 	constructor(
 		private homeService: HomeService,
 		private loadingController: LoadingController,
-		//private appTabBarService: AppTabBarService
 		) {}
 
 	ngOnInit() {
-		//this.appTabBarService.setStatus(true);
 	}
 	// get event slide channge
 	SlideDidChange(event) {
@@ -53,17 +50,17 @@ export class HomePage implements OnInit {
 	}
 
 	async ionViewWillEnter() {
-		//this.appTabBarService.setStatus(true);
 		const token= localStorage.getItem('token');
+		
 		this.showLoader();
-		const topSlide = await this.homeService.getListTopSlide();
+		const topSlide = await this.homeService.getListTopSlide(token);
 		if (topSlide) {
 			this.listTopSlide = topSlide.data;
 			if (topSlide.data.length === 0) {
 				this.emptyDatalistTopSlide = true;
 			}
 		}
-		const storyNew = await this.homeService.getListStoryNew();
+		/*const storyNew = await this.homeService.getListStoryNew();
 		if (storyNew) {
 			this.listStoryNew = storyNew.data;
 			if (storyNew.data.length === 0) {
@@ -85,15 +82,13 @@ export class HomePage implements OnInit {
 			if (storyPopularity.data.length === 0) {
 				this.emptyDatalistStoryPopularity = true;
 			}
-		}
+		}*/
 		this.hideLoader();
 		this.slides.startAutoplay();
-		//this.appTabBarService.setStatus(false);
 	}
 
-	async doRefresh(event) {
+	/*async doRefresh(event) {
 
-		//this.appTabBarService.setStatus(true);
 		setTimeout(() => {
 			event.target.complete();
 		}, 1000);
@@ -127,13 +122,16 @@ export class HomePage implements OnInit {
 				this.emptyDatalistStoryPopularity = true;
 			}
 		}
-		//this.appTabBarService.setStatus(false);
-	}
+		
+	}*/
 
 
 	showLoader() {
-		this.loaderToShow = this.loadingController.create({}).then((res) => {
-			res.present();
+		this.loaderToShow = this.loadingController.create({
+			spinner: 'lines',
+			duration: 3000
+		}).then((loading) => {
+			loading.present();
 		});
 	}
 	hideLoader() {

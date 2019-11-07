@@ -5,6 +5,7 @@ const routes: Routes = [
 { path: '', redirectTo: 'boot/login', pathMatch: 'full' },
 { path: 'app', loadChildren: './modules/app/app.module#AppPageModule' },
 { path: 'boot', loadChildren: './modules/boot/boot.module#BootPageModule' },
+  { path: 'detail', loadChildren: './modules/app/story/detail/detail.module#DetailPageModule' },
 // { path: 'login', loadChildren: './modules/boot/login/login.module#LoginPageModule' },
 // { path: 'register', loadChildren: './modules/boot/register/register.module#RegisterPageModule' },
 // { path: 'home', loadChildren: './modules/app/home/home.module#HomePageModule' },
@@ -14,9 +15,9 @@ const routes: Routes = [
 // { path: 'mypage', loadChildren: './modules/app/mypage/mypage.module#MypagePageModule' }
 ];
 @NgModule({
-  imports: [
-  RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+	imports: [
+	RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+	],
+	exports: [RouterModule]
 })
 export class AppRoutingModule {}

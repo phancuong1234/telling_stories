@@ -1,33 +1,80 @@
-ion-slide {
-  width: 100% !important;
-  .image-slide {
-    width: 100%;
-    outline: none;
-    height: 55.533vw;
+ion-slides {
+  .header-button__search {
+    position: absolute;
+    right: 0;
+
+    .button-search {
+      .icon-search {
+        padding: 2px 7px;
+        width: 100%;
+      }
+
+    }
+
   }
+
+  ion-slide {
+    width: 100% !important;
+
+    .image-slide {
+      width: 100%;
+      outline: none;
+      height: 190px;
+    }
+
+  }
+
 }
-.row-product-wrapper {
+
+.ranking {
+  margin-top: 20px;
+
+  ion-label {
+    font-size: 12px;
+  }
+
+  .icon {
+    margin-bottom: 5px;
+
+    ion-img {
+      height: 30px;
+      width: 30px;
+      margin-left: 25px;
+    }
+
+  }
+
+  .text {
+  }
+
+  div {
+    width: 150px;
+    padding-bottom: 5px;
+  }
+
+}
+
+.story-new {
   margin: 10px 0 10px 10px;
 
-  .product-wrapper {
-    margin-top: 5px;
+  .list-story-new {
+    margin-top: 10px;
     display: flex;
     overflow-x: auto;
     width: 100%;
-    .row-product {
-      margin-right: 10px;
-      outline: none;
 
-      .image-row-product {
-        outline: none;
-        width: 35.667vw;
-        height: 19.733vw;
+    .col-new {
+      margin-right: 10px;
+      width: 117px;
+
+      .thumbnail-story {
+        width: 117px;
+        height: 65px;
       }
 
-      .title-row-product {
-        font-size: 3.2vw;
+      .title {
+        font-size: 11px;
         margin: 10px 0;
-        /* autoprefixer: ignore next */
         -webkit-box-orient: vertical;
         visibility: visible;
         display: -webkit-box;
@@ -37,68 +84,10 @@ ion-slide {
         word-break: break-word;
       }
 
-      .description-row-product {
-        font-size: 2.667vw;
-        /* autoprefixer: ignore next */
-        -webkit-box-orient: vertical;
-        visibility: visible;
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        word-break: break-word;
-      }
-    }
-
-    .row-product:last-child {
-      .image-row-product {
-        margin-right: 10px;
-      }
-
-      .title-row-product {
-        margin-right: 10px;
-      }
-
-      .description-row-product {
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.col-product-wrapper {
-  margin: 10px;
-
-  .col-product {
-    display: flex;
-    outline: none;
-
-    .image-col-product {
-      width: 30vw;
-      height: 14.133vw;
-      margin-right: 10px;
-      outline: none;
-    }
-
-    .content {
-      width: 75.667vw;
-
-      .title-col-product {
-        font-size: 3.2vw;
+      .description {
+        font-size: 10px;
         margin-bottom: 6px;
-        /* autoprefixer: ignore next */
-        -webkit-box-orient: vertical;
-        visibility: visible;
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
-        word-break: break-word;
-      }
-
-      .description-col-product {
-        font-size: 2.667vw;
-        /* autoprefixer: ignore next */
+        margin-top: 6px;
         -webkit-box-orient: vertical;
         visibility: visible;
         display: -webkit-box;
@@ -107,32 +96,88 @@ ion-slide {
         -webkit-line-clamp: 2;
         word-break: break-word;
       }
+
     }
+
+    .col-new:last-child {
+      .thumbnail-story {
+        margin-right: 10px;
+      }
+
+      .title {
+        margin-right: 10px;
+      }
+
+      .description {
+        margin-right: 10px;
+      }
+
+    }
+
   }
+
 }
 
-.row-product-wrapper2 {
+.story-recommend {
+  margin-top: 10px;
+
+  .tex {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .list-story {
+    .title {
+      font-size: 11px;
+      margin-bottom: 6px;
+      margin-top: 6px;
+      -webkit-box-orient: vertical;
+      visibility: visible;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      word-break: break-word;
+    }
+
+    .description {
+      font-size: 10px;
+      margin-bottom: 6px;
+      margin-top: 6px;
+      -webkit-box-orient: vertical;
+      visibility: visible;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      word-break: break-word;
+    }
+
+  }
+
+}
+
+.story-popularity {
   margin: 10px 0 10px 10px;
 
-  .product-wrapper-2 {
-    margin-top: 5px;
+  .list-story-popularity {
+    margin-top: 10px;
     display: flex;
     overflow-x: auto;
 
-    .row-product-2 {
+    .col-popularity {
       margin-right: 10px;
-      outline: none;
+      width: 117px;
 
-      .image-row-product-2 {
-        outline: none;
-        width: 35.667vw;
-        height: 19.733vw;
+      .thumbnail-story {
+        width: 117px;
+        height: 65px;
       }
 
-      .title-row-product-2 {
-        font-size: 3.2vw;
-        margin: 10px 0;
-        /* autoprefixer: ignore next */
+      .title {
+        font-size: 11px;
+        margin-bottom: 6px;
+        margin-top: 6px;
         -webkit-box-orient: vertical;
         visibility: visible;
         display: -webkit-box;
@@ -142,9 +187,10 @@ ion-slide {
         word-break: break-word;
       }
 
-      .description-row-product-2 {
-        font-size: 2.667vw;
-        /* autoprefixer: ignore next */
+      .description {
+        font-size: 10px;
+        margin-bottom: 6px;
+        margin-top: 6px;
         -webkit-box-orient: vertical;
         visibility: visible;
         display: -webkit-box;
@@ -153,22 +199,63 @@ ion-slide {
         -webkit-line-clamp: 2;
         word-break: break-word;
       }
+
     }
 
-    .row-product-2:last-child {
-      .image-row-product-2 {
+    .col-popularity:last-child {
+      .thumbnail-story {
         margin-right: 10px;
       }
 
-      .title-row-product-2 {
+      .title {
         margin-right: 10px;
       }
 
-      .description-row-product-2 {
+      .description {
         margin-right: 10px;
       }
+
     }
+
   }
+
+}
+
+.user {
+  margin-bottom: 10px;
+  margin-left: 10px;
+
+  .list-user {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 20px;
+
+    .col-user {
+      margin-right: 10px;
+
+      ion-avatar {
+        width: 55px;
+        height: 55px;
+      }
+
+    }
+
+    .col-user:last-child {
+      margin-right: 10px;
+    }
+
+  }
+
+}
+
+.see-all {
+  text-align: center;
+  margin-bottom: 20px;
+
+  ion-button {
+    border-radius: 20px;
+  }
+
 }
 
 .line-area-col-product {
@@ -176,24 +263,18 @@ ion-slide {
   margin: 10px 0;
 }
 
-.line-area {
-  border: 3px solid #f4f4f4;
-}
-
+/*.line-area {
+border: 1px solid #f4f4f4;
+}*/
 .category {
   font-weight: bold;
   margin-top: 10px;
-  font-size: 4.267vw;
+  font-size: 15px;
   color: #3c0d2d;
 }
- .header-button__search {
-    position: absolute;
-    right: 0;
-  }
 
-.icon-search {
-  width: 50%;
-}
-.button-search {
-  margin: 0;
+.more {
+  font-size: 11px;
+  color: #3c0d2dd1;
+  right: 0px;
 }

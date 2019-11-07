@@ -31,4 +31,20 @@ class FavoriteController extends Controller
 			]);
 		}
 	}
+
+	//api add favorite
+	public function addFavorite(Request $request)
+	{
+		if($request->isMethod('post')){
+			$this->favorite->addFavorite($request->story_id, $request->state, $request->user_id);
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+			]);
+		}else{
+			return response()->json([
+				'error' => MESSAGE_ERROR_METHOD,
+				'code'  => CODE_ERROR_METHOD
+			]);
+		}
+	}
 }

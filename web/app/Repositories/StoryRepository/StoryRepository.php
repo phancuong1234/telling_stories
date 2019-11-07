@@ -221,7 +221,7 @@ class StoryRepository implements StoryRepositoryInterface
 		return $dataStoryPopularity;
 	}
 
-	public function getStoryDetail($id)
+	public function getStoryDetail($id,$user_id)
 	{
 		$dataStoryDetail= [];
 
@@ -265,6 +265,15 @@ class StoryRepository implements StoryRepositoryInterface
 		->where('videos_user.delete_flg',DELETE_FALSE)
 		->where('videos_user.display_flg',DISPLAY)
 		->get()->toArray();
+
+		$checkFavorite= Favorite::where('user_id',$user_id)
+		->where('story_id',$id)->first();
+		if(isset($checkFavorite) && $checkFavorite->delete_flg == 0){
+			$dataStoryDetail['is_favorite']= 0;
+		}else{
+			$dataStoryDetail['is_favorite']= 1;
+		}
+
 
 		$dataStoryDetail['videoUser']= $videoUser;
 

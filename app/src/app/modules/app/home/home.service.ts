@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient  } from '@angular/common/http';
 import { HttpService } from './../../../core/services/http.service';
-import { HttpRequestOpts } from './../../../core/services/http-request-opts';
-import { environment } from './../../../../environments/environment';
 
 
 
@@ -13,36 +12,20 @@ import { environment } from './../../../../environments/environment';
 export class HomeService {
 
 	constructor(
+		private http: HttpClient,
 		private httpService: HttpService
 		) { }
 
-	async getListTopSlide(): Promise<any> {
-		const config: HttpRequestOpts = {
-			url: 'http://telling_stories.test/api/story/top_slide',
-		};
-		return this.httpService.send('GET', config);
+	async getListTopSlide(token: any): Promise<any> {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'token': token
+			})
+		}; 
+		return this.http.get('http://telling_stories.test/api/story/top_slide',httpOptions)
+		.toPromise()
+		.then(res => console.log(res))
+		.catch(error => console.log('loi'));
 	}
 
-	async getListStoryNew(): Promise<any> {
-		const config: HttpRequestOpts = {
-			url: 'http://telling_stories.test/api/story/new',
-		};
-		return this.httpService.send('GET', config);
-	}
-
-
-	async getListStoryRecommend(): Promise<any> {
-		const config: HttpRequestOpts = {
-			url: 'http://telling_stories.test/api/story/recommend',
-		};
-		return this.httpService.send('GET', config);
-	}
-
-
-	async getListStoryPopularity(): Promise<any> {
-		const config: HttpRequestOpts = {
-			url: 'http://telling_stories.test/api/story/popularity',
-		};
-		return this.httpService.send('GET', config);
-	}
 }

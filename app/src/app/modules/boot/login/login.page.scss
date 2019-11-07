@@ -1,0 +1,54 @@
+.auth-page {
+	--background: url('../../../../assets/images/login/bg.jpg');
+}
+
+.auth-content {
+	margin-top: 100px;
+}
+
+.paz {
+	text-align: right;
+	margin-right: 30px;
+
+	ion-text {
+		font-size: 16px;
+	}
+
+}
+
+.title {
+	text-align: center;
+	color: #383a3e;
+	font-size: 35px;
+}
+
+.login_social {
+	text-align: center;
+	font-size: 15px;
+}
+
+.other {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.bt_login {
+	text-align: center;
+}
+
+.list-form {
+	margin-left: 15px;
+	margin-right: 15px;
+	padding-top: 70px;
+}
+
+.icon_social {
+	ion-row {
+		justify-content: space-evenly;
+	}
+
+	ion-img {
+		width: 50px;
+	}
+
+}

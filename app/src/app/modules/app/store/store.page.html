@@ -1,4 +1,9 @@
-<app-header [title]="'Tủ truyện'" [isBackButton]="false"></app-header>
+<ion-header>
+	<ion-toolbar>
+		<ion-title text-center>Tủ truyện</ion-title>
+		 <ion-label button slot="end">Sửa</ion-label>
+	</ion-toolbar>
+</ion-header>
 
 <ion-content>
 	<app-tab-bar-menu [listMenu]="listMenu" [tabSelected]="tabSelected" (onSelected)="onSelectTab($event)">

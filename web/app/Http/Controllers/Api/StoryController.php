@@ -110,7 +110,7 @@ class StoryController extends Controller
 	public function getStoryDetail(Request $request)
 	{
 		if($request->isMethod('get')){
-			$dataStoryDetail= $this->story->getStoryDetail($request->id);
+			$dataStoryDetail= $this->story->getStoryDetail($request->id, $request->user_id);
 			return response()->json([
 				'code'  => Response::HTTP_OK,
 				'data' => $dataStoryDetail,
