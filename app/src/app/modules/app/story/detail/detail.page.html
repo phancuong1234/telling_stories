@@ -1,0 +1,19 @@
+<ion-content>
+  
+  <div class="head">
+    <div>
+      <ion-buttons class="back-bt">
+        <ion-back-button defaultHref="{{'/app/home'}}"></ion-back-button>
+      </ion-buttons>
+    </div>
+  <!-- <ion-thumbnail class="photo">
+    <img src="{{story_detail['photo']}}">
+  </ion-thumbnail> -->
+</div>
+<ion-item class="info">
+  <ion-label>{{ story_detail['name'] }}</ion-label>
+  <ion-icon *ngIf="story_detail['is_favorite'] == 0" name="heart" (click)="myClick(1, 1, 1)" class="favorite"></ion-icon>
+  <ion-icon *ngIf="story_detail['is_favorite']  == 1" name="heart" (click)="myClick(1, 1, 1)" class="un_favorite"></ion-icon>
+</ion-item>
+
+</ion-content>

@@ -33,14 +33,9 @@ export class LoginPage implements OnInit {
 
 		this.loginService.login(this.todo.value).then(res => {
 			if (res && res.code === 200) {
-				this.router.navigate(['/app/home'], {
-					queryParams: {
-						email: this.todo.value.email,
-						password: this.todo.value.password
-					}
-				});
+				this.router.navigate(['/app/home']);
 			} else {
-				alert(res.error);
+				alert('loi');
 			}
 		});
 	}

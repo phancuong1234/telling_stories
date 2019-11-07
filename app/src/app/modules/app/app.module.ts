@@ -14,28 +14,37 @@ const routes: Routes = [
   children: [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: 'home', loadChildren: './home/home.module#HomePageModule'
-  },
-  {
-    path: 'classify', loadChildren: './classify/classify.module#ClassifyPageModule'
-  },
-  {
-    path: 'store', loadChildren: './store/store.module#StorePageModule'
-  },
-  {
-    path: 'mypage', loadChildren: './mypage/mypage.module#MypagePageModule'
-  },
-  ]
-}
-];
+    path: 'story',
+    children: [
+    { path: ':id/detail', loadChildren: './story/detail/detail.module#DetailPageModule' },
 
-@NgModule({
-  imports: [
-  CommonModule,
-  FormsModule,
-  IonicModule,
-  RouterModule.forChild(routes)
-  ],
-  declarations: [AppPage]
-})
-export class AppPageModule {}
+    ]},
+    {
+      path: 'home', loadChildren: './home/home.module#HomePageModule',
+    },
+    {
+      path: 'classify', loadChildren: './classify/classify.module#ClassifyPageModule'
+    },
+    {
+      path: 'store', loadChildren: './store/store.module#StorePageModule'
+    },
+    {
+      path: 'mypage', loadChildren: './mypage/mypage.module#MypagePageModule'
+    },
+    {
+      path: 'ranking', loadChildren: './ranking/ranking.module#RankingPageModule'
+    },
+    ]
+  }
+  ];
+
+  @NgModule({
+    imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes)
+    ],
+    declarations: [AppPage]
+  })
+  export class AppPageModule {}

@@ -1,5 +1,50 @@
-<app-header [title]="'Cá nhân'" [isBackButton]="false"></app-header>
+<ion-header>
+	<ion-toolbar>
+		<ion-title text-center>Cá nhân</ion-title>
+		<ion-icon name="notifications-outline" slot= "end"></ion-icon>
+	</ion-toolbar>
+</ion-header>
 
 <ion-content>
-
+	<ion-list>
+		<ion-item button detail>
+			<ion-avatar slot="start">
+				<img src="{{infoUser.avatar}}">
+			</ion-avatar>
+			<ion-label>
+				<p>{{ infoUser.name }}</p>
+				<p>{{ infoUser.email }}</p>
+			</ion-label>
+		</ion-item>
+	</ion-list>
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<ion-card>
+					<p>Tổng số video</p>
+					<p class="number">100</p>
+				</ion-card>
+			</ion-col>
+			<ion-col>
+				<ion-card>
+					<p>Tổng điểm bài test</p>
+					<p class="number">100</p>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-list class= "action">
+		<ion-item button detail>
+			<ion-label>Lịch sử xem</ion-label>
+		</ion-item>
+		<ion-item button detail>
+			<ion-label>Video của tôi</ion-label>
+		</ion-item>
+		<ion-item button detail>
+			<ion-label>Phản hồi ý kiến</ion-label>
+		</ion-item>
+		<ion-item button detail>
+			<ion-label>Liên hệ</ion-label>
+		</ion-item>
+	</ion-list>
 </ion-content>

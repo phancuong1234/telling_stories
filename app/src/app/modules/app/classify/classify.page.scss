@@ -1,98 +1,55 @@
-ion-slides {
-	top: 54px;
-	ion-grid {
-		padding-left: 15px;
-		padding-right: 15px;
-		// padding-bottom: 500px;
-		ion-row {
-		    border-bottom: 1px solid #ddd;
-		    padding: 10px 0;
-			ion-col {
-				text-align: left;
-				padding-left: 0;
-				ion-img{
-					height: 70px;
-					--height:80px;
-				}
-				// img{
-				// 	object-fit: cover;
-					
-				// }
-				p {
-					font-size: 14px;
-				}
-				span.title {
-					display: block;
-					font-size: 4.267vw;
-			    	/* autoprefixer: ignore next */
-					-webkit-box-orient: vertical;
-					visibility: visible;
-				    display: -webkit-box;
-				    -webkit-line-clamp: 1;
-				    overflow: hidden;
-					text-overflow: ellipsis;
-					word-break: break-word;
+ion-header {
+	ion-title {
+		font-size: 16px;
+		font-weight: bold;
+	}
 
-			    }
-			    span.description {
-					display: block;
-					font-size: 14px;
-			    	/* autoprefixer: ignore next */
-					-webkit-box-orient: vertical;
-					visibility: visible;
-				    display: -webkit-box;
-				    -webkit-line-clamp: 1;
-				    overflow: hidden;
-					text-overflow: ellipsis;
-					word-break: break-word;
-			    }
-			    &.info {
-			    	padding-left: 15px;
-					padding-right: 0;
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-					span{
-						font-size: 14px;
-					}
-					
-			    }
-			}
-			.rank {
-				i {
-					font-size: 14px;
-					color: #ccc;
-				}
-				.gold {
-					color: #ee9a00;
-				}
-				.silver {
-					color: #8b8686;
-				}
-				.bronze {
-					color: #7f3939;
-				}
-			}
-			&:last-child {
-				border-bottom: none;
-			}
-		}
-	}
-	ion-infinite-scroll {
-		// margin-top: 500px;
-	}
-	ion-slide {
-		border-bottom: none;
-		text-align: center;
-		& .empty {
-			border-bottom: none;
-			padding-bottom: 500px;
-		}
-	}
 }
 
-.empty{
-	display: flex;
-	justify-content: center;
-	margin-left: 0;
+ion-slides {
+	margin-top: 55px;
+
+	ion-row {
+		border-bottom: 1px solid #ddd;
+		padding: 15px 0px 15px 0px;
+
+		.info {
+			padding-right: 0;
+
+			.title {
+				font-size: 14px;
+				margin-bottom: 6px;
+				-webkit-box-orient: vertical;
+				visibility: visible;
+				display: -webkit-box;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				-webkit-line-clamp: 1;
+				word-break: break-word;
+			}
+
+			.description {
+				font-size: 13px;
+				-webkit-box-orient: vertical;
+				visibility: visible;
+				display: -webkit-box;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				-webkit-line-clamp: 1;
+				word-break: break-word;
+			}
+
+		}
+
+	}
+
+	ion-row:last-child {
+		border-bottom: none;
+	}
+
+	.empty {
+		display: flex;
+		justify-content: center;
+	}
+
 }

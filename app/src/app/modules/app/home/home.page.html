@@ -3,66 +3,150 @@
 	<ion-slides [options]="slideOptsOne" pager="true" loop="true"  #slideWithNav (ionSlideDidChange)="SlideDidChange(slideWithNav)">
 		<ion-buttons slot="end" class="header-button__search">
 			<ion-button class="button-search" icon-only>
-				<ion-img class="icon-search" src="/assets/images/home/search.png"></ion-img>
+				<ion-icon name="search"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 		<ion-slide *ngFor="let item of listTopSlide">
 			<ion-img src="{{item.photo}}" class="image-slide"></ion-img>
 		</ion-slide>
+		<ion-text *ngIf="emptyDatalistTopSlide">Dữ liệu trống</ion-text>
 	</ion-slides>
 	<div class="line-area"></div>
-
-	<!-- story new -->
-	<ion-list class="row-product-wrapper">
-		<ion-text class="category">Mới nhất</ion-text>
-		<div class="product-wrapper">
-			<div *ngFor="let item of listStoryNew | slice:0:10;" class="row-product">
-				<ion-img class="image-row-product" src="{{ item.photo }}"></ion-img>
-				<ion-label>
-					<ion-text class="title-row-product">{{ item.name }}</ion-text>
-					<ion-text class="description-row-product">{{ item.description }}</ion-text>
-				</ion-label>
-			</div>
-		</div>
-	</ion-list>
-	<div class="line-area"></div>
-
-	<!-- col product -->
-	<ion-list class="col-product-wrapper">
-		<ion-text class="category">Đề xuất</ion-text>
-		<div class="product">
-			<div *ngFor="let item of listStoryRecommend | slice:0:3;">
-				<div class="col-product">
-					<ion-img class="image-col-product" src="{{ item.photo }}"></ion-img>
-					<ion-label class="content">
-						<ion-text class="title-col-product">{{ item.name }}</ion-text>
-						<ion-text class="description-col-product">{{ item.description }}</ion-text>
+	<!-- Bảng xếp hạng -->
+	<ion-item class= "ranking">
+		<div [routerLink]="['/app/ranking']">
+			<ion-grid>
+				<ion-row class= "icon">
+					<ion-img src="../../../../assets/images/home/statistics-icon-png-29.jpg"></ion-img>
+				</ion-row>
+				<ion-row class= "text">
+					<ion-label>
+						Bảng xếp hạng
 					</ion-label>
-				</div>
-				<div class="line-area-col-product"></div>
-			</div>
+				</ion-row>
+			</ion-grid>
 		</div>
-	</ion-list>
-	<div class="line-area"></div>
-
-	<!-- row product 2-->
-
-	<ion-list class="row-product-wrapper2">
-		<ion-text class="category">Nghe nhiều</ion-text>
-		<div class="product-wrapper-2">
-			<div *ngFor="let item of listStoryPopularity | slice:0:10;" class="row-product-2">
-				<ion-img class="image-row-product-2" src="{{ item.photo }}"></ion-img>
-				<ion-label>
-					<ion-text class="title-row-product-2">{{ item.name }}</ion-text>
-					<ion-text class="description-row-product-2">{{ item.description }}</ion-text>
-				</ion-label>
-			</div>
+	</ion-item>
+	<!-- story new -->
+<!-- 	<ion-list class="story-new">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="9">
+				<ion-text class="category">Mới cập nhật</ion-text>
+			</ion-col>
+			<ion-col size="3">
+				<ion-text class="more">Nhiều hơn</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="list-story-new">
+		<div class="col-new" *ngFor="let item of listStoryNew | slice:0:10;">
+			<ion-img class="thumbnail-story" src="{{ item.photo }}" [routerLink]="['/app/story/'+item.id+'/detail']"></ion-img>
+			<ion-label>
+				<ion-text class="title">{{ item.name }}</ion-text>
+				<ion-text class="description">{{ item.description }}</ion-text>
+			</ion-label>
 		</div>
-	</ion-list>
-	<div class="line-area"></div>
+		<ion-text *ngIf="emptyDatalistStoryNew">Dữ liệu trống</ion-text>
+	</div>
 
-	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-		<ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
-	</ion-refresher>
+</ion-list>
+<div class="line-area"></div>
+
+story de xuat
+<ion-grid class= "story-recommend">
+	<ion-row class="tex">
+		<ion-text class="category">Đề xuất</ion-text>
+	</ion-row>
+	<ion-row class="list-story">
+		<ion-col size="6" *ngFor="let item of listStoryRecommend | slice:0:4;">
+			<ion-img src="{{ item.photo }}"></ion-img>
+			<ion-label >
+				<ion-text class="title">{{ item.name }}</ion-text>
+				<ion-text class="description">{{ item.description }}</ion-text>
+			</ion-label>
+		</ion-col>
+		<ion-text *ngIf="emptyDatalistStoryRecommend">Dữ liệu trống</ion-text>
+	</ion-row>
+</ion-grid>
+<div class="line-area"></div>
+
+
+nghe nhiều
+<ion-list class="story-popularity">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="9">
+				<ion-text class="category">Nghe nhiều</ion-text>
+			</ion-col>
+			<ion-col size="3">
+				<ion-text class="more">Nhiều hơn</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="list-story-popularity">
+		<div class="col-popularity" *ngFor="let item of listStoryPopularity | slice:0:10;">
+			<ion-img class="thumbnail-story" src="{{ item.photo }}"></ion-img>
+			<ion-label>
+				<ion-text class="title">{{ item.name }}</ion-text>
+				<ion-text class="description">{{ item.description }}</ion-text>
+			</ion-label>
+		</div>
+		<ion-text *ngIf="emptyDatalistStoryPopularity">Dữ liệu trống</ion-text>
+	</div>
+</ion-list>
+<div class="line-area"></div>
+
+user tích cực
+<ion-list class="user">
+	<ion-text class="category">Thành viên tích cực</ion-text>
+
+	<div class="list-user">
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+		<div class="col-user">
+			<ion-avatar>
+				<img src="../../../../assets/images/default/user.png">
+			</ion-avatar>
+		</div>
+	</div>
+</ion-list>
+
+<div class="see-all">
+	<ion-button color="secondary">
+		<span>
+			<ion-icon name="funnel"></ion-icon>
+			Xem thêm
+		</span>
+	</ion-button>
+</div>
+
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+	<ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
+</ion-refresher> -->
 
 </ion-content>

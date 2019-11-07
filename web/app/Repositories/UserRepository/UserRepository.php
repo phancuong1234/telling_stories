@@ -16,7 +16,7 @@ class UserRepository implements UserRepositoryInterface
 		$user= User::where('email','=',$email)
 		->where('delete_flg','=',DELETE_FALSE)
 		->first();
-		if(isset($user)){
+		if(empty($user)){
 			return false;
 		}else{
 			return true;
@@ -83,4 +83,10 @@ class UserRepository implements UserRepositoryInterface
 			User::where('id','=',$id)->update(['state' => STATE_BLOCK]);
 		}
 	}
+
+	public function updateToken($id, $token)
+	{
+		return User::where('id','=',$id)->update(['token' => $token]);
+	}
+
 }

@@ -17,4 +17,18 @@ class FavoriteRepository implements FavoriteRepositoryInterface
 		
 		return $dataStoryFavorite;
 	}
+
+	public function addFavorite($story_id, $state, $user_id)
+	{
+		$check= Favorite::where('user_id',$user_id)->where('story_id',$user_id)->first();
+		//dd($state);
+		if($check){
+			if($state == 0){
+				Favorite::where('id','=',$check->id)->update(['delete_flg' => 1]);
+			}
+			if($state == 1){
+				Favorite::where('id','=',$check->id)->update(['delete_flg' => 0]);
+			}
+		}
+	}
 }

@@ -13,6 +13,9 @@ if ( ! defined( 'ADMIN')) {
 if ( ! defined( 'MOD')) {
     define('MOD', 2);
 }
+if ( ! defined( 'USER')) {
+    define('USER', 3);
+}
 if ( ! defined( 'DELETE_SUCCESS')) {
     define('DELETE_SUCCESS', 'Delete success!');
 }
@@ -72,8 +75,12 @@ if ( ! defined( 'CODE_ERROR_METHOD')) {
 }
 if ( ! defined( 'CODE_ERROR_VALID')) {
     define('CODE_ERROR_VALID', 422);
-}if ( ! defined( 'CODE_ERROR_CREATE')) {
+}
+if ( ! defined( 'CODE_ERROR_CREATE')) {
     define('CODE_ERROR_CREATE', 207);
+}
+if ( ! defined( 'CODE_ERROR_UNAUTHORIZED')) {
+    define('CODE_ERROR_UNAUTHORIZED', 401);
 }
     //msg error api
 if ( ! defined( 'MESSAGE_ERROR_VALID')) {

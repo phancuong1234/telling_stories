@@ -12,6 +12,7 @@ class PlaylistRepository implements PlaylistRepositoryInterface
 		$playlist= Playlist::where('user_id',$id)
 		->where('delete_flg',DELETE_FALSE)
 		->get();
+
 		return $playlist;
 	}
 

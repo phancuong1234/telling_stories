@@ -1,7 +1,7 @@
 <ion-tabs [ngStyle]="{'margin-top': position}">
   <ion-tab-bar slot="top" id="menu-tab">
     <ion-tab-button *ngFor="let menu of listMenu;let i = index" [ngClass]="{'active': tabSelected === i + 1 }" (click)="onTab(i + 1)">
-      <ion-label>{{ menu }}</ion-label>
+      <ion-label>{{ menu  | uppercase}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

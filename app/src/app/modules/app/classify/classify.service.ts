@@ -26,24 +26,35 @@ export class ClassifyService {
 	}
 	
 
-	async getListClassifyPopularity(type: number, offset: number, category_id: number): Promise<any> {
-		if(type === 1){
+	async getListClassifyPopularity(type: number, offset: number, category_id: number, age_id: number): Promise<any> {
+		if(type == 1){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/story/popularity',
 			};
 			return this.httpService.send('GET', config);
-		} else if(type === 2){
+		}
+		if(type == 2){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/story/new',
 			};
 			return this.httpService.send('GET', config);
-		} else if(type === 3){
+		}
+		if(type == 3){
 			const config: HttpRequestOpts = {
-				url: 'http://telling_stories.test/api/story/category?id='+category_id,
+				url: 'http://telling_stories.test/api/story/age',
+				params: { age_id: age_id}
+			};
+			return this.httpService.send('GET', config);
+		}
+		if(type == 4){
+			const config: HttpRequestOpts = {
+				url: 'http://telling_stories.test/api/story/category',
+				params: { id: category_id}
 			};
 			return this.httpService.send('GET', config);
 		}
 
+		
 	}
 
 /*	async getListClassifyPopularity(offset: any): Promise<any> {

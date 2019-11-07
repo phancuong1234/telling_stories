@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //api
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
     ],
 
     /*

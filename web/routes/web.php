@@ -15,9 +15,13 @@ Route::namespace('Web')->group(function () {
 	Route::get('login', 'AdminController@showLogin')->name('show_login');
 	Route::post('login', 'AdminController@login')->name('action_login');
 
-	Route::group(['prefix' => 'admin','middleware' => 'checklogin'], function () {
+	Route::group(['prefix' => 'admin','middleware' => 'checklogin'], function () {	
 		Route::get('/logout', 'AdminController@logout')->name('logout');
+		Route::get('/profile', 'AdminController@profile')->name('profile');
+		Route::get('/profile/edit', 'AdminController@showEditProfile')->name('profile.edit');
+		Route::post('/profile/update', 'AdminController@editProfile')->name('profile.update');
 		Route::get('', 'AdminController@index')->name('admin.index');
+		Route::get('/chart/{id}/{type}', 'AdminController@getDataChart')->name('admin.chart');
 		////////user/////
 		Route::group(['prefix' => 'user','middleware' => 'checkadmin'], function(){
 			Route::get('/', 'UserController@index')->name('user.index');
@@ -25,7 +29,8 @@ Route::namespace('Web')->group(function () {
 			Route::get('/create', 'UserController@create')->name('user.create');
 			Route::post('/avatar', 'UserController@upAvatar')->name('user.avatar');
 			Route::post('/create', 'UserController@store')->name('user.store');
-			Route::post('/create_avatar', 'UserController@update_avatar')->name('avatar.update');
+			Route::get('/valid_data', 'UserController@validateData')->name('valid.form');
+			Route::get('/valid_data_edit', 'UserController@validateDataEdit')->name('valid.formEdit');
 			Route::get('/detail/{id}', 'UserController@detail')->name('user.detail');
 			Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
 			Route::post('/edit/{id}', 'UserController@update')->name('user.update');

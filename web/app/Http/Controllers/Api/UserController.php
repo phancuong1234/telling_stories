@@ -7,34 +7,36 @@ use Illuminate\Http\Request;
 use App\Model\User;
 use JWTAuthException;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response;
+use App\Repositories\UserRepository\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+	protected $user;
+
+	public function __construct(UserRepositoryInterface $user)
+	{
+		$this->user = $user;
+	}
+
 	public function login(Request $request)
 	{
 		$credentials = $request->only('email', 'password');
-		$token = null;
-		try {
-			if (!$token = JWTAuth::attempt($credentials)) {
-				return response()->json([
-					'status' => 'error',
-					'error' => MESSAGE_ERROR_VALID,
-					'code' => CODE_ERROR_VALID
-				]);
-			}
-		} catch (JWTAuthException $e) {
+		if(Auth::attempt($credentials)){
+			$id= Auth::id();
+			$token= $this->genToken();
+			$this->user->updateToken($id,$token);
 			return response()->json([
-				'status' => 'error',
-				'error' => '500',
+				'token' => $token,
+				'code' => Response::HTTP_OK
+			]);
+		}else{
+			return response()->json([
+				'code' => CODE_ERROR_VALID,
+				'message' => MESSAGE_ERROR_VALID
 			]);
 		}
 
-		return response()->json([
-			'token' => $token,
-			'code' => Response::HTTP_OK
-		]);
 	}
 
 	public function register(Request $request)
@@ -63,8 +65,8 @@ class UserController extends Controller
 	public function getUserdata(Request $request)
 	{
 		if($request->isMethod('get')){
-			$token= $request->bearerToken();
-			$user = JWTAuth::toUser($token);
+			$token= getallheaders()['token'];
+			$user= User::where('token',$token)->where('delete_flg',0)->first();
 			return response()->json([
 				'code' => Response::HTTP_OK,
 				'data'  => $user,
@@ -75,6 +77,14 @@ class UserController extends Controller
 				'code'  => CODE_ERROR_METHOD
 			]);
 		}
+			//var_dump(getallheaders()['token']);
+		
+		//echo 'cccc'; exit();
+	}
+
+	public function genToken()
+	{
+		return bin2hex(random_bytes(64));
 	}
 
 }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders  } from '@angular/common/http';
 import { HttpRequestOpts } from '../../core/services/http-request-opts';
 import { NavController } from '@ionic/angular';
-import  { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class HttpService {
@@ -16,6 +15,7 @@ export class HttpService {
 
 	send(method: string, config: HttpRequestOpts): Promise<any> {
 		let params = new HttpParams();
+
 		if (config.params) {
 			for (const key of Object.keys(config.params)) {
 				params = params.append(key, config.params[key]);
@@ -24,7 +24,8 @@ export class HttpService {
 		return this.http
 		.request<any>(method.toUpperCase(), config.url, {
 			body: config.body,
-			params
+			params,
+
 		})
 		.toPromise()
 		.then(res => this.httpSucess(res))
@@ -34,7 +35,7 @@ export class HttpService {
 	private httpSucess(res: Response): Promise<any> {
 		const body: any = res || { message: 'Request success' };
 		if (body && body.code && body.code === 200 && body.token) {
-			localStorage.setItem('token', body.token);
+			localStorage.setItem('token',body.token);
 			return Promise.resolve(body);
 		} else {
 			if (body.code === 401) {
