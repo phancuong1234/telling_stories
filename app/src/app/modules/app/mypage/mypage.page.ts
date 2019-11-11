@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MypageService } from './mypage.service';
 import { LoadingController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-mypage',
@@ -20,6 +21,7 @@ export class MypagePage implements OnInit {
 	constructor(
 		private mypageService: MypageService,
 		private loadingController: LoadingController,
+		private navCtrl: NavController,
 		) { }
 
 	ngOnInit() {
@@ -48,5 +50,10 @@ export class MypagePage implements OnInit {
 
 	hideLoader() {
 		this.loadingController.dismiss();
+	}
+	logout(){
+		const token= localStorage.getItem('token');
+		this.mypageService.logout(token);
+		this.navCtrl.navigateRoot('/boot/login');
 	}
 }

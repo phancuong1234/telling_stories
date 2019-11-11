@@ -13,18 +13,22 @@
 
 	<ion-slides pager="true" [options]="slideOpts" #slides (ionSlideDidChange)="ionSlideDidChange($event)">
 		<ion-slide *ngFor="let menu of listMenu;let j = index">
-			<ion-grid *ngIf="!emptyData && j < 2">
+			<ion-grid *ngIf="!emptyData && j < 2" class="story_hot">
 				<ion-row *ngFor="let item of storyList;let i = index">
 					<ion-col size="4">
 						<ion-img [src]="item.photo"></ion-img>
 					</ion-col>
-					<ion-col class="info">
+					<ion-col class="info" size="6">
 						<span class="title">
 							{{ item.name }}
 						</span>
 						<span class="description">
 							{{ item.description }}
 						</span>
+					</ion-col>
+					<ion-col class="ranking">
+
+						<ion-img *ngIf= "i == 1" src="../../../../assets/images/ranking/1-award.png"></ion-img>
 					</ion-col>
 				</ion-row>
 			</ion-grid>

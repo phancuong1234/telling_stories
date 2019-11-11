@@ -26,6 +26,7 @@ export class RankingPage implements OnInit {
 		spaceBetween: 10,
 		pagination: false
 	};
+	token= localStorage.getItem('token');
 
 	constructor(
 		private rankingService: RankingService,
@@ -43,9 +44,9 @@ export class RankingPage implements OnInit {
 	async getListStoryFromAPI(offset) {
 		this.showLoader();
 		this.storyList = [];
-		await this.rankingService.getListRanking(this.tabId, offset).then(
+		await this.rankingService.getListRanking(this.token, this.tabId, offset).then(
 			async res => {
-				if (res.data.length > 0) {
+				if (res && res.data.length > 0) {
 					this.emptyData = false;
 					this.storyList = res.data;
 					setTimeout(() => this.addHeight(res.data.length), 500);

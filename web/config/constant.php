@@ -82,8 +82,23 @@ if ( ! defined( 'CODE_ERROR_CREATE')) {
 if ( ! defined( 'CODE_ERROR_UNAUTHORIZED')) {
     define('CODE_ERROR_UNAUTHORIZED', 401);
 }
+if ( ! defined( 'FAIL')) {
+    define('FAIL', 201);
+}
+if ( ! defined( 'BAD_REQUEST')) {
+    define('BAD_REQUEST', 400);
+}
     //msg error api
 if ( ! defined( 'MESSAGE_ERROR_VALID')) {
     define('MESSAGE_ERROR_VALID', 'email or password invalid');
+}
+if ( ! defined( 'LOGOUT_SUCCESS')) {
+    define('LOGOUT_SUCCESS', 'Bạn đã đăng xuất thành công');
+}
+if ( ! defined( 'ADD_STORY_SUCCESS')) {
+    define('ADD_STORY_SUCCESS', 'Thêm thành công');
+}
+if ( ! defined( 'EXISTED')) {
+    define('EXISTED', 'Truyện đã tồn tại');
 }
 

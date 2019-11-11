@@ -35,4 +35,10 @@ interface StoryRepositoryInterface
 	public function getStoryPopularityWeek();
 
 	public function getStoryPopularityMonth();
+
+	public function getQuestionByStory($story_id);
+
+	public function addStoryDownload($user_id, $video_id);
+
+	public function submitTest($user_id, $story_id, array $data);
 }

@@ -89,4 +89,14 @@ class UserRepository implements UserRepositoryInterface
 		return User::where('id','=',$id)->update(['token' => $token]);
 	}
 
+	public function deleteToken($token)
+	{
+		return User::where('token','=',$token)->update(['token' => null]);
+	}
+	public function getUserByToken($token)
+	{
+		$user= User::where('token',$token)->where('delete_flg',0)->first();
+		return $user;
+	}
+
 }

@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
 				this.emptyDatalistTopSlide = true;
 			}
 		}
-		/*const storyNew = await this.homeService.getListStoryNew();
+		const storyNew = await this.homeService.getListStoryNew(token);
 		if (storyNew) {
 			this.listStoryNew = storyNew.data;
 			if (storyNew.data.length === 0) {
@@ -68,7 +68,7 @@ export class HomePage implements OnInit {
 			}
 		}
 
-		const storyRecommend = await this.homeService.getListStoryRecommend();
+		const storyRecommend = await this.homeService.getListStoryRecommend(token);
 		if (storyRecommend) {
 			this.listStoryRecommend = storyRecommend.data;
 			if (storyRecommend.data.length === 0) {
@@ -76,30 +76,30 @@ export class HomePage implements OnInit {
 			}
 		}
 
-		const storyPopularity = await this.homeService.getListStoryPopularity();
+		const storyPopularity = await this.homeService.getListStoryPopularity(token);
 		if (storyPopularity) {
 			this.listStoryPopularity = storyPopularity.data;
 			if (storyPopularity.data.length === 0) {
 				this.emptyDatalistStoryPopularity = true;
 			}
-		}*/
+		}
 		this.hideLoader();
 		this.slides.startAutoplay();
 	}
 
-	/*async doRefresh(event) {
-
+	async doRefresh(event) {
+		const token= localStorage.getItem('token');
 		setTimeout(() => {
 			event.target.complete();
 		}, 1000);
-		const topSlide = await this.homeService.getListTopSlide();
+		const topSlide = await this.homeService.getListTopSlide(token);
 		if (topSlide) {
 			this.listTopSlide = topSlide.data;
 			if (topSlide.data.length === 0) {
 				this.emptyDatalistTopSlide = true;
 			}
 		}
-		const storyNew = await this.homeService.getListStoryNew();
+		const storyNew = await this.homeService.getListStoryNew(token);
 		if (storyNew) {
 			this.listStoryNew = storyNew.data;
 			if (storyNew.data.length === 0) {
@@ -107,7 +107,7 @@ export class HomePage implements OnInit {
 			}
 		}
 
-		const storyRecommend = await this.homeService.getListStoryRecommend();
+		const storyRecommend = await this.homeService.getListStoryRecommend(token);
 		if (storyRecommend) {
 			this.listStoryRecommend = storyRecommend.data;
 			if (storyRecommend.data.length === 0) {
@@ -115,7 +115,7 @@ export class HomePage implements OnInit {
 			}
 		}
 
-		const storyPopularity = await this.homeService.getListStoryPopularity();
+		const storyPopularity = await this.homeService.getListStoryPopularity(token);
 		if (storyPopularity) {
 			this.listStoryPopularity = storyPopularity.data;
 			if (storyPopularity.data.length === 0) {
@@ -123,7 +123,7 @@ export class HomePage implements OnInit {
 			}
 		}
 		
-	}*/
+	}
 
 
 	showLoader() {

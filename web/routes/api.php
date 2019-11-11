@@ -26,6 +26,7 @@ Route::post('/user/forgot_password', 'Api\UserController@forgorPassword');
 Route::namespace('Api')->group(function() {
 Route::group(['middleware' => 'checkToken'], function () {
 		//user
+	Route::post('/logout', 'UserController@logout');
 	Route::get('/profile', 'UserController@getUserdata');
 	Route::get('/profile/edit', 'UserController@editProfile');//chua
 	Route::get('/user/change_password', 'UserController@changePassword');//chua
@@ -40,9 +41,9 @@ Route::group(['middleware' => 'checkToken'], function () {
 	Route::get('/story/download', 'StoryController@getStoryDownload');
 	Route::get('/story/popularity/week', 'StoryController@getStoryPopularityWeek');
 	Route::get('/story/popularity/month', 'StoryController@getStoryPopularityMonth');
-	Route::get('/story/test', 'StoryController@getStoryQuestion');//chua
-	Route::post('/story/test/submit', 'StoryController@getStoryTestSubmit');//chua
-	Route::post('/story/download/create', 'StoryController@getStoryQuestion');//chua
+	Route::get('/story/test', 'StoryController@getStoryQuestion');
+	Route::post('/story/test/submit', 'StoryController@submitTest');
+	Route::post('/story/download/create', 'StoryController@addStoryDownload');
 
 		//history
 	Route::get('/history', 'HistoryController@getStoryHistoryView');
@@ -52,6 +53,8 @@ Route::group(['middleware' => 'checkToken'], function () {
 		//playlist
 	Route::get('/playlist', 'PlaylistController@getPlaylists');
 	Route::get('/playlist/story', 'PlaylistController@getStoryPlaylist');
+	Route::post('/playlist/create', 'PlaylistController@createPlaylist');
+	Route::post('/playlist/add_story', 'PlaylistController@addStoryPlaylist');
 		//category
 	Route::get('/category/all', 'CategoryController@getListCategory');
 
@@ -60,11 +63,14 @@ Route::group(['middleware' => 'checkToken'], function () {
 		//video user
 	Route::get('/video_user', 'VideoUserController@getCountVideo');
 	Route::get('/video_user/ranking', 'VideoUserController@getRankingVideoUser');
-	Route::get('/video_user/create', 'VideoUserController@createVideo');
+	Route::post('/video_user/create', 'VideoUserController@createVideo');
 	//result test
 	Route::get('/result_test', 'ResultTestController@getPointByUser');
-	Route::get('/result_test/story', 'ResultTestController@getPointByUser');
+	Route::get('/result_test/story', 'ResultTestController@getResultTest');
 	Route::get('/result_test/ranking', 'ResultTestController@getRankingResultTest');
+
+	//comment
+	Route::post('/comment/create', 'CommentController@createComment');
 
 });
 });

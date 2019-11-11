@@ -33,54 +33,49 @@ export class ClassifyPage implements OnInit {
 		spaceBetween: 10,
 		pagination: false
 	};
-
+	
+	token= localStorage.getItem('token');
 	constructor(
 		private classifyService: ClassifyService,
 		private loadingController: LoadingController
 		) { }
 
 	ngOnInit() {
+		
 	}
 
 	async ionViewDidEnter() {
 		this.content.scrollToTop();
 		this.tabSelected = 1;
-		const ageRes = await this.classifyService.getAge();
-		this.listAge = ageRes.data;
-		const categoryRes = await this.classifyService.getCategory();
-		this.listCategory = categoryRes.data;
-		this.listAge.map(g => this.listMenu.push(g.age));
-		this.listCategory.map(g => this.listMenu.push(g.name));
+		const ageRes = await this.classifyService.getAge(this.token);
+		if(ageRes){
+			this.listAge = ageRes.data;
+			this.listAge.map(g => this.listMenu.push(g.age));
+		}
+		
+		const categoryRes = await this.classifyService.getCategory(this.token);
+		if(categoryRes){
+			this.listCategory = categoryRes.data;
+			this.listCategory.map(g => this.listMenu.push(g.name));
+		}
+
 		await this.getListStoryFromAPI(0);
 	}
 
 	async getListStoryFromAPI(offset) {
 		this.showLoader();
 		this.storyList = [];
-		await this.classifyService.getListClassifyPopularity(this.tabId, offset, this.categoryId, this.ageId).then(
+		await this.classifyService.getListClassifyPopularity(this.token, this.tabId, offset, this.categoryId, this.ageId).then(
 			async res => {
-				if (res.data.length > 0) {
+				if (res && res.data.length > 0) {
 					this.emptyData = false;
 					this.storyList = res.data;
-					setTimeout(() => this.addHeight(res.data.length), 500);
-				}
-				else {
+				} else {
 					this.emptyData = true;
 				}
 				this.hideLoader();
 			}
 			);
-	}
-
-	addHeight(dataLength) {
-		if (dataLength === 1) {
-			$('ion-grid').append('<ion-row style="width: 100; height: 250px;"></ion-row>');
-		}
-		if (dataLength === 2) {
-			$('ion-grid').append('<ion-row style="width: 100; height: 250px;"></ion-row>');
-		} else {
-			return;
-		}
 	}
 
 	onSelectTab(tab) {
@@ -90,12 +85,15 @@ export class ClassifyPage implements OnInit {
 
 	async ionSlideDidChange(evt) {
 		const tmp = await this.slides.getActiveIndex();
-		const categoryRes = await this.classifyService.getCategory();
-		this.listCategory= categoryRes.data;
-		this.listCategory.map(g =>
-			this.listCategoryId.push(g.id)
+		const categoryRes = await this.classifyService.getCategory(this.token);
+		if(categoryRes){
+			this.listCategory= categoryRes.data;
+			this.listCategory.map(g =>
+				this.listCategoryId.push(g.id)
 
-			);
+				);
+		}
+		
 		this.listAge.map(g =>
 			this.listAgeId.push(g.id)
 
@@ -113,12 +111,9 @@ export class ClassifyPage implements OnInit {
 				this.ageId= this.listAge[tmp-2]['id'];
 			}
 		}else{
-			//tmp+1;
-			console.log(tmp);
 			this.tabId = 4;
 			for (var i = 0; i < this.listCategoryId.length; ++i) {
 				this.categoryId= this.listCategoryId[tmp-index];
-				//console.log("cate: "+this.categoryId);
 			}
 		}
 		

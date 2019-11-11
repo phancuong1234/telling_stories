@@ -41,4 +41,15 @@ class ResultTestRepository implements ResultTestRepositoryInterface
 
 		return $dataRankingResultTest;
 	}
+
+	public function getResultTest($user_id, $story_id)
+	{
+		$data= ResultTest::select('id','count_answer_true','point')
+		->where('user_id', $user_id)
+		->where('story_id', $story_id)
+		->where('delete_flg', DELETE_FALSE)
+		->get();
+
+		return $data;
+	}
 }
