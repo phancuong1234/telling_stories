@@ -22,13 +22,49 @@ class PlaylistRepository implements PlaylistRepositoryInterface
 		->where('delete_flg',DELETE_FALSE)
 		->first();
 		$id= json_decode($storyIdByPlaylist->list_story);
-		$storyByPlaylist=[];
-		foreach ($id as $key => $value) {
-			$storyByPlaylist[$key]= Story::where('id',$value)
+		$storyByPlaylist= [];
+		if($id){
+			$storyByPlaylist=[];
+			$storyByPlaylist= Story::whereIn('id',$id)
 			->where('delete_flg',DELETE_FALSE)
 			->get();
-		}
-
+		}	
 		return $storyByPlaylist;
 	}
+
+	public function createPlaylist($user_id, $name)
+	{
+		return Playlist::create([
+			'name' => $name,
+			'user_id' => $user_id
+		]);
+	}
+
+	public function addStoryPlaylist($data)
+	{
+		$listCurrent= Playlist::where('id',$data['playlist_id'])->where('delete_flg',DELETE_FALSE)->first();
+		$story_id_add= intval($data['story_id']);
+
+		if(empty($listCurrent->list_story)){
+			$playlist= Playlist::where('id',$data['playlist_id'])->update([
+				'list_story' => json_encode(array($story_id_add)),
+			]);
+			return 1;
+		}else{
+			$listStoryCurrent= json_decode($listCurrent->list_story);
+
+			if (in_array($data['story_id'], $listStoryCurrent))
+			{
+				return 0;
+			} else {
+				$listUpdate= array_unshift($listStoryCurrent, $story_id_add);
+				$playlist= Playlist::where('id',$data['playlist_id'])->update([
+					'list_story' => json_encode($listStoryCurrent),
+				]);
+				return 1;
+			}
+		}
+		
+	}
+
 }

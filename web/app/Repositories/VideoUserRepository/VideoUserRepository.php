@@ -34,4 +34,14 @@ class VideoUserRepository implements VideoUserRepositoryInterface
 
 		return $dataRankingVideoUser;
 	}
+
+	public function createVideo($user_id, $story_id, $path)
+	{
+		$data= VideoUser::create([
+			'path' => $path,
+			'user_id' => $user_id,
+			'story_id' => $story_id
+		]);
+		return $data;
+	}
 }

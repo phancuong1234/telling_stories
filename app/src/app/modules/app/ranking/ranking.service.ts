@@ -16,25 +16,29 @@ export class RankingService {
 		private httpService: HttpService
 		) { }
 
-	async getListRanking(type: number, offset: number): Promise<any> {
+	async getListRanking(token:any, type: number, offset: number): Promise<any> {
 		if(type === 1){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/story/popularity/week',
+				headers: token
 			};
 			return this.httpService.send('GET', config);
 		} else if(type === 2){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/story/popularity/month',
+				headers: token
 			};
 			return this.httpService.send('GET', config);
 		} else if(type === 3){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/video_user/ranking',
+				headers: token
 			};
 			return this.httpService.send('GET', config);
 		}else if(type === 4){
 			const config: HttpRequestOpts = {
 				url: 'http://telling_stories.test/api/result_test/ranking',
+				headers: token
 			};
 			return this.httpService.send('GET', config);
 		}

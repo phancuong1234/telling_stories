@@ -4,127 +4,60 @@ ion-header {
 		font-weight: bold;
 	}
 
-	ion-label {
-		font-size: 12px;
-		padding-right: 10px;
-	}
-
 }
 
 ion-slides {
-	top: 54px;
+	margin-top: 55px;
 
-	ion-grid {
-		padding-left: 15px;
-		padding-right: 15px;
-		// padding-bottom: 500px;
-
+	.story_hot {
 		ion-row {
 			border-bottom: 1px solid #ddd;
-			padding: 10px 0;
+			padding: 15px 0px 15px 0px;
 
-			ion-col {
+			.info {
 				text-align: left;
-				padding-left: 0;
 
-				ion-img {
-					height: 70px;
-					--height: 80px;
-				}
-
-				// img {
-					// 	object-fit: cover;
-					//
-				}
-
-				p {
-					font-size: 14px;
-				}
-
-				span.title {
-					display: block;
-					font-size: 4.267vw;			    	/* autoprefixer: ignore next */
+				.title {
+					font-weight: bold;
+					font-size: 13px;
+					margin-bottom: 6px;
 					-webkit-box-orient: vertical;
 					visibility: visible;
 					display: -webkit-box;
-					-webkit-line-clamp: 1;
 					overflow: hidden;
 					text-overflow: ellipsis;
+					-webkit-line-clamp: 1;
 					word-break: break-word;
 				}
 
-				span.description {
-					display: block;
-					font-size: 14px;			    	/* autoprefixer: ignore next */
+				.description {
+					font-size: 12px;
 					-webkit-box-orient: vertical;
 					visibility: visible;
 					display: -webkit-box;
-					-webkit-line-clamp: 1;
 					overflow: hidden;
 					text-overflow: ellipsis;
+					-webkit-line-clamp: 1;
 					word-break: break-word;
-				}
-
-				&.info {
-					padding-left: 15px;
-					padding-right: 0;
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-
-					span {
-						font-size: 14px;
-					}
-
 				}
 
 			}
 
-			.rank {
-				i {
-					font-size: 14px;
-					color: #ccc;
-				}
-
-				.gold {
-					color: #ee9a00;
-				}
-
-				.silver {
-					color: #8b8686;
-				}
-
-				.bronze {
-					color: #7f3939;
-				}
-
-			}
-
-			&:last-child {
-				border-bottom: none;
+			.ranking {
+				width: 50px;
 			}
 
 		}
 
 	}
 
-	ion-infinite-scroll {
-		// margin-top: 500px;
-	}
-
-	ion-slide {
+	ion-row:last-child {
 		border-bottom: none;
-		text-align: center;
-
-		& .empty {
-			border-bottom: none;
-			padding-bottom: 500px;
-		}
-
 	}
 
 	.empty {
 		display: flex;
 		justify-content: center;
-		margin-left: 0;
 	}
+
+}

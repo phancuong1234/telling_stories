@@ -11,6 +11,7 @@ use App\Repositories\AgeRepository\AgeRepositoryInterface;
 use App\Repositories\QuestionRepository\QuestionRepositoryInterface;
 use App\Repositories\StoryAgeRepository\StoryAgeRepositoryInterface;
 use App\Repositories\VideoRepository\VideoRepositoryInterface;
+use App\Repositories\UserRepository\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -22,7 +23,9 @@ class StoryController extends Controller
 	protected $question;
 	protected $storyAge;
 	protected $video;
-	public function __construct(StoryRepositoryInterface $story, CategoryRepositoryInterface $category,AgeRepositoryInterface $age,QuestionRepositoryInterface $question, StoryAgeRepositoryInterface $storyAge, VideoRepositoryInterface $video)
+	protected $user;
+	
+	public function __construct(StoryRepositoryInterface $story, CategoryRepositoryInterface $category,AgeRepositoryInterface $age,QuestionRepositoryInterface $question, StoryAgeRepositoryInterface $storyAge, VideoRepositoryInterface $video,UserRepositoryInterface $user)
 	{
 		$this->story = $story;
 		$this->category = $category;
@@ -30,18 +33,12 @@ class StoryController extends Controller
 		$this->question = $question;
 		$this->storyAge = $storyAge;
 		$this->video = $video;
+		$this->user = $user;
 	}
 	//api get top slide
 	public function getTopSlide(Request $request)
 	{
 		if($request->isMethod('get')){
-			/*$token= $request->bearerToken();
-			$user= JWTAuth::toUser($token);*/
-			/*if(){
-
-			} else {
-
-			}*/
 			$topSlide= $this->story->getTopSlide();
 			return response()->json([
 				'code'  => Response::HTTP_OK,
@@ -162,7 +159,9 @@ class StoryController extends Controller
 	public function getStoryDownload(Request $request)
 	{
 		if($request->isMethod('get')){
-			$dataStoryDownload= $this->story->getStoryDownload($request->id);
+			$token= getallheaders()['token'];
+			$user= $this->user->getUserByToken($token);
+			$dataStoryDownload= $this->story->getStoryDownload($user->id);
 			return response()->json([
 				'code'  => Response::HTTP_OK,
 				'data' => $dataStoryDownload,
@@ -207,6 +206,49 @@ class StoryController extends Controller
 				'code' => CODE_ERROR_METHOD
 			]);
 		}
+	}
+
+	//api get question
+	public function getStoryQuestion(Request $request)
+	{
+		$question= $this->story->getQuestionByStory($request->story_id);
+		
+		return response()->json([
+			'code'  => Response::HTTP_OK,
+			'data' => $question,
+		]);
+	}
+
+	//api submit test
+	public function submitTest(Request $request)
+	{
+		$token= getallheaders()['token'];
+		$user= $this->user->getUserByToken($token);
+		$data= $request->except('story_id');
+		$result= $this->story->submitTest($user->id,$request->story_id, $data);
+		return response()->json([
+			'code'  => Response::HTTP_OK,
+			'data' => $result
+		]);
+		
+	}
+
+	//api add story download
+	public function addStoryDownload(Request $request)
+	{
+		$token= getallheaders()['token'];
+		$user= $this->user->getUserByToken($token);
+		$data= $this->story->addStoryDownload($user->id, $request->video_id);
+		if($data == true){
+			return response()->json([
+				'code'  => Response::HTTP_OK,
+			]);
+		}else{
+			return response()->json([
+				'code'  => BAD_REQUEST,
+			]);
+		}
+		
 	}
 
 }

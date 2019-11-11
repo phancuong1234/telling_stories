@@ -66,7 +66,7 @@ class UserController extends Controller
 	{
 		if($request->isMethod('get')){
 			$token= getallheaders()['token'];
-			$user= User::where('token',$token)->where('delete_flg',0)->first();
+			$user= $this->user->getUserByToken($token);
 			return response()->json([
 				'code' => Response::HTTP_OK,
 				'data'  => $user,
@@ -77,14 +77,22 @@ class UserController extends Controller
 				'code'  => CODE_ERROR_METHOD
 			]);
 		}
-			//var_dump(getallheaders()['token']);
-		
-		//echo 'cccc'; exit();
 	}
 
 	public function genToken()
 	{
 		return bin2hex(random_bytes(64));
+	}
+
+	public function logout()
+	{
+		$token= getallheaders()['token'];
+		$this->user->deleteToken($token);
+		return response()->json([
+			'code' => Response::HTTP_OK,
+			'message'  => LOGOUT_SUCCESS
+		]);
+		
 	}
 
 }

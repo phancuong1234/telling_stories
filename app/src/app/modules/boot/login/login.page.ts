@@ -10,15 +10,16 @@ import { Router } from '@angular/router';
 	styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-	public todo: FormGroup;
-
+	public formLogin: FormGroup;
+	error_require: boolean;
+	error_invalid: boolean;
 	constructor(
 		private navCtrl: NavController,
 		private loginService: LoginService,
 		private formBuilder: FormBuilder,
-		private router: Router
+		private router: Router,
 		){
-		this.todo = this.formBuilder.group({
+		this.formLogin = this.formBuilder.group({
 			email: [''],
 			password: [''],
 		});
@@ -31,12 +32,18 @@ export class LoginPage implements OnInit {
 	}
 	login() {
 
-		this.loginService.login(this.todo.value).then(res => {
-			if (res && res.code === 200) {
-				this.router.navigate(['/app/home']);
-			} else {
-				alert('loi');
-			}
-		});
+		if(this.formLogin.value.email != '' && this.formLogin.value.password != ''){
+			this.error_require = false;
+			this.loginService.login(this.formLogin.value).then(res => {
+				if (res && res.code === 200) {
+					this.router.navigate(['/app/home']);
+				} else {
+					this.error_invalid = true;
+				}
+			});
+		}else{
+			this.error_invalid = false;
+			this.error_require = true;
+		}
 	}
 }

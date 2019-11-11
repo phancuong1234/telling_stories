@@ -10,6 +10,7 @@ use App\Model\Download;
 use App\Model\Favorite;
 use App\Model\Comment;
 use App\Model\VideoUser;
+use App\Model\ResultTest;
 use App\Repositories\StoryRepository\StoryRepositoryInterface;
 use DB;
 class StoryRepository implements StoryRepositoryInterface
@@ -238,8 +239,10 @@ class StoryRepository implements StoryRepositoryInterface
 		$dataStoryDetail['created_at']= $dataStory->created_at;
 
 		//get comment
-		$comment= Comment::where('story_id',$id)
+		$comment= Comment::join('users','users.id','favorites.user_id')
+		->where('story_id',$id)
 		->where('delete_flg',DELETE_FALSE)
+		->where('users.delete_flg',DELETE_FALSE)
 		->get()->toArray();
 
 		$dataStoryDetail['comment']= $comment;
@@ -336,6 +339,76 @@ class StoryRepository implements StoryRepositoryInterface
 		->get()->toArray();
 
 		return $dataStoryPopularityMonth;
+	}
+
+	public function getQuestionByStory($story_id)
+	{
+		$story= Story::where('stories.id',$story_id)
+		->where('stories.delete_flg',DELETE_FALSE)
+		->first();
+		$list_question_id= json_decode($story->list_question);
+		if(count($list_question_id) < 11){
+			$list_question= $list_question_id;
+		}else{
+			$list_key= array_rand($list_question_id,10);
+			foreach ($list_key as $key => $value) {
+				$list_question[]= $list_question_id[$value];
+			}
+		}
+		
+		$question= Question::select('id','question','answer_true','answer_false_1','answer_false_2','answer_false_3')
+		->whereIn('id',$list_question)
+		->where('delete_flg',DELETE_FALSE)
+		->get()->toArray();
+		
+		
+		return $question;
+	}
+
+	public function addStoryDownload($user_id, $video_id)
+	{
+		$checkVideo= Video::where('id',$video_id)
+		->where('delete_flg', DELETE_FALSE)
+		->first();
+		if($checkVideo){
+			$download = Download::where('video_id', $video_id)
+			->where('delete_flg', DELETE_FALSE)
+			->first();
+			if (!$download) {
+				Download::create([
+					'video_id' => $video_id,
+					'user_id' => $user_id
+				]);
+				
+			}
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+	}
+
+	public function submitTest($user_id, $story_id, $data)
+	{
+		$count= 0;
+		foreach ($data as $key => $value) {
+			$question= Question::where('id', $key)
+			->where('delete_flg', DELETE_FALSE)
+			->first();
+			$true= $question->answer_true;
+			if($value == $true){
+				$count += 1;
+			}
+		}
+		return ResultTest::create([
+			'count_answer_true' => $count,
+			'point' => $count * 10,
+			'user_id' => $user_id,
+			'story_id' => $story_id
+		]);
+		
+		
 	}
 
 }

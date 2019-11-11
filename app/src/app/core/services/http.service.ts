@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders  } from '@angular/common/http';
 import { HttpRequestOpts } from '../../core/services/http-request-opts';
@@ -6,11 +6,10 @@ import { NavController } from '@ionic/angular';
 
 @Injectable()
 export class HttpService {
-
 	constructor(
 		private http: HttpClient,
 		private navCtrl: NavController,
-		private router: Router
+		private router: Router,
 		) { }
 
 	send(method: string, config: HttpRequestOpts): Promise<any> {
@@ -25,6 +24,9 @@ export class HttpService {
 		.request<any>(method.toUpperCase(), config.url, {
 			body: config.body,
 			params,
+			headers: new HttpHeaders({
+				'token': config.headers
+			})
 
 		})
 		.toPromise()
@@ -34,13 +36,13 @@ export class HttpService {
 
 	private httpSucess(res: Response): Promise<any> {
 		const body: any = res || { message: 'Request success' };
-		if (body && body.code && body.code === 200 && body.token) {
-			localStorage.setItem('token',body.token);
+		if (body && body.code && body.code === 200) {
 			return Promise.resolve(body);
 		} else {
 			if (body.code === 401) {
 				this.router.navigate(['/boot/login']);
-				return;
+				localStorage.clear();
+				return ;
 			}
 			return Promise.resolve(body);
 		}
@@ -48,7 +50,9 @@ export class HttpService {
 
 
 	private httpError(error: any) {
-		// alert('Request error');
-		throw new Error(error);
+		this.router.navigate(['/boot/login']);
+
+		console.log('eror');
+		//throw new Error(error);
 	}
 }

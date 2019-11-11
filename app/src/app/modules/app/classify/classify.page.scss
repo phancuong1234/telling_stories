@@ -14,10 +14,11 @@ ion-slides {
 		padding: 15px 0px 15px 0px;
 
 		.info {
-			padding-right: 0;
+			text-align: left;
 
 			.title {
-				font-size: 14px;
+				font-weight: bold;
+				font-size: 13px;
 				margin-bottom: 6px;
 				-webkit-box-orient: vertical;
 				visibility: visible;
@@ -29,7 +30,7 @@ ion-slides {
 			}
 
 			.description {
-				font-size: 13px;
+				font-size: 12px;
 				-webkit-box-orient: vertical;
 				visibility: visible;
 				display: -webkit-box;
