@@ -17,7 +17,7 @@ class CheckLogin
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->remember_token == session()->getId()) {
+            if (Auth::user()->token == session()->getId()) {
                 if(Auth::user()->state == STATE_BLOCK){
                     Auth::logout();
                     return redirect()->route('show_login')->with([
