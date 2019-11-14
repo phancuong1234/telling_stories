@@ -4,6 +4,7 @@ namespace App\Repositories\UserRepository;
 use App\Model\User;
 use App\Repositories\UserRepository\UserRepositoryInterface;
 use DB;
+
 class UserRepository implements UserRepositoryInterface
 {
 	public function getAll()
@@ -22,6 +23,16 @@ class UserRepository implements UserRepositoryInterface
 			return true;
 		}
 	}
+
+	public function createUser($data)
+	{
+		return User::create([
+			'email' => $data['email'],
+			'name' => $data['name'],
+			'password' => bcrypt($data['password'])
+		]);
+	}
+
 	public function insert(array $data)
 	{
 		DB::beginTransaction();
@@ -97,6 +108,43 @@ class UserRepository implements UserRepositoryInterface
 	{
 		$user= User::where('token',$token)->where('delete_flg',0)->first();
 		return $user;
+	}
+
+	public function editProfile($user_id, array $data)
+	{
+		if($data['name']){
+			return User::where('id','=',$user_id)->update(['name' => $data['name']]);
+		}
+		if($data['address']){
+			return User::where('id','=',$user_id)->update(['address' => $data['address']]);
+		}
+		if($data['gender']){
+			return User::where('id','=',$user_id)->update(['gender' => $data['gender']]);
+		}
+		if($data['birthday']){
+			return User::where('id','=',$user_id)->update(['birthday' => $data['birthday']]);
+		}
+		if($data['avatar']){
+			return User::where('id','=',$user_id)->update(['avatar' => $data['avatar']]);
+		}
+	}
+
+	public function changePassword($user_id, $newPassword)
+	{
+		$user= User::where('id','=',$user_id)
+		->where('delete_flg','=',DELETE_FALSE)->get()
+		->first();
+		$user->password= bcrypt($newPassword);
+		$user->save();
+		return $user;
+	}
+
+	public function resetPassword($email, $passwordNew)
+	{
+		$user = User::where('email', $email)->firstOrFail();
+        $updatePasswordUser = $user->update(['password' => bcrypt($passwordNew)]);
+        
+        return $updatePasswordUser;
 	}
 
 }

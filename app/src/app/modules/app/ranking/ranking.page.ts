@@ -97,8 +97,11 @@ export class RankingPage implements OnInit {
 	}
 
 	showLoader() {
-		this.loaderToShow = this.loadingController.create({}).then((res) => {
-			res.present();
+		this.loaderToShow = this.loadingController.create({
+			spinner: 'lines',
+			duration: 3000
+		}).then((loading) => {
+			loading.present();
 		});
 	}
 	hideLoader() {

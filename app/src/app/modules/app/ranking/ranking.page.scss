@@ -16,35 +16,137 @@ ion-slides {
 
 			.info {
 				text-align: left;
+				padding-left: 15px;
 
 				.title {
 					font-weight: bold;
-					font-size: 13px;
+					font-size: 14px;
 					margin-bottom: 6px;
 					-webkit-box-orient: vertical;
 					visibility: visible;
 					display: -webkit-box;
 					overflow: hidden;
 					text-overflow: ellipsis;
-					-webkit-line-clamp: 1;
+					-webkit-line-clamp: 2;
 					word-break: break-word;
 				}
 
-				.description {
-					font-size: 12px;
-					-webkit-box-orient: vertical;
-					visibility: visible;
-					display: -webkit-box;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					-webkit-line-clamp: 1;
-					word-break: break-word;
+				.view {
+					display: flex;
+					align-items: center;
+
+					ion-icon {
+						font-size: 20px;
+						margin-right: 3px;
+					}
+
+					ion-text {
+						font-size: 15px;
+					}
+
 				}
 
 			}
 
 			.ranking {
 				width: 50px;
+				display: flex;
+				align-items: center;
+			}
+
+		}
+
+	}
+
+	.video {
+		ion-row {
+			border-bottom: 1px solid #ddd;
+			padding: 15px 0px 15px 0px;
+
+			.info {
+				text-align: left;
+				padding-left: 15px;
+
+				.title {
+					font-weight: bold;
+					font-size: 14px;
+					margin-bottom: 6px;
+					-webkit-box-orient: vertical;
+					visibility: visible;
+					display: -webkit-box;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					-webkit-line-clamp: 2;
+					word-break: break-word;
+				}
+
+				.user {
+					font-size: 11px;
+				}
+
+				.point {
+					display: flex;
+					align-items: center;
+
+					ion-icon {
+						font-size: 20px;
+						margin-right: 3px;
+					}
+
+					ion-text {
+						font-size: 15px;
+					}
+
+				}
+
+			}
+
+			.ranking {
+				width: 50px;
+				display: flex;
+				align-items: center;
+			}
+
+		}
+
+	}
+
+	.test {
+		ion-row {
+			border-bottom: 1px solid #ddd;
+			padding: 15px 0px 15px 0px;
+
+			.avatar {
+				display: flex;
+				align-items: center;
+
+				img {
+					border-radius: 50%;
+					width: 60px;
+					height: 60px;
+				}
+
+			}
+
+			.name {
+				display: flex;
+				align-items: center;
+			}
+
+			.point {
+				display: flex;
+				align-items: center;
+			}
+
+			.ranking {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+
+				ion-img {
+					width: 50px;
+				}
+
 			}
 
 		}
