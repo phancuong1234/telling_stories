@@ -11,16 +11,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-    	DB::table('roles')->insert([
-    		'name' => 'admin',
-    		'created_at' => new DateTime,
-    		'updated_at' => new DateTime
-    	],
-    	[
-    		'name' => 'member',
-    		'created_at' => new DateTime,
-    		'updated_at' => new DateTime
-    	],
+    	DB::table('roles')->insert(
     	[
     		'name' => 'user',
     		'created_at' => new DateTime,

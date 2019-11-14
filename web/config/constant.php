@@ -88,6 +88,12 @@ if ( ! defined( 'FAIL')) {
 if ( ! defined( 'BAD_REQUEST')) {
     define('BAD_REQUEST', 400);
 }
+if ( ! defined( 'NOT_FOUND')) {
+    define('NOT_FOUND', 404);
+}
+if ( ! defined( 'ERROR_VALIDATE')) {
+    define('ERROR_VALIDATE', 205);
+}
     //msg error api
 if ( ! defined( 'MESSAGE_ERROR_VALID')) {
     define('MESSAGE_ERROR_VALID', 'email or password invalid');
@@ -100,5 +106,8 @@ if ( ! defined( 'ADD_STORY_SUCCESS')) {
 }
 if ( ! defined( 'EXISTED')) {
     define('EXISTED', 'Truyện đã tồn tại');
+}
+if ( ! defined( 'MESSAGE_EMAIL_INVALID')) {
+    define('MESSAGE_EMAIL_INVALID', 'Email đã tồn tại');
 }
 

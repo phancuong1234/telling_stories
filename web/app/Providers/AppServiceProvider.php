@@ -26,10 +26,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\PlaylistRepository\PlaylistRepositoryInterface' => 'App\Repositories\PlaylistRepository\PlaylistRepository',
             'App\Repositories\HistoryRepository\HistoryRepositoryInterface' => 'App\Repositories\HistoryRepository\HistoryRepository',
             'App\Repositories\FavoriteRepository\FavoriteRepositoryInterface' => 'App\Repositories\FavoriteRepository\FavoriteRepository',
-             'App\Repositories\VideoUserRepository\VideoUserRepositoryInterface' => 'App\Repositories\VideoUserRepository\VideoUserRepository',
-              'App\Repositories\ResultTestRepository\ResultTestRepositoryInterface' => 'App\Repositories\ResultTestRepository\ResultTestRepository',
-              'App\Repositories\CommentRepository\CommentRepositoryInterface' => 'App\Repositories\CommentRepository\CommentRepository',
-              'App\Repositories\ChartRepository\ChartRepositoryInterface' => 'App\Repositories\ChartRepository\ChartRepository',
+            'App\Repositories\VideoUserRepository\VideoUserRepositoryInterface' => 'App\Repositories\VideoUserRepository\VideoUserRepository',
+            'App\Repositories\ResultTestRepository\ResultTestRepositoryInterface' => 'App\Repositories\ResultTestRepository\ResultTestRepository',
+            'App\Repositories\CommentRepository\CommentRepositoryInterface' => 'App\Repositories\CommentRepository\CommentRepository',
+            'App\Repositories\ChartRepository\ChartRepositoryInterface' => 'App\Repositories\ChartRepository\ChartRepository',
         ];
         foreach ($repositories as $key => $val){
             $this->app->bind($key, $val);
